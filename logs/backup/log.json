@@ -1,0 +1,14 @@
+{
+	"date[format]": ":date[format]",
+	"http-version": ":http-version",
+	"method": ":method",
+	"referrer": ":referrer",
+	"remote-addr": ":remote-addr",
+	"remote-user": ":remote-user",
+	"req[header]": ":req[header]",
+	"res[header]": ":res[header]",
+	"response-time[digits]": ":response-time[digits]",
+	"status": ":status",
+	"url": ":url",
+	"user-agent": ":user-agent"
+}

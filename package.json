@@ -1,0 +1,48 @@
+{
+  "name": "frame",
+  "version": "0.0.1",
+  "description": "i nodejs frame",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.15.0",
+    "bower": "^1.7.7",
+    "connect-mongo": "^1.1.0",
+    "connect-multiparty": "^2.0.0",
+    "cookie-parser": "^1.4.1",
+    "excel": "^0.1.4",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "file-stream-rotator": "0.0.6",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-concurrent": "^2.2.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-nodemon": "^0.4.1",
+    "jade": "^1.11.0",
+    "moment": "^2.12.0",
+    "mongoose": "^4.4.8",
+    "morgan": "^1.7.0",
+    "multiparty": "^4.1.2",
+    "node-xlsx": "^0.6.0",
+    "nodemailer": "^0.7.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lixian13149999/frame.git"
+  },
+  "keywords": [
+    "frame"
+  ],
+  "author": "lason",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lixian13149999/frame/issues"
+  },
+  "homepage": "https://github.com/lixian13149999/frame#readme"
+}

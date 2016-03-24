@@ -1,0 +1,23 @@
+extends ../includes/layout.jade
+block content
+	table.table.table-hover.table-bordered.i_table
+		thead
+			tr.active
+				th 用户名
+				th 密码
+				//- th 手机号码
+				//- th 角色
+				//- th 注册时间
+				//- th 操作
+		tbody
+			each user,index in users
+				tr
+					td #{user.username}
+					td #{user.pwd}
+					//- td #{user.phones}
+					//- td #{user.roles}
+					//- td.light_color #{user.username}
+					//- td.light_color
+						i(class='fa fa-edit hover_primary table_icon',title='修改用户',data-toggle="tooltip",data-placement="bottom")
+						i(class='fa fa-key hover_warning table_icon',title='设定角色',data-toggle="tooltip",data-placement="bottom")
+						i(class='fa fa-remove hover_danger table_icon',title='删除用户',data-toggle="tooltip",data-placement="bottom")

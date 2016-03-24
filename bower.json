@@ -1,0 +1,30 @@
+{
+  "name": "frame",
+  "version": "0.0.1",
+  "homepage": "https://github.com/lixian13149999/frame",
+  "authors": [
+    "lason"
+  ],
+  "description": "i nodejs frame",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "frame"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "bootstrap-datepicker": "~1.6.0",
+    "jquery-ui": "~1.11.4",
+    "less": "~2.6.1"
+  }
+}
