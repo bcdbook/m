@@ -3,6 +3,7 @@ var User = require('../app/controllers/user');
 var File = require('../app/controllers/file');
 var PathExcel = require('../app/controllers/pathexcel');
 var Mail = require('../app/controllers/mail');
+var Markdown = require('../app/controllers/markdown');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -33,4 +34,8 @@ module.exports = function(app) {
 	//mail something todo
 	app.get('/tomail', Mail.toMail);
 	app.post('/sendmail', Mail.sendMail);
+
+	//markdown something todo
+	app.get('/tomarkdown', Markdown.toMarkdown);
+	app.post('/markdown', Markdown.markdown);
 }
