@@ -12,6 +12,7 @@ var path = require('path'); //引入路径管理
 var bodyParser = require("body-parser");
 
 // 设置端口(prosess是环境变量,用来获取全局变量,或者我们传入的参数)
+// var port = process.env.PORT || 8899;
 var port = 80 || process.env.PORT;
 
 /*定义数据库相关信息*/
