@@ -81,6 +81,9 @@ app.locals.pretty = true;
 //注:session的配置文件需要在请求配置文件的上方
 require('./config/session')(app);
 
+//加入微信的配置
+require('./config/wechat')(app);
+
 //加入路径的配置文件
 require('./config/routes')(app);
 
