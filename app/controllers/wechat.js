@@ -9,7 +9,7 @@ var api = new OAuth(w.appid, w.appsecret);
 exports.wechat = function(req, res, next) {
 	// 微信输入信息都在req.weixin上
 	var message = req.weixin;
-	// console.log(message);
+	console.log(message);
 	if (message.Content === 'diaosi') {
 		// 回复屌丝(普通回复)
 		res.reply('hehe');
@@ -48,7 +48,8 @@ exports.attest = function(req, res) {
 	var state = 'toattest=1';
 	// 设定获取的信息的详细程度
 	// var scope = 'snsapi_base'; //只获取用户的openid(不弹出授权界面)
-	var scope = 'snsapi_userinfo'; //获取用户的所有信息(弹出授权页面)
+	// var scope = 'snsapi_userinfo'; //获取用户的所有信息(弹出授权页面)
+	var scope = 'snsapi_base';
 	var url = api.getAuthorizeURL(redirectUrl, state, scope);
 	res.redirect(url);
 }
