@@ -1,4 +1,4 @@
-var cf = require('./config');
+var cf = require('./config').config;
 //session的相关处理开始==============================
 //引入session
 var session = require('express-session');
@@ -20,7 +20,7 @@ module.exports = function(app) {
 		saveUninitialized: true,
 		//使用mongo对session进行持久化，将session存储进数据库中
 		store: new mongoStore({
-			url: cf.DB_URL, //本地数据库的地址
+			url: cf.dbUrl, //本地数据库的地址
 			collection: 'sessions' //存到数据库时的collection的名字
 		})
 	}));

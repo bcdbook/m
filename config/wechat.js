@@ -1,104 +1,23 @@
+var cf = require('./config').config;
+var w = cf.wechat;
 var wechat = require('wechat');
+var IWechat = require('../app/controllers/wechat');
 
 var config = {
-  token: 'bcdbookweixin',
-  // appid: 'wxd19632a7323cec33',
-  appid: 'wx0ce1dd815fbb3afd',
-  encodingAESKey: '2Uc6oEJuyTmvBGzHNNQWcB61Y1JLAShas56qEaziySE'
+	token: w.token,
+	appid: w.appid,
+	encodingAESKey: w.encodingAESKey
 };
 
-// 微信下方栏目的开发开始==============
-// var appid = 'wxd19632a7323cec33';
-var appid = 'wx0ce1dd815fbb3afd';
-// var appsecret = 'c414992afedfe0155c857f907cebd8da';
-var appsecret = '83ddcb3aa8438cb87003cc444f7f6a8a';
-var menus = {
-  "button": [{
-    "name": "菜单",
-    "sub_button": [{
-      "type": "view",
-      "name": "资讯菜单",
-      "url": "http://ip:port/all"
-    }]
-  }, {
-    "name": "菜单2",
-    "sub_button": [{
-      "type": "view",
-      "name": "我的11",
-      "url": "http://ip:port/all"
-    }]
-  }, {
-    "name": "助理",
-    "sub_button": [{
-      "type": "view",
-      "name": "大学",
-      "url": "http://ip:port/all"
-    }, {
-      "type": "view",
-      "name": "社区",
-      "url": "http://ip:port/all"
-    }]
-  }]
-}
-
 var API = require('wechat-api');
-var api = new API(appid, appsecret);
+var api = new API(w.appid, w.appsecret);
 
-// 微信下方栏目的开发配置开始==============
-// module.exports = function() {
-
-//   api.createMenu(menus, function(err, result) {
-//     console.log(result);
-//   });
-// }
-
-// 微信下方栏目的开发配置结束==============
-// 微信下方栏目的开发配置结束==============
-
-// app.use(express.query());
 module.exports = function(app) {
-  api.createMenu(menus, function(err, result) {
-    console.log('执行创建栏目的方法')
-    console.log(result);
-  });
-  app.use('/wechat', wechat(config, function(req, res, next) {
-
-    // 微信输入信息都在req.weixin上
-    var message = req.weixin;
-    console.log(message);
-    if (message.Content === 'diaosi') {
-      // 回复屌丝(普通回复)
-      res.reply('hehe');
-    } else if (message.Content === 'text') {
-      //你也可以这样回复text类型的信息
-      res.reply({
-        content: 'text object',
-        type: 'text'
-      });
-    } else if (message.Content === 'hehe') {
-      // 回复一段音乐
-      res.reply({
-        type: "music",
-        content: {
-          title: "来段音乐吧",
-          description: "一无所有",
-          musicUrl: "http://mp3.com/xx.mp3",
-          hqMusicUrl: "http://mp3.com/xx.mp3",
-          thumbMediaId: "thisThumbMediaId"
-        }
-      });
-    } else {
-      // 回复高富帅(图文回复)
-      res.reply([{
-        title: '你来我家接我吧',
-        description: '这是女神与高富帅之间的对话',
-        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-        url: 'http://nodeapi.cloudfoundry.com/'
-      }]);
-    }
-  }));
+	//创建栏目
+	api.createMenu(w.menus, function(err, result) {
+		// console.log('执行创建栏目的方法')
+		console.log(result);
+	});
+	//监听用户发来的消息
+	app.use('/wechat', wechat(config, IWechat.wechat));
 }
-
-
-
-// module.exports = app;

@@ -1,5 +1,5 @@
-var cf = require('./config/config')
-	// 引入express模块
+var cf = require('./config/config').config;
+// 引入express模块
 var express = require('express');
 
 //ajax上传文件用到的插件-------------------------
@@ -24,7 +24,8 @@ var mongoose = require('mongoose');
 // var dbUrl = ;
 /*链接数据库*/
 // 调用connect方法,创建数据库(同时传入本地的连接地址和数据库名称)
-mongoose.connect(cf.DB_URL);
+console.log(cf);
+mongoose.connect(cf.dbUrl);
 
 //定义一个web服务器
 var app = express();
