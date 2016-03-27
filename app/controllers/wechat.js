@@ -36,8 +36,8 @@ exports.wechat = function(req, res, next) {
 		res.reply([{
 			title: '你来我家接我吧',
 			description: '这是女神与高富帅之间的对话',
-			picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-			url: 'http://nodeapi.cloudfoundry.com/'
+			picurl: 'https://img3.doubanio.com/view/note/large/public/p31819340.jpg',
+			url: 'http://www.bcdbook.com/w/attest'
 		}]);
 	}
 }
