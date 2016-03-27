@@ -56,6 +56,10 @@ module.exports = function() {
 module.exports = function(app) {
   app.use('/wechat', wechat(config, function(req, res, next) {
 
+    api.createMenu(menus, function(err, result) {
+      console.log('执行创建栏目的方法')
+      console.log(result);
+    });
     // 微信输入信息都在req.weixin上
     var message = req.weixin;
     console.log(message);
