@@ -10,29 +10,52 @@ exports.config = {
 		"encodingAESKey": "2Uc6oEJuyTmvBGzHNNQWcB61Y1JLAShas56qEaziySE",
 		"menus": {
 			"button": [{
+				"type": "click",
+				"name": "单个点击",
+				"key": "click_key"
+
+			}, {
 				"name": "菜单",
 				"sub_button": [{
 					"type": "view",
-					"name": "资讯菜单",
-					"url": "http://ip:port/all"
-				}]
-			}, {
-				"name": "菜单2",
-				"sub_button": [{
-					"type": "view",
-					"name": "我的11",
-					"url": "http://ip:port/all"
-				}]
-			}, {
-				"name": "助理",
-				"sub_button": [{
-					"type": "view",
-					"name": "大学",
-					"url": "http://ip:port/all"
+					"name": "跳转view",
+					"url": "http://www.bcdbbook.com"
 				}, {
-					"type": "view",
-					"name": "社区",
-					"url": "http://ip:port/all"
+					"type": "scancode_waitmsg",
+					"name": "扫码带提示",
+					"key": "scancode_waitmsg_key",
+					"sub_button": []
+				}, {
+					"type": "scancode_push",
+					"name": "扫码推事件",
+					"key": "scancode_push_key",
+					"sub_button": []
+				}, {
+					"name": "发送位置",
+					"type": "location_select",
+					"key": "location_select_key"
+				}]
+			}, {
+				"name": "发图",
+				"sub_button": [{
+					"type": "pic_sysphoto",
+					"name": "系统拍照发图",
+					"key": "rselfmenu_1_0",
+					"sub_button": []
+				}, {
+					"type": "pic_photo_or_album",
+					"name": "拍照或者相册发图",
+					"key": "rselfmenu_1_1",
+					"sub_button": []
+				}, {
+					"type": "pic_weixin",
+					"name": "微信相册发图",
+					"key": "rselfmenu_1_2",
+					"sub_button": []
+				}, {
+					"type": "view_limited",
+					"name": "图文消息",
+					"media_id": "MEDIA_ID2"
 				}]
 			}]
 		}
