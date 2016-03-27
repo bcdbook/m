@@ -50,7 +50,8 @@ exports.attest = function(req, res) {
 	// var scope = 'snsapi_base'; //只获取用户的openid(不弹出授权界面)
 	// var scope = 'snsapi_userinfo'; //获取用户的所有信息(弹出授权页面)
 	var scope = 'snsapi_base';
-	var url = api.getAuthorizeURL(redirectUrl, state, scope);
+	// var url = api.getAuthorizeURL(redirectUrl, state, scope);
+	var url = api.getAuthorizeURL(redirectUrl, scope);
 	res.redirect(url);
 }
 exports.user = function(req, res) {
