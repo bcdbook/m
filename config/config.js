@@ -52,10 +52,6 @@ exports.config = {
 					"name": "微信相册发图",
 					"key": "rselfmenu_1_2",
 					"sub_button": []
-				}, {
-					"type": "view_limited",
-					"name": "图文消息",
-					"media_id": "MEDIA_ID2"
 				}]
 			}]
 		}
