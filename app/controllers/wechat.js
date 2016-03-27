@@ -43,11 +43,11 @@ exports.wechat = function(req, res, next) {
 }
 exports.attest = function(req, res) {
 	//设定重定向的链接地址
-	var redirectUrl = 'http://www.bcdbook.com/wechat/user';
+	var redirectUrl = 'http://www.bcdbook.com/w/user';
 	//设定传到后台的参数(自定义的)
 	var state = 'toattest=1';
 	// 设定获取的信息的详细程度
-	var scope = 'snsapi_base'; //只获取用户的openid(不弹出授权界面)
+	// var scope = 'snsapi_base'; //只获取用户的openid(不弹出授权界面)
 	var scope = 'snsapi_userinfo'; //获取用户的所有信息(弹出授权页面)
 	var url = api.getAuthorizeURL(redirectUrl, state, scope);
 	res.redirect(url);

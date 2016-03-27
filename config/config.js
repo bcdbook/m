@@ -19,7 +19,7 @@ exports.config = {
 				"sub_button": [{
 					"type": "view",
 					"name": "跳转认证",
-					"url": "http://www.bcdbook.com/wechat/attest"
+					"url": "http://www.bcdbook.com/w/attest"
 				}, {
 					"type": "scancode_waitmsg",
 					"name": "扫码带提示",
