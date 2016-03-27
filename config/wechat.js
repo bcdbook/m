@@ -42,24 +42,24 @@ var API = require('wechat-api');
 var api = new API(appid, appsecret);
 
 // 微信下方栏目的开发配置开始==============
-module.exports = function() {
+// module.exports = function() {
 
-  api.createMenu(menus, function(err, result) {
-    console.log(result);
-  });
-}
+//   api.createMenu(menus, function(err, result) {
+//     console.log(result);
+//   });
+// }
 
 // 微信下方栏目的开发配置结束==============
 // 微信下方栏目的开发配置结束==============
 
 // app.use(express.query());
 module.exports = function(app) {
+  api.createMenu(menus, function(err, result) {
+    console.log('执行创建栏目的方法')
+    console.log(result);
+  });
   app.use('/wechat', wechat(config, function(req, res, next) {
 
-    api.createMenu(menus, function(err, result) {
-      console.log('执行创建栏目的方法')
-      console.log(result);
-    });
     // 微信输入信息都在req.weixin上
     var message = req.weixin;
     console.log(message);
