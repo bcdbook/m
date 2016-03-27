@@ -20,5 +20,5 @@ module.exports = function(app) {
 		// console.log(result);
 	});
 	//监听用户发来的消息
-	app.use('/wechat', wechat(config, IWechat.wechat));
+	app.use('/wechat/automsg', wechat(config, IWechat.wechat));
 }
