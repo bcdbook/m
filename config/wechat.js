@@ -2,13 +2,16 @@ var wechat = require('wechat');
 
 var config = {
   token: 'bcdbookweixin',
-  appid: 'wxd19632a7323cec33',
+  // appid: 'wxd19632a7323cec33',
+  appid: 'wx0ce1dd815fbb3afd',
   encodingAESKey: '2Uc6oEJuyTmvBGzHNNQWcB61Y1JLAShas56qEaziySE'
 };
 
 // 微信下方栏目的开发开始==============
-var appid = 'wxd19632a7323cec33';
-var appsecret = 'c414992afedfe0155c857f907cebd8da';
+// var appid = 'wxd19632a7323cec33';
+var appid = 'wx0ce1dd815fbb3afd';
+// var appsecret = 'c414992afedfe0155c857f907cebd8da';
+var appsecret = '83ddcb3aa8438cb87003cc444f7f6a8a';
 var menus = {
   "button": [{
     "name": "菜单",
