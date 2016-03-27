@@ -1,7 +1,15 @@
+//引入本地的配置文件
+var config = require('../../config/config').config;
+var w = config.wechat;
+//引入wechat-oauth框架
+var OAuth = require('wechat-oauth');
+var api = new OAuth(w.appid, w.appsecret);
+
+
 exports.wechat = function(req, res, next) {
 	// 微信输入信息都在req.weixin上
 	var message = req.weixin;
-	console.log(message);
+	// console.log(message);
 	if (message.Content === 'diaosi') {
 		// 回复屌丝(普通回复)
 		res.reply('hehe');
@@ -32,4 +40,32 @@ exports.wechat = function(req, res, next) {
 			url: 'http://nodeapi.cloudfoundry.com/'
 		}]);
 	}
+}
+exports.attest = function(req, res) {
+	//设定重定向的链接地址
+	var redirectUrl = 'http://www.bcdbook.com/wechat/user';
+	//设定传到后台的参数(自定义的)
+	var state = 'toattest=1';
+	// 设定获取的信息的详细程度
+	var scope = 'snsapi_base'; //只获取用户的openid(不弹出授权界面)
+	var scope = 'snsapi_userinfo'; //获取用户的所有信息(弹出授权页面)
+	var url = api.getAuthorizeURL(redirectUrl, state, scope);
+	res.redirect(url);
+}
+exports.user = function(req, res) {
+	var code = req.query.code;
+
+	api.getAccessToken(code, function(err, result) {
+		console.log('err=========================');
+		console.log(err);
+		console.log('result=========================');
+		console.log(result);
+
+		var data = result.data;
+		console.log('data=========================');
+		console.log(data);
+	})
+	res.render('index', {
+		title: "首页"
+	});
 }

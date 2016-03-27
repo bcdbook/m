@@ -24,7 +24,7 @@ var mongoose = require('mongoose');
 // var dbUrl = ;
 /*链接数据库*/
 // 调用connect方法,创建数据库(同时传入本地的连接地址和数据库名称)
-console.log(cf);
+// console.log(cf);
 mongoose.connect(cf.dbUrl);
 
 //定义一个web服务器

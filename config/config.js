@@ -18,8 +18,8 @@ exports.config = {
 				"name": "菜单",
 				"sub_button": [{
 					"type": "view",
-					"name": "跳转view",
-					"url": "http://www.bcdbbook.com"
+					"name": "跳转认证",
+					"url": "http://www.bcdbook.com/wechat/attest"
 				}, {
 					"type": "scancode_waitmsg",
 					"name": "扫码带提示",
