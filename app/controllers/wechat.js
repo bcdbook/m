@@ -1,3 +1,5 @@
+var openid = 'ohCXWslf0xWVK4jumLYNMen8Sv6o';
+
 //引入本地的配置文件
 var config = require('../../config/config').config;
 var w = config.wechat;
@@ -37,35 +39,40 @@ exports.wechat = function(req, res, next) {
 			title: '你来我家接我吧',
 			description: '这是女神与高富帅之间的对话',
 			picurl: 'https://img3.doubanio.com/view/note/large/public/p31819340.jpg',
-			url: 'http://www.bcdbook.com/w/attest'
+			url: 'http://www.bcdbook.com/wechat/attest'
 		}]);
 	}
 }
 exports.attest = function(req, res) {
 	//设定重定向的链接地址
-	var redirectUrl = 'http://www.bcdbook.com/w/user';
+	var redirectUrl = 'http://www.bcdbook.com/wechat/user';
 	//设定传到后台的参数(自定义的)
 	var state = 'toattest';
 	// 设定获取的信息的详细程度
 	// var scope = 'snsapi_base'; //只获取用户的openid(不弹出授权界面)
+	//这里出现过无数次的无权限提示,原因是需要设定网页账号.设定后才能通过scope权限
 	var scope = 'snsapi_userinfo'; //获取用户的所有信息(弹出授权页面)
 	// var scope = 'snsapi_base';
 	var url = api.getAuthorizeURL(redirectUrl, state, scope);
 	// var url = api.getAuthorizeURL(redirectUrl, scope);
 	res.redirect(url);
 }
+
 exports.user = function(req, res) {
 	var code = req.query.code;
 
 	api.getAccessToken(code, function(err, result) {
-		console.log('err=========================');
-		console.log(err);
-		console.log('result=========================');
-		console.log(result);
+		// console.log('err=========================');
+		// console.log(err);
+		// console.log('result=========================');
+		// console.log(result);
 
 		var data = result.data;
-		console.log('data=========================');
+		// console.log('data=========================');
 		console.log(data);
+	});
+	api.getUser(openid, function(err, result) {
+		console.log(result);
 	})
 	res.render('index', {
 		title: "首页"

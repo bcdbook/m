@@ -41,6 +41,6 @@ module.exports = function(app) {
 	app.post('/markdown', Markdown.markdown);
 
 	//微信的相关认证
-	app.get('/w/attest', Wechat.attest);
-	app.get('/w/user', Wechat.user);
+	app.get('/wechat/attest', Wechat.attest);
+	app.get('/wechat/user', Wechat.user);
 }
