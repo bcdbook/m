@@ -47,7 +47,7 @@ module.exports = function(app) {
   app.use('/wechat', wechat(config, function(req, res, next) {
 
     // 微信下方栏目的开发配置开始==============
-    api.createMenu(menu, function(err, result) {
+    api.createMenu(menus, function(err, result) {
       console.log(result);
     });
     // 微信下方栏目的开发配置结束==============
