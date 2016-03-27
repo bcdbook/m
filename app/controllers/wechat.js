@@ -62,18 +62,14 @@ exports.user = function(req, res) {
 	var code = req.query.code;
 
 	api.getAccessToken(code, function(err, result) {
-		// console.log('err=========================');
-		// console.log(err);
-		// console.log('result=========================');
-		// console.log(result);
-
 		var data = result.data;
-		// console.log('data=========================');
+		console.log('data=========================');
 		console.log(data);
+		api.getUser(openid, function(err, result) {
+			console.log('result=========================');
+			console.log(result);
+		})
 	});
-	api.getUser(openid, function(err, result) {
-		console.log(result);
-	})
 	res.render('index', {
 		title: "首页"
 	});
