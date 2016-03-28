@@ -63,9 +63,9 @@ exports.user = function(req, res) {
 	var code = req.query.code;
 	console.log('code=========================')
 	console.log(code)
-
+	var data;
 	api.getAccessToken(code, function(err, result) {
-		var data = result.data;
+		data = result.data;
 		console.log('data=========================');
 		console.log(data);
 	});
