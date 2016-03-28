@@ -58,6 +58,8 @@ exports.attest = function(req, res) {
 	var scope = 'snsapi_userinfo'; //获取用户的所有信息(弹出授权页面)
 	// var scope = 'snsapi_base';
 	var url = ioauth.getAuthorizeURL(redirectUrl, state, scope);
+	console.log('url');
+	console.log(url);
 	// var url = ioauth.getAuthorizeURL(redirectUrl, scope);
 	res.redirect(url);
 }
@@ -65,8 +67,8 @@ exports.attest = function(req, res) {
 exports.user = function(req, res) {
 	var code = req.query.code;
 	console.log('code=========================')
-	console.log(code)
-		// var data;
+	console.log(code);
+	// var data;
 	ioauth.getAccessToken(code, function(err, result) {
 		var data = result.data;
 		console.log('data=========================');
@@ -120,12 +122,17 @@ exports.sendTemplate = function(req, res) {
 	}
 
 	//设置行业
-	api.setIndustry(industryIds, function(req, res) {
+	api.setIndustry(industryIds, function(err, result) {
+
 		console.log('设置行业生效')
+		console.log(err)
+		console.log(result)
 		var templateIdShort = 'TM00015';
 		//添加模板
-		api.addTemplate(templateIdShort, function(req, res) {
+		api.addTemplate(templateIdShort, function(err, result) {
 			console.log('设置模板生效');
+			console.log(err);
+			console.log(result);
 			// var templateId: 'TM00015';
 			var templateId = 'TM00015';
 			// URL置空，则在发送后,点击模板消息会进入一个空白页面（ios）, 或无法点击（android）
