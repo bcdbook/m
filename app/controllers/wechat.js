@@ -108,7 +108,48 @@ exports.sendText = function(req, res) {
 		}
 	});
 }
+
+exports.setIndustry = function(req, res) {
+
+	var industryIds = {
+		"industry_id1": "1",
+		"industry_id2": "4"
+	}
+
+	//设置行业类型
+	api.setIndustry(industryIds, function(err, result) {
+		console.log('设置行业生效')
+		console.log(err)
+		console.log(result)
+
+	});
+	res.json({
+		code: 200,
+		msg: {
+			// url: 'http://' + req.headers.host
+			url: 'newPath'
+		}
+	});
+}
+exports.addTemplate = function(req, res) {
+	var templateIdShort = 'TM00015';
+	//添加模板
+	api.addTemplate(templateIdShort, function(err, result) {
+		console.log('设置模板生效');
+		console.log(err);
+		console.log(result);
+
+	});
+	res.json({
+		code: 200,
+		msg: {
+			// url: 'http://' + req.headers.host
+			url: 'newPath'
+		}
+	});
+}
 exports.sendTemplate = function(req, res) {
+	// -BfKkoAQGC9Inb_4RAVkKkXq5N5mL-CfaxEZovaecXY
 	var data = req.body.wechat;
 	console.log(data);
 	var openid = data.openid;
@@ -116,54 +157,35 @@ exports.sendTemplate = function(req, res) {
 	var access_token = data.access_token;
 	var refresh_token = data.refresh_token;
 
-	var industryIds = {
-		"industry_id1": "1",
-		"industry_id2": "4"
-	}
+	// var templateId: 'TM00015';
+	var templateId = '-BfKkoAQGC9Inb_4RAVkKkXq5N5mL-CfaxEZovaecXY';
+	// var templateId = 'QmwPkXNuihaO454-gCKVAeuTRkO84x2CW3yHruExkoA';
+	// URL置空，则在发送后,点击模板消息会进入一个空白页面（ios）, 或无法点击（android）
+	var url = 'https://www.baidu.com';
+	var data = {
+		"first": {
+			"value": "恭喜你购买成功！",
+			"color": "#173177"
+		},
+		"orderProductName": {
+			"value": "巧克力",
+			"color": "#173177"
+		},
+		"orderMoneySum": {
+			"value": "39.8元",
+			"color": "#173177"
+		},
+		"Remark": {
+			"value": "欢迎再次购买！",
+			"color": "#173177"
+		}
+	};
+	api.sendTemplate(openid, templateId, url, data, function(req, res) {
+		console.log('执行消息发送')
+	});
 
 	//设置行业
-	api.setIndustry(industryIds, function(err, result) {
 
-		console.log('设置行业生效')
-		console.log(err)
-		console.log(result)
-		var templateIdShort = 'TM00015';
-		//添加模板
-		api.addTemplate(templateIdShort, function(err, result) {
-			console.log('设置模板生效');
-			console.log(err);
-			console.log(result);
-			// var templateId: 'TM00015';
-			var templateId = 'TM00015';
-			// URL置空，则在发送后,点击模板消息会进入一个空白页面（ios）, 或无法点击（android）
-			var url = 'http://www.bcdbook.com';
-			var data = {
-				"first": {
-					"value": "恭喜你购买成功！",
-					"color": "#173177"
-				},
-				"keyword1": {
-					"value": "巧克力",
-					"color": "#173177"
-				},
-				"keyword2": {
-					"value": "39.8元",
-					"color": "#173177"
-				},
-				"keyword3": {
-					"value": "2014年9月22日",
-					"color": "#173177"
-				},
-				"remark": {
-					"value": "欢迎再次购买！",
-					"color": "#173177"
-				}
-			};
-			api.sendTemplate(openid, templateId, url, data, function(req, res) {
-				console.log('执行消息发送')
-			});
-		});
-	})
 	res.json({
 		code: 200,
 		msg: {
