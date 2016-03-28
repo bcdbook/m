@@ -1,11 +1,14 @@
-var openid = 'ohCXWslf0xWVK4jumLYNMen8Sv6o';
+// var openid = 'ohCXWslf0xWVK4jumLYNMen8Sv6o';
 
 //引入本地的配置文件
 var config = require('../../config/config').config;
 var w = config.wechat;
 //引入wechat-oauth框架
 var OAuth = require('wechat-oauth');
-var api = new OAuth(w.appid, w.appsecret);
+var ioauth = new OAuth(w.appid, w.appsecret);
+
+var API = require('wechat-api');
+var api = new API(w.appid, w.appsecret);
 
 
 exports.wechat = function(req, res, next) {
@@ -54,8 +57,8 @@ exports.attest = function(req, res) {
 	//这里出现过无数次的无权限提示,原因是需要设定网页账号.设定后才能通过scope权限
 	var scope = 'snsapi_userinfo'; //获取用户的所有信息(弹出授权页面)
 	// var scope = 'snsapi_base';
-	var url = api.getAuthorizeURL(redirectUrl, state, scope);
-	// var url = api.getAuthorizeURL(redirectUrl, scope);
+	var url = ioauth.getAuthorizeURL(redirectUrl, state, scope);
+	// var url = ioauth.getAuthorizeURL(redirectUrl, scope);
 	res.redirect(url);
 }
 
@@ -63,19 +66,102 @@ exports.user = function(req, res) {
 	var code = req.query.code;
 	console.log('code=========================')
 	console.log(code)
-	var data;
-	api.getAccessToken(code, function(err, result) {
-		data = result.data;
+		// var data;
+	ioauth.getAccessToken(code, function(err, result) {
+		var data = result.data;
 		console.log('data=========================');
+		console.log(data);
+		//获取用户的基本信息时,此方法需要放到getAccessToken里边,
+		//否则token失效,则不能拿到想要的结果
+		ioauth.getUser(data.openid, function(err, result) {
+			console.log('result=========================');
+			console.log(result);
+		})
 	});
-	console.log(data);
-	//获取用户的基本信息时,此方法需要放到getAccessToken里边,
-	//否则token失效,则不能拿到想要的结果
-	api.getUser(data.openid, function(err, result) {
-		console.log('result=========================');
-		console.log(result);
-	})
 	res.render('index', {
 		title: "首页"
+	});
+}
+
+exports.toSend = function(req, res) {
+	res.render('wechat/tosend');
+}
+
+exports.sendText = function(req, res) {
+	var data = req.body.wechat;
+	console.log(data);
+	var openid = data.openid;
+	var msg = data.msg;
+	var access_token = data.access_token;
+	var refresh_token = data.refresh_token;
+	// var msg = "这是后台推送的消息";
+	api.sendText(openid, msg, function(req, res) {
+		console.log('调用消息推送页面成功');
+	});
+	res.json({
+		code: 200,
+		msg: {
+			// url: 'http://' + req.headers.host
+			url: 'newPath'
+		}
+	});
+}
+exports.sendTemplate = function(req, res) {
+	var data = req.body.wechat;
+	console.log(data);
+	var openid = data.openid;
+	var msg = data.msg;
+	var access_token = data.access_token;
+	var refresh_token = data.refresh_token;
+
+	var industryIds = {
+		"industry_id1": "1",
+		"industry_id2": "4"
+	}
+
+	//设置行业
+	api.setIndustry(industryIds, function(req, res) {
+		console.log('设置行业生效')
+		var templateIdShort = 'TM00015';
+		//添加模板
+		api.addTemplate(templateIdShort, function(req, res) {
+			console.log('设置模板生效');
+			// var templateId: 'TM00015';
+			var templateId = 'TM00015';
+			// URL置空，则在发送后,点击模板消息会进入一个空白页面（ios）, 或无法点击（android）
+			var url = 'http://www.bcdbook.com';
+			var data = {
+				"first": {
+					"value": "恭喜你购买成功！",
+					"color": "#173177"
+				},
+				"keyword1": {
+					"value": "巧克力",
+					"color": "#173177"
+				},
+				"keyword2": {
+					"value": "39.8元",
+					"color": "#173177"
+				},
+				"keyword3": {
+					"value": "2014年9月22日",
+					"color": "#173177"
+				},
+				"remark": {
+					"value": "欢迎再次购买！",
+					"color": "#173177"
+				}
+			};
+			api.sendTemplate(openid, templateId, url, data, function(req, res) {
+				console.log('执行消息发送')
+			});
+		});
+	})
+	res.json({
+		code: 200,
+		msg: {
+			// url: 'http://' + req.headers.host
+			url: 'newPath'
+		}
 	});
 }

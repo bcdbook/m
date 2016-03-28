@@ -43,4 +43,7 @@ module.exports = function(app) {
 	//微信的相关认证
 	app.get('/wechat/attest', Wechat.attest);
 	app.get('/wechat/user', Wechat.user);
+	app.get('/wechat/tosend', Wechat.toSend);
+	app.post('/wechat/sendtext', Wechat.sendText);
+	app.post('/wechat/sendtemplate', Wechat.sendTemplate);
 }
