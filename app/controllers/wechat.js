@@ -69,7 +69,7 @@ exports.user = function(req, res) {
 		console.log(data);
 		//获取用户的基本信息时,此方法需要放到getAccessToken里边,
 		//否则token失效,则不能拿到想要的结果
-		api.getUser(openid, function(err, result) {
+		api.getUser(data.openid, function(err, result) {
 			console.log('result=========================');
 			console.log(result);
 		})
