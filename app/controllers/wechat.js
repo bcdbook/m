@@ -44,6 +44,7 @@ exports.wechat = function(req, res, next) {
 	}
 }
 exports.attest = function(req, res) {
+	console.log('进入授权页面');
 	//设定重定向的链接地址
 	var redirectUrl = 'http://www.bcdbook.com/wechat/user';
 	//设定传到后台的参数(自定义的)
