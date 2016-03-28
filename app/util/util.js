@@ -36,3 +36,8 @@ exports.getFileDir = function(fileName) {
 		'fileName': fileName
 	};
 }
+
+exports.getYearMonth = function(format) {
+	var d = new Date();
+	return moment(d).format(format);
+}

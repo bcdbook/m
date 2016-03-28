@@ -7,7 +7,7 @@ var morgan = require('morgan');
 var iutil = require('../app/util/util');
 // console.log(iutil.getRootDir());
 //定义log文件存放的位置
-var logDir = iutil.getRootDir() + '/logs';
+var logDir = iutil.getRootDir() + '/logs' + '/' + iutil.getYearMonth('YYYYMM');
 //检查路径是否存在,如果不存在则创建此路径
 fs.existsSync(logDir) || fs.mkdirSync(logDir);
 // create a rotating write stream 
