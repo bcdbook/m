@@ -1,21 +1,48 @@
-extends ../includes/layout.jade
-block content
-	//- |- index
-	form(method="POST", action="/signin")
-		.modal-header
-			//- button.close(data-dismiss="modal", aria-label="Close")
+doctype html
+html
+	head
+		title 登陆
+		meta(http-equiv="Content-Type",content="text/html; charset=utf-8")
+
+		//- 框架样式引入
+		//- bootstrap基础样式
+		link(rel='stylesheet',type='text/css',href='/libs/bootstrap/dist/css/bootstrap.min.css')
+		//- 引入阿里的图标
+		link(rel='stylesheet',type='text/less',href='/iconfont/iconfont.css')
+		
+		//- 引入图标
+		link(rel='shortcut icon',href='/img/logo32.png')
+		//- 自设定样式的引入
+		link(rel='stylesheet',type='text/less',href='/css/signin_out.less')
+
+		//- 框架js文件的引入
+		//- jquery文件
+		script(type='text/javascript',src='/libs/jquery/dist/jquery.min.js')
+		//- jquery-ui文件
+		//- script(type='text/javascript',src='/libs/jquery-ui/jquery-ui.min.js')
+		//- bootstrap主js文件
+		script(type='text/javascript',src='/libs/bootstrap/dist/js/bootstrap.min.js')
+		//- less编译的js文件
+		script(type='text/javascript',src='/libs/less/dist/less.min.js')
+
+		//- 引入自设定的js文件
+		script(type='text/javascript',src='/js/signin_out.js')
+	body
+		div.background_div
+		form(method="POST", action="/signin")
+			.modal-header
 				span(aria-hidden="true") &times;
-			h4.modal-title 登陆
-		.modal-body
-			//- form.form-horizontal
-			.form-group
+				h4.modal-title 登陆
+			.modal-body
 				label.col-sm-2 用户名
-				.col-sm-2
-					input.form-control#username(type="text",name="user[username]",value="admin")
-			.form-group
+				input.form-control#username(type="text",name="user[username]",value="admin")
 				label.col-sm-2 密码
-				.col-sm-2
-					input.form-control#pwd(type="text",name="user[pwd]",value="123")
-		.modal-footer
-			button.btn.btn-default(type="button", data-dismiss="modal") 关闭
-			button.btn.btn-success(type="submit") 登陆
+				input.form-control#pwd(type="text",name="user[pwd]",value="123")
+				//- label.col-sm-2 角色
+				//- each role,index in roles
+					label #{role.name}
+					input(type="checkbox",value="#{role._id}")
+						
+			.modal-footer
+				button.btn.btn-default(type="button", data-dismiss="modal") 关闭
+				button.btn.btn-success(type="submit") 登陆

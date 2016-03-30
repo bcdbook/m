@@ -1,21 +1,52 @@
 extends ./includes/layout.jade
 block content
-	//- |- index
-	form(method="POST", action="/signup")
-		.modal-header
-			//- button.close(data-dismiss="modal", aria-label="Close")
-				span(aria-hidden="true") &times;
-			h4.modal-title 注册
-		.modal-body
-			//- form.form-horizontal
-			.form-group
-				label.col-sm-2 用户名
-				.col-sm-2
-					input.form-control#username(type="text",name="user[username]",value="admin")
-			.form-group
-				label.col-sm-2 密码
-				.col-sm-2
-					input.form-control#pwd(type="text",name="user[pwd]",value="123")
-		.modal-footer
-			button.btn.btn-default(type="button", data-dismiss="modal") 关闭
-			button.btn.btn-success(type="submit") 注册
+	.top_box
+		.top#top
+			.logo
+				a.icon
+					i.iconfont &#xe600; 
+					span.hover_default 业务·管理平台
+			.nav_box
+			.user
+				span.user_tool_icon
+					a.icon_tiny.icon_msg
+						i.iconfont.hover_default &#xe606;
+						div.msg_tip#imsg_tip
+					a.icon_tiny.icon_wechat#wechat_2d_barcode(data-toggle="popover")
+						i.iconfont.hover_default &#xe604;
+					#user_intro_out_div
+						a.iphoto#user_introduction(style="background-image: url('../img/user.png');",data-toggle="popover")
+
+	.body#body
+		.left#left
+			.menu_box
+				dl.menu
+					dt.menu_title
+						i.iconfont.menu_icon &#xe606;
+						| 功能
+					dd.menu_item.item_checked
+						a 群发功能
+					dd.menu_item
+						a 自动回复
+					dd.menu_item
+						a 自定义菜单
+					dd.menu_item
+						a 投票管理
+				dl.menu
+					dt.menu_title
+						i.iconfont.menu_icon &#xe606;
+						| 功能
+					dd.menu_item
+						a 群发功能
+					dd.menu_item
+						a 自动回复
+					dd.menu_item
+						a 自定义菜单
+					dd.menu_item
+						a 投票管理
+		.main#main
+	.foot_box
+		.foot#foot
+	script.
+		
+		

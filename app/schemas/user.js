@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 //创建Schemas对象
 var Schema = mongoose.Schema;
+var ObjectId = Schema.Types.ObjectId;
 
 //引入加密插件的对象
 var bcrypt = require('bcrypt');
@@ -11,6 +12,10 @@ var SALT_WORK_FACTOR = 10;
 var UserSchema = new Schema({
 	username: String, //用户名
 	pwd: String, //密码
+	roles: [{
+		type: ObjectId,
+		ref: 'Role'
+	}],
 
 	meta: {
 		createAt: { //创建时间
