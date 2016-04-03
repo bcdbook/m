@@ -12,15 +12,19 @@ var multipartMiddleware = multipart();
 
 // user controller
 module.exports = function(app) {
+	// index route
 	//index
+
 	app.get('/', Index.index);
 
-	// index route
-	app.get('/signin', Index.tosignin);
-	app.post('/signin', Index.signin);
 
 	//user route
-	app.post('/signup', User.signup);
+	app.get('/signin', User.tosignin); //进入登录页面
+	app.post('/signin', User.signin); //执行登录操作
+	app.get('/signup', User.tosignup); //进入注册页面
+	app.post('/signup', User.signup); //执行注册操作
+	app.post('/user/isexist', User.isExist); //检查用户名是否存在
+
 	app.get('/user/list', User.list);
 	app.get('/user/edit:id', User.edit);
 
@@ -41,8 +45,13 @@ module.exports = function(app) {
 
 
 	//mail something todo
+	app.get('/mail/toverify', Mail.toverify); //进入发送邮件页面(测试使用)
+	app.get('/mail/verify', Mail.verify); //真实的执行验证操作
 	app.get('/tomail', Mail.toMail);
-	app.post('/sendmail', Mail.sendMail);
+	app.post('/mail/sendmail', Mail.sendMail); //用于发送邮件
+	app.get('/mail/getmail', Mail.getmail); //用于发送邮件
+	app.get('/mail/canresend', Mail.canResend); //获取是否可重复发送邮件
+	app.get('/mail/isexist', Mail.isExist); //获取是否可重复发送邮件
 
 	//markdown something todo
 	app.get('/tomarkdown', Markdown.toMarkdown);
@@ -54,4 +63,7 @@ module.exports = function(app) {
 	app.get('/wechat/tosend', Wechat.toSend);
 	app.post('/wechat/sendtext', Wechat.sendText);
 	app.post('/wechat/sendtemplate', Wechat.sendTemplate);
+
+	//其他未找到的页面跳转地址
+	// app.get('*', User.signin);
 }

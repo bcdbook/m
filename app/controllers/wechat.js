@@ -46,6 +46,8 @@ exports.wechat = function(req, res, next) {
 		}]);
 	}
 }
+
+//收授权页面的设定
 exports.attest = function(req, res) {
 	console.log('进入授权页面');
 	//设定重定向的链接地址
@@ -64,31 +66,32 @@ exports.attest = function(req, res) {
 	res.redirect(url);
 }
 
+//获取用户的信息,包括openid等
 exports.user = function(req, res) {
-	var code = req.query.code;
-	console.log('code=========================')
-	console.log(code);
-	// var data;
-	ioauth.getAccessToken(code, function(err, result) {
-		var data = result.data;
-		console.log('data=========================');
-		console.log(data);
-		//获取用户的基本信息时,此方法需要放到getAccessToken里边,
-		//否则token失效,则不能拿到想要的结果
-		ioauth.getUser(data.openid, function(err, result) {
-			console.log('result=========================');
-			console.log(result);
-		})
-	});
-	res.render('index', {
-		title: "首页"
-	});
-}
-
+		var code = req.query.code;
+		console.log('code=========================')
+		console.log(code);
+		// var data;
+		ioauth.getAccessToken(code, function(err, result) {
+			var data = result.data;
+			console.log('data=========================');
+			console.log(data);
+			//获取用户的基本信息时,此方法需要放到getAccessToken里边,
+			//否则token失效,则不能拿到想要的结果
+			ioauth.getUser(data.openid, function(err, result) {
+				console.log('result=========================');
+				console.log(result);
+			})
+		});
+		res.render('index', {
+			title: "首页"
+		});
+	}
+	//跳转到推送文本的页面
 exports.toSend = function(req, res) {
-	res.render('wechat/tosend');
-}
-
+		res.render('wechat/tosend');
+	}
+	// 推送文本消息
 exports.sendText = function(req, res) {
 	var data = req.body.wechat;
 	console.log(data);
@@ -109,28 +112,30 @@ exports.sendText = function(req, res) {
 	});
 }
 
+//设置行业
 exports.setIndustry = function(req, res) {
 
-	var industryIds = {
-		"industry_id1": "1",
-		"industry_id2": "4"
-	}
-
-	//设置行业类型
-	api.setIndustry(industryIds, function(err, result) {
-		console.log('设置行业生效')
-		console.log(err)
-		console.log(result)
-
-	});
-	res.json({
-		code: 200,
-		msg: {
-			// url: 'http://' + req.headers.host
-			url: 'newPath'
+		var industryIds = {
+			"industry_id1": "1",
+			"industry_id2": "4"
 		}
-	});
-}
+
+		//设置行业类型
+		api.setIndustry(industryIds, function(err, result) {
+			console.log('设置行业生效')
+			console.log(err)
+			console.log(result)
+
+		});
+		res.json({
+			code: 200,
+			msg: {
+				// url: 'http://' + req.headers.host
+				url: 'newPath'
+			}
+		});
+	}
+	//添加模板
 exports.addTemplate = function(req, res) {
 	var templateIdShort = 'TM00015';
 	//添加模板
@@ -148,6 +153,8 @@ exports.addTemplate = function(req, res) {
 		}
 	});
 }
+
+//推送模板消息
 exports.sendTemplate = function(req, res) {
 	// -BfKkoAQGC9Inb_4RAVkKkXq5N5mL-CfaxEZovaecXY
 	var data = req.body.wechat;
@@ -194,3 +201,31 @@ exports.sendTemplate = function(req, res) {
 		}
 	});
 }
+
+
+
+// // 微信支付开始
+// //创建支付的对象
+// var Payment = require('wechat-pay').Payment;
+// //设置付款的相应参数
+// var initConfig = {
+// 	partnerKey: "<partnerkey>",
+// 	appId: "<appid>",
+// 	mchId: "<mchid>",
+// 	notifyUrl: "<notifyurl>",
+// 	pfx: fs.readFileSync("<location-of-your-apiclient-cert.p12>")
+// }
+// var payment = new Payment(initConfig);
+
+// var order = {
+// 	body: '吮指原味鸡 * 1',
+// 	attach: '{"部位":"三角"}',
+// 	out_trade_no: 'kfc' + (+new Date),
+// 	total_fee: 10 * 100,
+// 	spbill_create_ip: req.ip,
+// 	openid: req.user.openid,
+// 	trade_type: 'JSAPI'
+// };
+// payment.getBrandWCPayRequestParams(order, function(err, payargs) {
+// 	res.json(payargs);
+// });

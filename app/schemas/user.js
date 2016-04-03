@@ -12,11 +12,11 @@ var SALT_WORK_FACTOR = 10;
 var UserSchema = new Schema({
 	username: String, //用户名
 	pwd: String, //密码
+	email: String,
 	roles: [{
 		type: ObjectId,
 		ref: 'Role'
 	}],
-
 	meta: {
 		createAt: { //创建时间
 			type: Date,
@@ -26,6 +26,16 @@ var UserSchema = new Schema({
 			type: Date,
 			default: Date.now()
 		}
+		//发送认证邮件的时间
+	},
+	meilVerify: { //邮箱认证状态
+		type: Number,
+		default: 0 //默认是0,表示未认证.1表示已经发送邮件2表示已认证通过
+	},
+	verifyToken: String, //验证时的对比凭证
+	verifyAt: {
+		type: Date, //最后一次发送验证信息的时间
+		default: Date.now() - 120000
 	}
 
 });

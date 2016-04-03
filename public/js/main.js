@@ -1,7 +1,9 @@
+//获取微信二维码的代码块
 function getWechatBarcode() {
 	return '<div class="wechat_2d_barcode"></div>'
 }
 
+//获取用户简介的代码块
 function getUserIntd() {
 	var img_url = '../img/user.png';
 	return '<div class="user_intd_box">' +
@@ -21,6 +23,7 @@ function getUserIntd() {
 }
 
 $(function() {
+	//栏目的点击效果的切换,被选中的栏目需要有底色
 	$(document).on('click', '.menu .menu_item a', function() {
 		$('.menu .menu_item').each(function(index, ele) {
 			//- console.log(ele);
@@ -28,5 +31,25 @@ $(function() {
 			//- removeClass()
 		});
 		$(this).parent('.menu_item').addClass('item_checked');
+	});
+
+	// 根据输入框中是否有值,来动态设定数据库中属性提示的样式
+	$(document).on('blur', '.l_input_div .l_input', function() {
+		var val = $(this).val();
+		// console.log(val);
+		if (val == '' || val == undefined || val == NaN) {
+			$(this).next('.l_label').css("top", "-27px");
+		} else {
+			$(this).next('.l_label').css("top", "-48px");
+		}
+	})
+	$(document).on('focus', '.l_input_div .l_input', function() {
+		$(this).next('.l_label').css("top", "-48px");
+		// var val = $(this).val();
+		// console.log(val);
+		// if (val == '' || val == undefined || val == NaN) {
+		// 	$(this).next('.l_label').css("top", "-27px");
+		// } else {
+		// }
 	})
 })

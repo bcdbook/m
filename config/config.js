@@ -1,6 +1,24 @@
-// exports.DB_URL = "mongodb://localhost/frame';
+// {
+// 	code: 200, 	表示正确,没有出现异常
+// 	code: 200, 	表示错误,服务器出现异常
+// 	data: 1,	表示值存在,或验证通过
+// isexist: 1	表示存在
+// isexist: 0	表示不存在
+// 	msg: '邮件发送成功'	对应的提示信息
+// mailtype:1	表示用于验证的邮件
+// }
 exports.config = {
 	"dbUrl": "mongodb://localhost/frame",
+	"mail": {
+		"host": "smtp.163.com",
+		"useSSL": true,
+		"port": 465,
+		"user": "bcdbook@163.com",
+		"pwd": "bcd123",
+		"from": "Bcdbook<bcdbook@163.com>",
+		"token": "zmd8ecSaU4ISesJU3r3gRu8u8zAzCkMtujvbEzDKPB0hk0Bj7Cy",
+		"verify_url": "http://www.bcdbook.com/mail/verify"
+	},
 	"wechat": {
 		"token": "bcdbookweixin",
 		// appid: "wxd19632a7323cec33",

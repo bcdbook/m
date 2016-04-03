@@ -19,7 +19,7 @@
 @foot_background_color:#b8b9b9;//底部背景色
 
 //各种连接地址 url
-@wechat_2d_barcode_url:'../img/wechat_2d_barcode.png';//微信二维码的地址
+@wechat_2d_barcode_url:'../img/wechat_2d_barcode.jpg';//微信二维码的地址
 
 body{
 	background-color: #e7e8eb;
@@ -100,10 +100,11 @@ div{
 		}
 		//微信二维码弹出框的样式
 		.wechat_2d_barcode{
-			margin:10px 14px;
-			width:70px;
-			height:70px;
+			margin:2px 5px;
+			width:90px;
+			height:90px;
 			background-image: url(@wechat_2d_barcode_url);
+			background-size: contain;
 		}
 		//用户头像样式
 		.iphoto{
