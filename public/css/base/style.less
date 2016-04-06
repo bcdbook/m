@@ -1,5 +1,10 @@
 @out_border_color:#d9dadc;
 @inner_border_color:#e7e7eb;
+@menu_title_color:#8d8d8d;
+@menu_icon_color:#8d8d8d;
+@menu_item_hover_color:#f4f5f9;
+@input-attr-color:#7A7C76;
+@input-msg-color:#bebebe;
 // 基础的样式封装
 //字体样式封装
 .font{
@@ -62,6 +67,31 @@ a,a:link,a:hover,a:active,a:visited{
 		.text-shadow();
 	}
 }
+// .text-shadow(@x:0,@y:0,@blur:3px,@color:#ccc){
+.hover_danger{
+	&:hover{
+		color:#ff7473;
+		.text-shadow(0px, 0px, 3px, #ff7473);
+	}
+}
+.hover_warning{
+	&:hover{
+		color:#ffc952;
+		.text-shadow(0px, 0px, 3px, #ffc952);
+	}
+}
+.hover_primary{
+	&:hover{
+		color:#47b8e0;
+		.text-shadow(0px, 0px, 3px, #47b8e0);
+	}
+}
+.hover_success{
+	&:hover{
+		color:#5cb85c;
+		.text-shadow(0px, 0px, 3px, #5cb85c);
+	}
+}
 //获得鼠标字体样式改变的方法的定义 end------------------------
 
 // 边框样式 start------------------------
@@ -102,10 +132,10 @@ a,a:link,a:hover,a:active,a:visited{
 		padding:0px 0px 0px 30px;
 		.menu_height();
 		.font;
-		color:@menu_title_color;@menu_title_color:#8d8d8d;
+		color:@menu_title_color;
 		.menu_icon{
 			font-size: 22px;
-			color:@menu_icon_color;@menu_icon_color:#8d8d8d;
+			color:@menu_icon_color;
 			margin-right: 10px;
 		}
 	}
@@ -117,10 +147,37 @@ a,a:link,a:hover,a:active,a:visited{
 			padding-left: 62px;
 			.menu_height();
 			&:hover{
-				background-color: @menu_item_hover_color;@menu_item_hover_color:#f4f5f9;
+				background-color: @menu_item_hover_color;
 			}
 			.font;
 		}
 	}
 }
+
+
+//输入框的样式
+.input-box{
+	padding-bottom: 10px;
+	.input-item{
+		// div{
+		.input-attr{
+			float: right;
+			line-height: 34px;
+			padding-right: 15px;
+			color:@input-attr-color;
+		}
+		// }
+	}
+	.input-pro{
+		padding-top: 5px;
+		height:21px;
+			// line-height: 16px;
+		.input-msg{
+			color:@input-msg-color;
+			
+		}
+	}
+}
+
+
 

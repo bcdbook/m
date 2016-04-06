@@ -60,3 +60,79 @@ iutil.uuid = function() {
 	var uuid = s.join("");
 	return uuid;
 }
+
+//动态获取输入框中的值的方法
+iutil.getObj = function() {
+	//创建返回值对象
+	var data = new Object();
+	var eleType; // 定义传入值的类型
+	var ele; // 定义传入的参数对象
+	var val; // 定义参数值的对象
+	var fun; // 定义存值的字符串类型的函数
+
+	//传入参数的描述参数
+	var id; //id值(如果传参数,id是必传值)
+	var name; //name值,封装到对象中的属性值
+	var labelType; //标签类型
+	var dataType; //数据类型
+	// 循环获取传入的所有参数
+	for (var i = 0; i < arguments.length; i++) {
+		ele = arguments[i];
+		// 获取传入值的类型
+		eleType = typeof(ele);
+		// 如果是字符串
+		if (eleType == 'string') {
+			//获取到参数的值
+			val = $("#" + ele).val();
+			//拼接存储值的函数
+			fun = "data." + ele + "=val";
+		} else if (eleType == 'object') {
+			id = ele.id;
+			name = ele.name;
+			labelType = ele.labelType;
+			dataType = ele.dataType;
+
+			//如果是元素类型是输入框
+			if (labelType == 'input' || labelType == '' || labelType == undefined) {
+				if (labelType != '' && labelType != undefined && labelType != 'input') {
+					val = getValByLabelType(id, labelType);
+				} else {
+					// 获取参数值
+					val = $("#" + id).val();
+				}
+
+				//根据传入的参数的数据类型,获取到对应数据类型的数据
+				if (dataType != '' && dataType != undefined && dataType != 'string' && dataType != 'String') {
+					val = getValByDataType(val, dataType);
+				}
+
+				//如果没有传入名字,则使用id为其默认的名字
+				if (name == '' || name == undefined) {
+					fun = "data." + id + "=val";
+				} else {
+					//否则使用传入的名字
+					fun = "data." + name + "=val";
+				}
+			}
+			//--TODO 这里需要继续丰富
+		}
+		eval(fun); //执行上方拼接的函数,进行对象的封装
+	}
+	return data;
+}
+iutil.cleanInput = function() {
+	for (var i = 0; i < arguments.length; i++) {
+		$("#" + arguments[i]).val('');
+	};
+}
+iutil.setInput = function() {
+	var option; //传入的参数
+	var id;
+	var val;
+	for (var i = 0; i < arguments.length; i++) {
+		option = arguments[i];
+		id = option.id;
+		val = option.val;
+		$("#" + id).val(val);
+	};
+}

@@ -41,14 +41,14 @@ signin_up.signin = function() {
 	var ele_pwd = $("#pwd_in");
 	user.username = ele_username.val();
 	user.pwd = ele_pwd.val();
-	console.log(user.username);
-	console.log(user.pwd);
+	// console.log(user.username);
+	// console.log(user.pwd);
 	// var ele_pwd2 = $("#pwd2");
 	//如果验证通过
 	if (signin_up.checkUserNameIn(ele_username) && signin_up.checkPwdIn(ele_pwd)) {
 		//如果用户不存在
 		if (!signin_up.isExist(user.username)) {
-			console.log('用户名或密码错误');
+			// console.log('用户名或密码错误');
 			// v.toError(ele_pwd, '用户名或密码错误');
 			return 0;
 			// isPass = false;
@@ -64,7 +64,7 @@ signin_up.signin = function() {
 				//- contentType: false,
 				//- processData: false,
 				success: function(data) {
-					console.log(data);
+					// console.log(data);
 					// console.log(data);
 					if (data.code == 200) {
 						window.location.href = "/";

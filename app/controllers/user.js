@@ -51,7 +51,7 @@ exports.signin = function(req, res) {
 	// console.log('controller.signin==req.session.user')
 	// console.log(req.session.user);
 
-	console.log('进入用户登录的post请求');
+	// console.log('进入用户登录的post请求');
 	var _user = req.body.user || '';
 	var username = _user.username || '';
 	var pwd = _user.pwd;

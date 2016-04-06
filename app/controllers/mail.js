@@ -83,7 +83,7 @@ exports.sendMail = function(req, res) {
 		}
 	});
 	var data = req.body.data;
-	console.log(data);
+	// console.log(data);
 	var mailOptions = {
 		from: m.from, // sender address 
 		to: data.usermail,
