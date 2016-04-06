@@ -9,6 +9,7 @@ var config = {
 	encodingAESKey: w.encodingAESKey
 };
 
+
 // 微信设定更丰富的开发的框架,此处先用了设定了其下方栏目
 var API = require('wechat-api');
 var api = new API(w.appid, w.appsecret);

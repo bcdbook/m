@@ -20,12 +20,16 @@ exports.config = {
 		"verify_url": "http://www.bcdbook.com/mail/verify"
 	},
 	"wechat": {
-		"token": "bcdbookweixin",
+		// "token": "bcdbookweixin",
+		"token": "solar",
 		// appid: "wxd19632a7323cec33",
-		"appid": "wx0ce1dd815fbb3afd",
+		// "appid": "wx0ce1dd815fbb3afd",
+		"appid": "wx18d7b3cb67983626",
 		// var appsecret = "c414992afedfe0155c857f907cebd8da";
-		"appsecret": "83ddcb3aa8438cb87003cc444f7f6a8a",
-		"encodingAESKey": "2Uc6oEJuyTmvBGzHNNQWcB61Y1JLAShas56qEaziySE",
+		// "appsecret": "83ddcb3aa8438cb87003cc444f7f6a8a",
+		"appsecret": "bd8194a6707b334583b363a8318b59f0",
+		// "encodingAESKey": "2Uc6oEJuyTmvBGzHNNQWcB61Y1JLAShas56qEaziySE",
+		"encodingAESKey": "1BIqibAgB4GnC1izNv0wEab0YrErwiv3uaaRCmElBBV",
 		"menus": {
 			"button": [{
 				"type": "click",
