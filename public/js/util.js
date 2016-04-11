@@ -136,3 +136,30 @@ iutil.setInput = function() {
 		$("#" + id).val(val);
 	};
 }
+
+//根据传入的元素对象和data的key的集合,返回封装好的对象
+//(ele,{dataName:'data-name',objName:'objName'})
+iutil.getDatas = function() {
+	var ele;
+	var dataName;
+	var objName;
+	var option;
+	var data = new Object();
+	var fun;
+	var val;
+	for (var i = 0; i < arguments.length; i++) {
+		option = arguments[i];
+		if (i == 0) {
+			ele = arguments[i];
+		} else {
+			// fun = "data." + id + "=val";
+			dataName = option.dataName;
+			objName = option.objName;
+			val = ele.data(dataName);
+			fun = 'data.' + objName + '=val';
+			eval(fun);
+		}
+	};
+	// console.log(data);
+	return data;
+}

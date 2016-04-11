@@ -25,7 +25,9 @@ function getUserIntd() {
 $(function() {
 	//栏目的点击效果的切换,被选中的栏目需要有底色
 	$(document).on('click', '.menu .menu_item a', function() {
-		$('.menu .menu_item').each(function(index, ele) {
+		// console.log($(this).parents(".menu_box").first());
+		// console.log($(this).parents(".menu_box").first().find('.menu .menu_item'));
+		$(this).parents(".menu_box").first().find('.menu .menu_item').each(function(index, ele) {
 			//- console.log(ele);
 			$(ele).removeClass('item_checked');
 			//- removeClass()

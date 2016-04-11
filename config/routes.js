@@ -5,7 +5,9 @@ var File = require('../app/controllers/file');
 var PathExcel = require('../app/controllers/pathexcel');
 var Mail = require('../app/controllers/mail');
 var Markdown = require('../app/controllers/markdown');
-var Wechat = require('../app/controllers/wechat')
+var Wechat = require('../app/controllers/wechat');
+var Menu = require('../app/controllers/menu');
+var Auth = require('../app/controllers/auth');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -27,6 +29,16 @@ module.exports = function(app) {
 
 	app.get('/user/list', User.list);
 	app.get('/user/edit:id', User.edit);
+
+	//menu route
+	app.post('/menu/add', Menu.add); //添加栏目的方法
+	app.post('/menu/update', Menu.update); //更新栏目的方法
+	app.get('/menu/list', Menu.list); //查询栏目列表
+	app.post('/menu/haschild', Menu.hasChild); //检查此栏目下边有没有子集
+	app.post('/menu/remove', Menu.remove); //删除栏目的方法
+
+	//power route
+	app.post('/auth/add', Auth.add); //添加权限的方法
 
 	//role route
 	app.get('/role/toadd', Role.toAdd);

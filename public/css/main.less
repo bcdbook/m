@@ -19,6 +19,9 @@
 @foot_background_color:#b8b9b9;//底部背景色
 
 @menu_title_tab_color:#f4f5f9;
+@out_border_color:#d9dadc;//外边框颜色
+@inner_border_color:#e7e7eb;//内边框颜色
+@menu_item_checked_color:#f4f5f9;//被选中的栏目的背景色
 
 //各种连接地址 url
 @wechat_2d_barcode_url:'../img/wechat_2d_barcode.jpg';//微信二维码的地址
@@ -35,6 +38,7 @@ div{
 .top_box{
 	height: @top_height;
 	background-color: @top_background_color;
+	min-width: @body_width;
 	a{
 		color:@top_font_color;
 	}
@@ -237,7 +241,7 @@ div{
 		}
 	}
 	.item_checked{
-		background-color: @menu_item_checked_color;@menu_item_checked_color:#f4f5f9;
+		background-color: @menu_item_checked_color;
 	}
 }
 //left end------------------------
@@ -293,7 +297,14 @@ div{
 	    margin: 30px;
 	    display: block;
 	    min-height: 600px;
+	    .item_checked{
+			background-color: @menu_item_checked_color;
+		}
 	    .edit_menu_box{
+	    	width:250px;
+	    	.border(right);
+	    	display:table-cell;
+	    	vertical-align:top;
 	    	.menu_title_tab{
 	    		display: block;
 			    background-color: @menu_title_tab_color;
@@ -311,8 +322,6 @@ div{
 					}
 				}
 	    	}
-	    	width:250px;
-	    	.border(right);
 	    	.menu{
 				.menu();
 				.menu_title{
@@ -337,13 +346,15 @@ div{
 					a{
 						// width:30px;
 						width: 155px;
+						color:#666;
+						padding-left: 58px;
 					}
 					// a{
 					.column_icon_span{
 						float:right;
 						padding-right: 20px;
 						display:inline-block;
-						line-height: 34px;
+						line-height: 33px;
 						i{
 							padding-left: 8px;
 							cursor:pointer;
@@ -354,6 +365,86 @@ div{
 					// }
 				}
 			}
+	    }
+	    .edit_auth_box{
+	    	display:table-cell;
+	    	vertical-align:top;
+    	    width: 678px;
+    	    .menu_title_tab{
+	    		display: block;
+			    background-color: @menu_title_tab_color;
+			    height: 40px;
+			    line-height: 40px;
+			    padding: 0px 0px 0px 20px;
+			    .column_icon_span{
+					float:right;
+					padding-right: 20px;
+					i{
+						padding-left: 8px;
+						cursor:pointer;
+						font-size: 16px;
+						// color:#8d8d8d;
+					}
+				}
+	    	}
+	    	.menu{
+				.menu();
+				// padding: 0px;
+				padding: 6px 0px;
+				.menu_title{
+					.menu_icon{
+						font-size: 18px;
+					}
+					.column_icon_span{
+						float:right;
+						padding-right: 20px;
+						i{
+							padding-left: 8px;
+							cursor:pointer;
+							font-size: 16px;
+							// color:#8d8d8d;
+						}
+					}
+				}
+				.menu_item{
+					border-bottom: dashed @inner_border_color 1px;
+					&:hover{
+						background-color:@menu_item_hover_color;
+					}
+					a{
+						// width:30px;
+						width: 155px;
+						color:#666;
+						padding-left: 30px;
+						i{
+							padding-right: 10px;
+						}
+					}
+					.auth_item_attr{
+						line-height: 33px;
+					    display: inline-block;
+					    color: #ccc;
+					    // color:#8d8d8d;
+					    -webkit-font-smoothing: antialiased;
+					    font-size: 14px;
+					}
+					// a{
+					.column_icon_span{
+						float:right;
+						padding-right: 20px;
+						display:inline-block;
+						line-height: 33px;
+						i{
+							padding-left: 8px;
+							cursor:pointer;
+							font-size: 16px;
+							// color:#8d8d8d;
+						}
+					}
+					// }
+				}
+			}
+	    	// .b();
 	    }
 	}
 	// .tab_navs:first-child{
@@ -368,12 +459,25 @@ div{
 		width:500px;
 	}
 }
+
+.modal-footer{
+	button{
+		margin-left: 20px;
+	}
+}
+#remove_confirm{
+	.modal-dialog{
+		width:450px;
+	}
+}
+
 //body end ================================
 
 //bottom start ================================
 .foot_box{
 	height:67px;
 	background-color: @foot_background_color;
+	min-width: @body_width;
 }
 .foot{
 	width:@body_width;
@@ -381,4 +485,6 @@ div{
 	margin-right: auto;
 	margin-left: auto;
 }
+
+
 //bottom end ================================

@@ -6,133 +6,31 @@ block content
 		.top#top
 			.logo
 				a.icon
-					i.iconfont &#xe600; 
+					i.iconfont.icon-class-logo
 					span.hover_default 业务·管理平台
 			.nav_box
 			.user
 				span.user_tool_icon
 					a.icon_tiny.icon_msg
-						i.iconfont.hover_default &#xe606;
+						i.iconfont.hover_default.icon-class-messages2
 						div.msg_tip#imsg_tip
 					a.icon_tiny.icon_wechat#wechat_2d_barcode(data-toggle="popover")
-						i.iconfont.hover_default &#xe604;
+						i.iconfont.hover_default.icon-class-weixin
 					#user_intro_out_div
 						a.iphoto#user_introduction(style="background-image: url('../img/user.png');",data-toggle="popover")
 
 	.body#body
 		.left#left
 			.menu_box
-				dl.menu
-					dt.menu_title
-						i.iconfont.menu_icon &#xe606;
-						| 功能
-					dd.menu_item.item_checked
-						a 群发功能
-					dd.menu_item
-						a 自动回复
-					dd.menu_item
-						a 自定义菜单
-					dd.menu_item
-						a 投票管理
-				dl.menu
-					dt.menu_title
-						i.iconfont.menu_icon &#xe606;
-						| 功能
-					dd.menu_item
-						a 群发功能
-					dd.menu_item
-						a 自动回复
-					dd.menu_item
-						a 自定义菜单
-					dd.menu_item
-						a 投票管理
+				include ./menu/list.jade
 		.main#main
-			h2.main_hd 栏目管理
-			.title_tab
-				ul.tab_navs
-					li.tab_nav.first.select
-						a 前台栏目
-					li.tab_nav
-						a 后台栏目
-			.inner_body
-				.edit_menu_box
-					
-					.menu_box
-						span.menu_title_tab 栏目编辑
-							span.column_icon_span
-								i.iconfont.hover_primary.default_color.add_menu_modal(data-toggle="modal" data-target=".au_menu") &#xe61c
-								i.iconfont.hover_warning.default_color &#xe60d
-						dl.menu
-							dt.menu_title
-								i.iconfont.menu_icon &#xe606;
-								| 功能
-								span.column_icon_span
-									i.iconfont.hover_primary.add_menu_modal_child(data-toggle="modal" data-target=".au_menu") &#xe61c
-									i.iconfont.hover_danger.default_color &#xe626
-									//- i.iconfont.hover_warning &#xe60d
-
-							dd.menu_item.item_checked
-								a 群发功能
-								span.column_icon_span
-									i.iconfont.hover_primary.default_color &#xe633
-									i.iconfont.hover_danger.default_color &#xe626
-									i.iconfont.hover_warning.default_color &#xe61d
-
-							dd.menu_item
-								a 自动回复
-								span.column_icon_span
-									i.iconfont.hover_primary.default_color &#xe633
-									i.iconfont.hover_danger.default_color &#xe626
-									i.iconfont.hover_warning.default_color &#xe61d
-							dd.menu_item
-								a 自定义菜单
-								span.column_icon_span
-									i.iconfont.hover_primary.default_color &#xe633
-									i.iconfont.hover_danger.default_color &#xe626
-									i.iconfont.hover_warning.default_color &#xe61d
-							dd.menu_item
-								a 投票管理
-								span.column_icon_span
-									i.iconfont.hover_primary.default_color &#xe633
-									i.iconfont.hover_danger.default_color &#xe626
-									i.iconfont.hover_warning.default_color &#xe61d
-						dl.menu
-							dt.menu_title
-								i.iconfont.menu_icon &#xe606;
-								| 功能
-								span.column_icon_span
-									i.iconfont &#xe61c
-									//- i.iconfont &#xe60d
-
-							dd.menu_item.item_checked
-								a 群发功能
-									span.column_icon_span
-										i.iconfont &#xe633
-										i.iconfont &#xe626
-										i.iconfont &#xe61d
-
-							dd.menu_item
-								a 自动回复
-									span.column_icon_span
-										i.iconfont &#xe633
-										i.iconfont &#xe626
-										i.iconfont &#xe61d
-							dd.menu_item
-								a 自定义菜单
-									span.column_icon_span
-										i.iconfont &#xe633
-										i.iconfont &#xe626
-										i.iconfont &#xe61d
-							dd.menu_item
-								a 投票管理
-									span.column_icon_span
-										i.iconfont &#xe633
-										i.iconfont &#xe626
-										i.iconfont &#xe61d
+			include ./menu/menu.jade
+						
 						
 	.foot_box
 		.foot#foot
 	script(type='text/javascript',src='/js/menu.js')
+	script(type='text/javascript',src='/js/auth.js')
 	script.
 		//- function aaa(){
 		//- 	//- .w-10{

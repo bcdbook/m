@@ -1,24 +1,13 @@
 var menu = new Object();
-// iutil.cleanInput = function() {
-// 	for (var i = 0; i < arguments.length; i++) {
-// 		$("#" + arguments[i]).val('');
-// 	};
-// }
-// iutil.setInput = function() {
-// 	var option; //传入的参数
-// 	var id;
-// 	var val;
-// 	for (var i = 0; i < arguments.length; i++) {
-// 		option = arguments[i];
-// 		id = option.id;
-// 		val = option.val;
-// 		$("#" + id).val(val);
-// 	};
-// }
+
 $(function() {
+	//添加一级栏目时
 	$(document).on('click', ".add_menu_modal", function() {
-		// console.log("tianjai")
-		iutil.cleanInput('menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');
+		// 获取到当前一级栏目的数量,并加一后赋值给order(当做顺序的值)
+		var order = $(this).parents('.menu_box').first().children('dl.menu').length + 1;
+		// console.log(order);
+		// var order = 
+		iutil.cleanInput('menu_id', 'menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');
 		iutil.setInput({
 			id: "menu_todo",
 			val: 1
@@ -27,11 +16,16 @@ $(function() {
 			val: 1
 		}, {
 			id: "menu_order",
-			val: 4
+			val: order
 		});
+		$("#au_menu").modal("toggle");
 	});
+	//添加二级栏目时
 	$(document).on('click', '.add_menu_modal_child', function() {
-		iutil.cleanInput('menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');
+		var order = $(this).parents('dl.menu').first().children('dd.menu_item').length + 1;
+		iutil.cleanInput('menu_id', 'menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');
+		var dataSpan = $(this).prevAll('span').first();
+		var parentId = dataSpan.data('para-_id');
 		iutil.setInput({
 			id: "menu_todo",
 			val: 1
@@ -40,13 +34,178 @@ $(function() {
 			val: 2
 		}, {
 			id: "menu_order",
-			val: 4
+			val: order
+		}, {
+			id: "menu_parent",
+			val: parentId
 		});
+		$("#au_menu").modal("toggle");
 	});
-	// $(document).on('click', 'a', function() {
-	// 	console.log('a标签点击');
-	// })
-})
+
+	$(document).on('click', '.remove_menu_modal_child', function() {
+		// #remove_modal_id(type
+		// #remove_modal_url(typ
+		// #remove_modal_data1(t
+		// #remove_modal_data2(t
+		//清除之前预留的信息
+		iutil.cleanInput('remove_modal_id', 'remove_modal_url', 'remove_modal_data1', 'remove_modal_data2');
+		//获取数据对象(隐藏对象)
+		var dataSpan = $(this).prevAll('span').first();
+		var id = dataSpan.data('para-_id'); //获取id
+		var pid = dataSpan.data('para-pid'); //获取id
+		var rank = dataSpan.data('para-rank'); //获取等级
+		iutil.setInput({
+			id: "remove_modal_id",
+			val: id
+		}, {
+			id: "remove_modal_url",
+			val: '/menu/remove'
+		}, {
+			id: "remove_modal_data1",
+			val: rank
+		}, {
+			id: "remove_modal_data2",
+			val: pid
+		});
+		$("#remove_confirm").modal("toggle");
+	});
+	$(document).on('click', '.remove_menu_modal', function() {
+		iutil.cleanInput('remove_modal_id', 'remove_modal_url', 'remove_modal_data1', 'remove_modal_data2');
+		//获取数据对象(隐藏对象)
+		var dataSpan = $(this).prevAll('span').first();
+		var id = dataSpan.data('para-_id'); //获取id
+		// console.log(id);
+		// console.log(menu.hasChild(id));
+		if (menu.hasChild(id)) {
+
+			$("#modal_danger_msg").modal("toggle");
+		} else {
+			var rank = dataSpan.data('para-rank'); //获取等级
+			iutil.setInput({
+				id: "remove_modal_id",
+				val: id
+			}, {
+				id: "remove_modal_url",
+				val: '/menu/remove'
+			}, {
+				id: "remove_modal_data1",
+				val: rank
+			});
+			$("#remove_confirm").modal("toggle");
+		}
+	});
+	$(document).on('click', '.edit_menu_modal', function() {
+		// 获取一级栏目的相关信息
+		iutil.cleanInput('menu_id', 'menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');
+		//获取数据对象(隐藏对象)
+		var dataSpan = $(this).prevAll('span').first();
+		//获取栏目相关的数据
+		var menu = iutil.getDatas(dataSpan, {
+			dataName: 'para-_id',
+			objName: '_id'
+		}, {
+			dataName: 'para-rank',
+			objName: 'rank'
+		}, {
+			dataName: 'para-order',
+			objName: 'order'
+		}, {
+			dataName: 'para-name',
+			objName: 'name'
+		}, {
+			dataName: 'para-icon',
+			objName: 'icon'
+		}, {
+			dataName: 'para-url',
+			objName: 'url'
+		});
+		//把栏目相关的数据放到模态框中
+		iutil.setInput({
+			id: "menu_id",
+			val: menu._id
+		}, {
+			id: "menu_todo",
+			val: 2
+		}, {
+			id: "menu_rank",
+			val: menu.rank
+		}, {
+			id: "menu_parent",
+			val: ''
+		}, {
+			id: "menu_order",
+			val: menu.order
+		}, {
+			id: "menu_name",
+			val: menu.name
+		}, {
+			id: "menu_icon",
+			val: menu.icon
+		}, {
+			id: "menu_url",
+			val: menu.url
+		});
+		//打开模态框
+		$("#au_menu").modal("toggle");
+	});
+	$(document).on('click', '.edit_menu_modal_child', function() {
+		// 获取一级栏目的相关信息
+		iutil.cleanInput('menu_id', 'menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');
+		//获取数据对象(隐藏对象)
+		var dataSpan = $(this).prevAll('span').first();
+		//获取栏目相关的数据
+		var menu = iutil.getDatas(dataSpan, {
+			dataName: 'para-pid',
+			objName: 'pid'
+		}, {
+			dataName: 'para-_id',
+			objName: '_id'
+		}, {
+			dataName: 'para-rank',
+			objName: 'rank'
+		}, {
+			dataName: 'para-order',
+			objName: 'order'
+		}, {
+			dataName: 'para-name',
+			objName: 'name'
+		}, {
+			dataName: 'para-icon',
+			objName: 'icon'
+		}, {
+			dataName: 'para-url',
+			objName: 'url'
+		});
+		//把栏目相关的数据放到模态框中
+		iutil.setInput({
+			id: "menu_id",
+			val: menu._id
+		}, {
+			id: "menu_todo",
+			val: 2
+		}, {
+			id: "menu_rank",
+			val: menu.rank
+		}, {
+			id: "menu_parent",
+			val: menu.pid
+		}, {
+			id: "menu_order",
+			val: menu.order
+		}, {
+			id: "menu_name",
+			val: menu.name
+		}, {
+			id: "menu_icon",
+			val: menu.icon
+		}, {
+			id: "menu_url",
+			val: menu.url
+		});
+		//打开模态框
+		$("#au_menu").modal("toggle");
+	});
+});
 
 // //传入参数的描述参数
 // 	var id; //id值(如果传参数,id是必传值)
@@ -58,13 +217,13 @@ menu.auMenus = function() {
 	var todo = $("#menu_todo").val();
 	var url = todo == 1 ? '/menu/add' : '/menu/update';
 
+	var parent_id = $("#menu_parent").val();
+	var menu_id = $("#menu_id").val();
+
 	//获取封装好的menu对象
 	var menu = iutil.getObj({
 		id: 'menu_rank',
 		name: 'rank'
-	}, {
-		id: 'menu_parent',
-		name: 'parent'
 	}, {
 		id: 'menu_order',
 		name: 'order'
@@ -79,26 +238,64 @@ menu.auMenus = function() {
 		name: 'url'
 	});
 
+	if (todo == 2) {
+		menu._id = menu_id;
+	}
+
 	$.ajax({
 		url: url,
 		type: 'POST',
 		data: {
-			menu: menu
+			menu: menu,
+			parent_id: parent_id
 		},
 		async: false,
 		//- cache: false,
 		//- contentType: false,
 		//- processData: false,
 		success: function(data) {
-			if (data.code == 200) {
-				// window.location.href = "/";
-				// cb(data);
-			}
+			cb(data);
 		},
 		error: function() {
 			console.log('pathExcel error2')
 		}
 	});
-	console.log(menu);
+
+	function cb(data) {
+		$("#menu_au_container_box").html(data);
+	}
+	// console.log(menu);
 	// body...
+}
+menu.hasChild = function(menuId) {
+	var hasChild = true;
+	$.ajax({
+		url: '/menu/haschild',
+		type: 'POST',
+		data: {
+			menu_id: menuId
+		},
+		async: false,
+		//- cache: false,
+		//- contentType: false,
+		//- processData: false,
+		success: function(data) {
+
+			cb(data);
+		},
+		error: function() {
+			console.log('pathExcel error2')
+		}
+	});
+
+	function cb(data) {
+		if (data.code == 200 && data.data == 0) {
+			hasChild = false;
+		}
+	}
+	return hasChild;
+}
+menu.showMenus = function(data) {
+	$("#menu_au_container_box").html(data);
+	// console.log(data);
 }

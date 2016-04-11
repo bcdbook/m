@@ -1,11 +1,21 @@
-.modal.fade.au_menu(tabindex="-1",role="dialog",aria-labelledby="myModalLabel")
+.modal.fade#au_menu(tabindex="-1",role="dialog",aria-labelledby="myModalLabel")
 	div(class="modal-dialog",role="document")
 		.modal-content
 			.modal-header
 				button(type="button",class="close",data-dismiss="modal",aria-label="Close")
-					i.iconfont.hover_danger.default_color &#xe626
+					i.iconfont.hover_danger.default_color.icon-class-delete2
 				h4.modal-title 栏目添加/编辑
 			.modal-body
+				.input-box
+					.input-item
+						.w-90
+							lable.input-attr 栏目id
+						.w-220
+							input.form-control#menu_id(type="text",placeholder="栏目id")
+					.input-pro
+						.w-90
+						.w-220
+							span.input-msg 出去干嘛
 				.input-box
 					.input-item
 						.w-90
@@ -80,3 +90,147 @@
 			.modal-footer
 				//- button(type="button",class="btn btn-default",data-dismiss="modal") 关闭
 				button(type="button",class="button button-primary button-small",data-dismiss="modal",onclick="menu.auMenus()") 提交
+
+.modal.fade#au_auth(tabindex="-1",role="dialog",aria-labelledby="myModalLabel")
+	div(class="modal-dialog",role="document")
+		.modal-content
+			.modal-header
+				button(type="button",class="close",data-dismiss="modal",aria-label="Close")
+					i.iconfont.hover_danger.default_color.icon-class-delete2
+				h4.modal-title 权限添加/编辑
+			.modal-body
+				.input-box
+					.input-item
+						.w-90
+							lable.input-attr 执行操作
+						.w-220
+							input.form-control#auth_todo(type="text",placeholder="1表示添加,2表示修改")
+					.input-pro
+						.w-90
+						.w-220
+							span.input-msg 出去干嘛
+				//- .input-box
+				//- 	.input-item
+				//- 		.w-90
+				//- 			lable.input-attr 栏目级别
+				//- 		.w-220
+				//- 			input.form-control#auth_rank(type="text",placeholder="1表示一级栏目,2表示二级栏目")
+				//- 	.input-pro
+				//- 		.w-90
+				//- 		.w-220
+				//- 			span.input-msg
+				.input-box
+					.input-item
+						.w-90
+							lable.input-attr 栏目id
+						.w-220
+							input.form-control#auth_menu_id(type="text",placeholder="栏目id")
+					.input-pro
+						.w-90
+						.w-220
+							span.input-msg 用来设定此权限是属于哪个栏目的
+				.input-box
+					.input-item
+						.w-90
+							lable.input-attr 权限ID
+						.w-220
+							input.form-control#auth_id(type="text",placeholder="自动获取的对应权限的id")
+					.input-pro
+						.w-90
+						.w-220
+							span.input-msg  
+				.input-box
+					.input-item
+						.w-90
+							lable.input-attr 权限顺序
+						.w-220
+							input.form-control#auth_order(type="text",placeholder="权限的顺序")
+					.input-pro
+						.w-90
+						.w-220
+							span.input-msg
+				.input-box
+					.input-item
+						.w-90
+							lable.input-attr 权限名称
+						.w-220
+							input.form-control#auth_name(type="text",placeholder="请输入权限名称")
+					.input-pro
+						.w-90
+						.w-220
+							span.input-msg
+				.input-box
+					.input-item
+						.w-90
+							lable.input-attr 权限图标
+						.w-220
+							input.form-control#auth_icon(type="text",placeholder="请输入对应图标的代码")
+					.input-pro
+						.w-90
+						.w-220
+							span.input-msg
+				.input-box
+					.input-item
+						.w-90
+							lable.input-attr 连接地址
+						.w-220
+							input.form-control#auth_url(type="text",placeholder="请输入点击权限后的请求跳转路径")
+					.input-pro
+						.w-90
+						.w-220
+							span.input-msg
+				.input-box
+					.input-item
+						.w-90
+							lable.input-attr 备注信息
+						.w-220
+							input.form-control#auth_remark(type="text",placeholder="权限的备注信息")
+					.input-pro
+						.w-90
+						.w-220
+							span.input-msg
+				
+			.modal-footer
+				//- button(type="button",class="btn btn-default",data-dismiss="modal") 关闭
+				button(type="button",class="button button-primary button-small",data-dismiss="modal",onclick="auth.auAuths()") 提交
+
+
+
+
+
+.modal.fade#remove_confirm(tabindex="-1",role="dialog",aria-labelledby="myModalLabel")
+	div(class="modal-dialog",role="document")
+		.modal-content
+			.modal-header
+				button(type="button",class="close",data-dismiss="modal",aria-label="Close")
+					i.iconfont.hover_danger.default_color.icon-class-delete2
+				h4.modal-title 删除确认
+			.modal-body
+				lable 您确定删除此栏目吗?
+				.w-220
+					input.form-control#remove_modal_id(type="text",placeholder="对象的id")
+					input.form-control#remove_modal_url(type="text",placeholder="进行操作的地址")
+					input.form-control#remove_modal_data1(type="text",placeholder="备用字段1")
+					input.form-control#remove_modal_data2(type="text",placeholder="备用字段2")
+					//- input.form-control#remove_modal_data3(type="text",placeholder="")
+					//- input.form-control#remove_modal_data4(type="text",placeholder="")
+			.modal-footer
+				button(type="button",class="button button-primary button-small",data-dismiss="modal") 取消
+				button(type="button",class="button button-caution button-small",data-dismiss="modal",onclick="modal.remove(menu.showMenus)") 确定
+.modal.fade#modal_danger_msg(tabindex="-1",role="dialog",aria-labelledby="myModalLabel")
+	div(class="modal-dialog",role="document")
+		.modal-content
+			.modal-header
+				button(type="button",class="close",data-dismiss="modal",aria-label="Close")
+					i.iconfont.hover_danger.default_color.icon-class-delete2
+				h4.modal-title 警告
+			.modal-body
+				lable 此栏目下有子栏目,不能直接删除!
+				//- .w-220
+				//- 	input.form-control#remove_modal_id(type="text",placeholder="对象的id")
+				//- 	input.form-control#remove_modal_url(type="text",placeholder="进行操作的地址")
+				//- 	input.form-control#menu_url(type="text",placeholder="")
+			//- .modal-footer
+			//- 	button(type="button",class="button button-primary button-small",data-dismiss="modal") 取消
+			//- 	button(type="button",class="button button-caution button-small",data-dismiss="modal",onclick="menu.auMenus()") 确定
+

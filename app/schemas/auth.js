@@ -1,5 +1,3 @@
-// 角色的schema
-
 //引入mongoose框架
 var mongoose = require('mongoose');
 // 调用,并定义schema
@@ -8,24 +6,28 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
 //像是java中定义全参构造的意思
-var MenuSchema = new Schema({
-	name: String, //角色名字
-	url: String,
-	rank: Number,
-	order: Number,
-	icon: String,
-	childs: [{
+var AuthSchema = new Schema({
+	menu: {
 		type: ObjectId,
 		ref: 'Menu'
-	}],
-	//菜单的权限
-	auths: [{
-		type: ObjectId,
-		ref: 'Auth'
-	}],
-	// menus: [{
+	}, //栏目的id用于外键关联
+	name: String, //角色名字
+	url: String,
+	order: Number,
+	icon: String,
+	remark: String,
+	// childs: [{
 	// 	type: ObjectId,
-	// 	ref: 'Menu'
+	// 	ref: 'Auth'
+	// }],
+	//菜单的子集(此角色所拥有的菜单集合)
+	// auths: [{
+	// 	type: ObjectId,
+	// 	ref: 'Auth'
+	// }],
+	// Auths: [{
+	// 	type: ObjectId,
+	// 	ref: 'Auth'
 	// }],
 	//菜单的时间相关数据
 	meta: {
@@ -44,7 +46,7 @@ var MenuSchema = new Schema({
 
 // var ObjectId = mongoose.Schema.Types.ObjectId
 //在保存方法之情之前执行
-MenuSchema.pre('save', function(next) {
+AuthSchema.pre('save', function(next) {
 	if (this.isNew) {
 		this.meta.createAt = this.meta.updateAt = Date.now()
 	} else {
@@ -54,7 +56,7 @@ MenuSchema.pre('save', function(next) {
 	next()
 })
 
-MenuSchema.statics = {
+AuthSchema.statics = {
 	fetch: function(cb) {
 		return this
 			.find({})
@@ -70,4 +72,4 @@ MenuSchema.statics = {
 	}
 }
 
-module.exports = MenuSchema;
+module.exports = AuthSchema;
