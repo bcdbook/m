@@ -1,41 +1,13 @@
 dl.menu
-	dd.menu_item
-		a 
-			i.iconfont.default_color.icon-class-move4
-			|添加
-		span.auth_item_attr 这是备注信息,用于解释这个权限的用途
-		span.column_icon_span
-			//- span.hide_datas(data-para-pid='#{menu._id}',data-para-_id='#{item._id}',data-para-name=item.name,data-para-icon=item.icon ,data-para-order=item.order ,data-para-rank=item.rank,data-para-url=item.url)
-			i.iconfont.hover_primary.default_color.edit_menu_modal_child.icon-class-edit1
-			i.iconfont.hover_danger.default_color.remove_menu_modal_child.icon-class-delete2
-			i.iconfont.hover_warning.default_color.icon-class-move4
-	dd.menu_item
-		a 
-			i.iconfont.default_color.icon-class-move4
-			|删除
-		span.auth_item_attr 这是备注信息,用于解释这个权限的用途
-		span.column_icon_span
-			//- span.hide_datas(data-para-pid='#{menu._id}',data-para-_id='#{item._id}',data-para-name=item.name,data-para-icon=item.icon ,data-para-order=item.order ,data-para-rank=item.rank,data-para-url=item.url)
-			i.iconfont.hover_primary.default_color.edit_menu_modal_child.icon-class-edit1
-			i.iconfont.hover_danger.default_color.remove_menu_modal_child.icon-class-delete2
-			i.iconfont.hover_warning.default_color.icon-class-move4
-	dd.menu_item
-		a 
-			i.iconfont.default_color.icon-class-move4
-			|修改
-		span.auth_item_attr 这是备注信息,用于解释这个权限的用途
-		span.column_icon_span
-			//- span.hide_datas(data-para-pid='#{menu._id}',data-para-_id='#{item._id}',data-para-name=item.name,data-para-icon=item.icon ,data-para-order=item.order ,data-para-rank=item.rank,data-para-url=item.url)
-			i.iconfont.hover_primary.default_color.edit_menu_modal_child.icon-class-edit1
-			i.iconfont.hover_danger.default_color.remove_menu_modal_child.icon-class-delete2
-			i.iconfont.hover_warning.default_color.icon-class-move4
-	dd.menu_item
-		a 
-			i.iconfont.default_color.icon-class-move4
-			|查看
-		span.auth_item_attr 这是备注信息,用于解释这个权限的用途
-		span.column_icon_span
-			//- span.hide_datas(data-para-pid='#{menu._id}',data-para-_id='#{item._id}',data-para-name=item.name,data-para-icon=item.icon ,data-para-order=item.order ,data-para-rank=item.rank,data-para-url=item.url)
-			i.iconfont.hover_primary.default_color.edit_menu_modal_child.icon-class-edit1
-			i.iconfont.hover_danger.default_color.remove_menu_modal_child.icon-class-delete2
-			i.iconfont.hover_warning.default_color.icon-class-move4
+	each auth,index in auths
+		dd.menu_item
+			a 
+				i.iconfont.default_color(class="#{auth.icon}")
+				|#{auth.name}
+			span.auth_item_attr #{auth.remark}
+			span.column_icon_span
+				span.hide_datas(data-para-mid='#{auth.menu._id}',data-para-_id='#{auth._id}',data-para-name=auth.name,data-para-icon=auth.icon ,data-para-order=auth.order ,data-para-url=auth.url)
+				i.iconfont.hover_primary.default_color.edit_auth_modal_child.icon-class-edit1
+				i.iconfont.hover_danger.default_color.remove_auth_modal_child.icon-class-delete2
+				i.iconfont.hover_warning.default_color.icon-class-move4
+		

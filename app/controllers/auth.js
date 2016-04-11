@@ -9,31 +9,17 @@ var _ = require('underscore');
 // 	res.render('menu/toadd');
 // }
 
-// exports.list = function(req, res) {
-// 	console.log("进入栏目的列表查询页面")
-// 	Menu
-// 		.find({
-// 			"rank": 1
-// 		})
-// 		.sort('order')
-// 		.populate('childs', 'name icon order rank url meta.createAt meta.updateAt')
-// 		.exec(function(err, menus) {
-// 			if (err) {
-// 				console.log(err);
-// 			}
-// 			for (var i = 0; i < menus.length; i++) {
-
-// 				var _childs = menus[i].childs;
-// 				_childs.sort(function(a, b) {
-// 					return a.order - b.order;
-// 				});
-// 				menus[i].childs = _childs;
-// 			};
-// 			res.render('menu/au_list', {
-// 				menus: menus
-// 			});
-// 		});
-// }
+exports.list = function(req, res) {
+	Auth
+		.find()
+		.sort('order')
+		.populate('menu', 'name')
+		.exec(function(err, auths) {
+			res.render('auth/au_list', {
+				auths: auths
+			});
+		});
+}
 
 // signup  用户注册路由
 exports.add = function(req, res) {

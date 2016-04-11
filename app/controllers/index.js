@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Role = mongoose.model('Role');
 var Menu = mongoose.model('Menu');
+var Auth = mongoose.model('Auth');
 
 exports.index = function(req, res) {
 	Menu
@@ -23,9 +24,19 @@ exports.index = function(req, res) {
 				});
 				menus[i].childs = _childs;
 			};
-			res.render('index', {
-				menus: menus
-			});
+			Auth
+				.find()
+				.sort('order')
+				.populate('menu', 'name')
+				.exec(function(err, auths) {
+					// res.render('auth/au_list', {
+					// 	auths: auths
+					// });
+					res.render('index', {
+						menus: menus,
+						auths: auths
+					});
+				});
 		});
 	// var roles;
 	// Role
