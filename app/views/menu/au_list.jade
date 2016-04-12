@@ -15,7 +15,7 @@ each menu,index in menus
 				//- i.iconfont.hover_warning &#xe60d
 		each item,index2 in menu.childs
 			dd.menu_item
-				a #{item.name}
+				a(onclick="auth.getAuths('#{item._id}')") #{item.name}
 				//- #{item.order}
 				span.column_icon_span
 					span.hide_datas(data-para-pid='#{menu._id}',data-para-_id='#{item._id}',data-para-name=item.name,data-para-icon=item.icon ,data-para-order=item.order ,data-para-rank=item.rank,data-para-url=item.url)

@@ -39,6 +39,7 @@ module.exports = function(app) {
 
 	//power route
 	app.post('/auth/add', Auth.add); //添加权限的方法
+	app.get('/auth/list:menuid', Auth.list); //添加权限的方法
 
 	//role route
 	app.get('/role/toadd', Role.toAdd);

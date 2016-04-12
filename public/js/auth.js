@@ -5,7 +5,9 @@ $(function() {
 	//添加权限时
 	$(document).on('click', ".add_auth_modal", function() {
 		// 获取当前权限列表的数量,加一后赋给顺序值
-		var order = $(this).parents('.auth_box').first().children('dl.menu').length + 1;
+		var order = $(this).parents('.auth_box').first().find('dd.menu_item').length + 1;
+		// console.log($(this).parents('.auth_box').first().find('dd.menu_item'));
+		var menuId = $("#au_auth_hide_datas").data('para-mid');
 		// console.log(order);
 		// var order = 
 		iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_order', 'auth_name', 'auth_icon', 'auth_url');
@@ -13,8 +15,33 @@ $(function() {
 			id: "auth_todo",
 			val: 1
 		}, {
-			id: "menu_order",
+			id: "auth_order",
 			val: order
+		}, {
+			id: 'auth_menu_id',
+			val: menuId
+		});
+		$("#au_auth").modal("toggle");
+	});
+
+	//修改权限时
+	$(document).on('click', ".edit_auth_modal", function() {
+		// // 获取当前权限列表的数量,加一后赋给顺序值
+		// var order = $(this).parents('.auth_box').first().find('dd.menu_item').length + 1;
+		// // console.log($(this).parents('.auth_box').first().find('dd.menu_item'));
+		// var menuId = $("#au_auth_hide_datas").data('para-mid');
+		// // console.log(order);
+		// // var order =
+		iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_order', 'auth_name', 'auth_icon', 'auth_url');
+		iutil.setInput({
+			id: "auth_todo",
+			val: 1
+		}, {
+			id: "auth_order",
+			val: order
+		}, {
+			id: 'auth_menu_id',
+			val: menuId
 		});
 		$("#au_auth").modal("toggle");
 	});
@@ -74,9 +101,33 @@ auth.auAuths = function() {
 	});
 
 	function cb(data) {
-		// $("#auth_au_container_box").html(data);
-		console.log('success');
+		if (data.code) {
+
+		} else {
+			$("#auth_au_container_box").html(data);
+		}
 	}
+}
+auth.getAuths = function(menuId) {
+	var url = '/auth/list' + menuId;
+	$("#au_auth_hide_datas").data('para-mid', menuId);
+	// console.log($(this).prevAll('.hide_datas').first());
+	// console.log($("#au_auth_hide_datas").data('para-mid'))
+	$.ajax({
+		url: url,
+		type: 'GET',
+		data: {
+
+		},
+		async: false,
+		success: function(data) {
+			// cb(data);
+			$("#auth_au_container_box").html(data);
+		},
+		error: function() {
+			console.log('pathExcel error2')
+		}
+	});
 }
 
 // menu.hasChild = function(menuId) {

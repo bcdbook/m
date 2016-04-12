@@ -9,7 +9,7 @@ var _ = require('underscore');
 // }
 
 exports.list = function(req, res) {
-	console.log("进入栏目的列表查询页面")
+	// console.log("进入栏目的列表查询页面")
 	Menu
 		.find({
 			"rank": 1

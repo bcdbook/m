@@ -8,6 +8,7 @@
 // mailtype:1	表示用于验证的邮件
 // }
 exports.config = {
+	// "dbUrl": "mongodb://root:Java1234@42.96.195.183:27017/frame",
 	"dbUrl": "mongodb://localhost/frame",
 	"mail": {
 		"host": "smtp.163.com",

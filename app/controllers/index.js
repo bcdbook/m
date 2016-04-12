@@ -25,7 +25,9 @@ exports.index = function(req, res) {
 				menus[i].childs = _childs;
 			};
 			Auth
-				.find()
+				.find({
+					'menu': '57061bb4bbc48b3f0aade88b'
+				})
 				.sort('order')
 				.populate('menu', 'name')
 				.exec(function(err, auths) {

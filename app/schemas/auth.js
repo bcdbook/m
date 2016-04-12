@@ -7,10 +7,11 @@ var ObjectId = Schema.Types.ObjectId;
 
 //像是java中定义全参构造的意思
 var AuthSchema = new Schema({
-	menu: {
-		type: ObjectId,
-		ref: 'Menu'
-	}, //栏目的id用于外键关联
+	menu: String,
+	// menu: {
+	// 	type: ObjectId,
+	// 	ref: 'Menu'
+	// }, //栏目的id用于外键关联
 	name: String, //角色名字
 	url: String,
 	order: Number,
