@@ -28,7 +28,7 @@ exports.list = function(req, res) {
 				});
 				menus[i].childs = _childs;
 			};
-			res.render('menu/au_list', {
+			res.render('menu/menu', {
 				menus: menus
 			});
 		});
@@ -216,4 +216,31 @@ exports.hasChild = function(req, res) {
 			});
 		}
 	})
+}
+
+//修改排序的方法
+exports.order = function(req, res) {
+	var id = req.body._id;
+	var order = req.body.order;
+	Menu
+		.update({
+			_id: id
+		}, {
+			order: order
+		}, function(err) {
+			if (err) {
+				// console.log(err);
+				res.json({
+					code: 500,
+					data: 0,
+					msg: "栏目排序时出错"
+				});
+			}
+			res.json({
+				code: 200,
+				data: 1,
+				msg: "栏目排序ok"
+			});
+		})
+		// res.redirect('/menu/list');
 }

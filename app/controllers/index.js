@@ -12,6 +12,7 @@ exports.index = function(req, res) {
 		})
 		.sort('order')
 		.populate('childs', 'name icon order rank url meta.createAt meta.updateAt')
+		// .populate('auths', 'name')
 		.exec(function(err, menus) {
 			if (err) {
 				console.log(err);
@@ -26,18 +27,29 @@ exports.index = function(req, res) {
 			};
 			Auth
 				.find({
-					'menu': '57061bb4bbc48b3f0aade88b'
+					'menu': '570cf530952b4517107b4391'
 				})
 				.sort('order')
-				.populate('menu', 'name')
+				// .populate('menu', 'name')
 				.exec(function(err, auths) {
 					// res.render('auth/au_list', {
 					// 	auths: auths
 					// });
-					res.render('index', {
-						menus: menus,
-						auths: auths
-					});
+					Role
+						.find({})
+						.exec(function(err, roles) {
+							if (err) {
+								console.log(err);
+							}
+							// res.render('role/list', {
+							// 	roles: roles
+							// });
+							res.render('index', {
+								menus: menus,
+								auths: auths,
+								roles: roles
+							});
+						});
 				});
 		});
 	// var roles;

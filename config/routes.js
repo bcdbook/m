@@ -14,11 +14,7 @@ var multipartMiddleware = multipart();
 
 // user controller
 module.exports = function(app) {
-	// index route
-	//index
-
 	app.get('/', Index.index);
-
 
 	//user route
 	app.get('/signin', User.tosignin); //进入登录页面
@@ -36,15 +32,23 @@ module.exports = function(app) {
 	app.get('/menu/list', Menu.list); //查询栏目列表
 	app.post('/menu/haschild', Menu.hasChild); //检查此栏目下边有没有子集
 	app.post('/menu/remove', Menu.remove); //删除栏目的方法
+	app.post('/menu/order', Menu.order); //排序栏目的方法
 
 	//power route
 	app.post('/auth/add', Auth.add); //添加权限的方法
-	app.get('/auth/list:menuid', Auth.list); //添加权限的方法
+	app.post('/auth/update', Auth.update); //添加权限的方法
+	app.get('/auth/list:menuid', Auth.list); //列表展示权限的方法
+	app.post('/auth/list', Auth.auths); //列表展示权限的方法
+	app.post('/auth/remove', Auth.remove); //删除权限的方法
+	app.post('/auth/order', Auth.order); //执行重新排序
 
 	//role route
 	app.get('/role/toadd', Role.toAdd);
-	app.get('/role/list', Role.list);
-	app.post('/role/add', Role.add);
+	app.get('/role/list', Role.list); //列表展示角色
+	app.post('/role/add', Role.add); //添加角色
+	app.post('/role/update', Role.update); //修改角色
+	app.post('/role/remove', Role.remove); //删除角色
+	app.get('/role/showauths', Role.showAuths); //展示角色所拥有的权限
 
 	//file upload
 	app.get('/toupload', File.toupload);
@@ -55,7 +59,6 @@ module.exports = function(app) {
 	app.get('/topath', PathExcel.topath);
 	app.post('/pathexcel', PathExcel.pathexcel);
 	app.post('/exportexcel', PathExcel.exportExcel);
-
 
 	//mail something todo
 	app.get('/mail/toverify', Mail.toverify); //进入发送邮件页面(测试使用)

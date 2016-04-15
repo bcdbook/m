@@ -23,6 +23,7 @@ var MenuSchema = new Schema({
 		type: ObjectId,
 		ref: 'Auth'
 	}],
+	role_remark: String,
 	// menus: [{
 	// 	type: ObjectId,
 	// 	ref: 'Menu'

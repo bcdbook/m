@@ -1,23 +1,39 @@
-extends ../includes/layout.jade
-block content
-	table.table.table-hover.table-bordered.i_table(style="width:300px;")
-		thead
-			tr.active
-				th 用户名
-				//- th 密码
-				//- th 手机号码
-				//- th 角色
-				//- th 注册时间
-				//- th 操作
-		tbody
-			each role,index in roles
-				tr
-					td #{role.name}
-					//- td #{user.pwd}
-					//- td #{user.phones}
-					//- td #{user.roles}
-					//- td.light_color #{user.username}
-					//- td.light_color
-						i(class='fa fa-edit hover_primary table_icon',title='修改用户',data-toggle="tooltip",data-placement="bottom")
-						i(class='fa fa-key hover_warning table_icon',title='设定角色',data-toggle="tooltip",data-placement="bottom")
-						i(class='fa fa-remove hover_danger table_icon',title='删除用户',data-toggle="tooltip",data-placement="bottom")
+//- extends ../includes/layout.jade
+//- block content
+//- 	table.table.table-hover.table-bordered.i_table(style="width:300px;")
+//- 		thead
+//- 			tr.active
+//- 				th 用户名
+//- 				//- th 密码
+//- 				//- th 手机号码
+//- 				//- th 角色
+//- 				//- th 注册时间
+//- 				//- th 操作
+//- 		tbody
+//- 			each role,index in roles
+//- 				tr
+//- 					td #{role.name}
+//- 					//- td #{user.pwd}
+//- 					//- td #{user.phones}
+//- 					//- td #{user.roles}
+//- 					//- td.light_color #{user.username}
+//- 					//- td.light_color
+//- 						i(class='fa fa-edit hover_primary table_icon',title='修改用户',data-toggle="tooltip",data-placement="bottom")
+//- 						i(class='fa fa-key hover_warning table_icon',title='设定角色',data-toggle="tooltip",data-placement="bottom")
+//- 						i(class='fa fa-remove hover_danger table_icon',title='删除用户',data-toggle="tooltip",data-placement="bottom")
+
+script(type='text/javascript',src='/js/order.js')
+span#checked_role_id_remark_data
+dl.role_au_order_box.menu
+	each role,index in roles
+		dd.menu_item
+			a.role_show_auths(data-role-id="#{role._id}") #{role.name}
+				//- i.iconfont.default_color(class="#{role.icon}")
+				//- |#{role.name}
+			//- span.role_item_attr #{role.remark}
+			span.column_icon_span
+				span.hide_datas(data-para-_id='#{role._id}',data-para-name=role.name,data-para-order=role.order ,data-para-remark=role.remark)
+				i.iconfont.hover_primary.default_color.edit_role_modal.icon-class-edit1
+				i.iconfont.hover_danger.default_color.remove_role_modal.icon-class-delete2
+				i.iconfont.hover_warning.default_color.icon-class-move4.column_icon_move
+		

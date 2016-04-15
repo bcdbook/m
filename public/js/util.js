@@ -1,4 +1,6 @@
 var iutil = new Object();
+
+//头部微信和个人中心提示框的处理
 $(function() {
 	$('[data-toggle="popover"]').each(function() {
 		var ele = $(this); //获取定义了弹出框的对象
@@ -31,6 +33,79 @@ $(function() {
 			}, 100);
 		});
 	});
+	//栏目列表一级栏目复选框点击的时候
+	$(document).on('click', ".check_box_title", function() {
+		// 获取当前对象的id
+		var id = $(this).attr('id');
+		// 获取点击后复选框的选中状态
+		var isChecked = document.getElementById(id).checked;
+		//如果是选中的
+		if (isChecked) {
+			role.addMenu(id);
+			//循环其下的二级菜单,做选中处理
+			$(this).parents('dl.menu').first().find('dd.menu_item').each(function(index, ele) {
+				var item_id = $(ele).children('input.check_box_item').attr('id');
+				document.getElementById(item_id).checked = true;
+				role.addMenu(item_id);
+			})
+		} else {
+			role.removeMenu(id);
+			//如果是未选中的
+			$(this).parents('dl.menu').first().find('dd.menu_item').each(function(index, ele) {
+				//循环其下的二级菜单,做未选中处理
+				var item_id = $(ele).children('input.check_box_item').attr('id');
+				document.getElementById(item_id).checked = false;
+				role.removeMenu(item_id);
+
+			})
+		}
+	});
+	//栏目列表二级复选框点击的时候
+	$(document).on('click', ".check_box_item", function() {
+		//获取被点击的复选框的id
+		var id = $(this).attr('id');
+		var isChecked = document.getElementById(id).checked;
+		if (isChecked) {
+			// console.log('二级');
+			role.addMenu(id);
+		} else {
+			// console.log('二级');
+			role.removeMenu(id);
+		}
+		// role.addMenu(id);
+		//定义一个变量,用来判断此复选框同级的二级栏目有无被选中的
+		var hasChecked = false;
+		$(this).parents('dl.menu').first().find('dd.menu_item').each(function(index, ele) {
+			var item_id = $(ele).children('input.check_box_item').attr('id');
+			// document.getElementById(item_id).checked = false;
+			var itemHasChecked = document.getElementById(item_id).checked;
+			//如果有被选中的,则把判断有无选中的变量设置成true
+			if (itemHasChecked) {
+				hasChecked = true;
+			}
+		});
+		//如果此组的二级栏目有被选中的
+		if (hasChecked) {
+			var title_id = $(this).parents('dl.menu').first().find('dt.menu_title').first().children('input.check_box_title').attr('id');
+			var nowType = document.getElementById(title_id).checked;
+			if (!nowType) {
+				//把其对应的一级菜单设置成选中
+				document.getElementById(title_id).checked = true;
+				role.addMenu(title_id);
+			}
+		} else {
+			var title_id = $(this).parents('dl.menu').first().find('dt.menu_title').first().children('input.check_box_title').attr('id');
+			var nowType = document.getElementById(title_id).checked;
+			if (nowType) {
+				//如果没有选中的,其对应的一级菜单设置成不选中
+				document.getElementById(title_id).checked = false;
+				role.removeMenu(title_id);
+			}
+		}
+	});
+	// $(document).on('change', '.menu_checkbox', function() {
+	// 	console.log($(this).attr('id'));
+	// });
 });
 
 function contentMethod(id) {

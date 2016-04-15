@@ -6,4 +6,4 @@ each menu,index in menus
 		each item,index2 in menu.childs
 
 			dd.menu_item
-				a #{item.name}
+				a.item_change_menu(data-item-id="#{item._id}",data-item-url="#{item.url}") #{item.name}

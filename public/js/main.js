@@ -34,6 +34,17 @@ $(function() {
 		});
 		$(this).parent('.menu_item').addClass('item_checked');
 	});
+	//角色的点击效果的切换,被选中的角色需要有底色
+	$(document).on('click', '.menu .menu_item a', function() {
+		// console.log($(this).parents(".menu_box").first());
+		// console.log($(this).parents(".menu_box").first().find('.menu .menu_item'));
+		$(this).parents(".role_box").first().find('.menu .menu_item').each(function(index, ele) {
+			//- console.log(ele);
+			$(ele).removeClass('item_checked');
+			//- removeClass()
+		});
+		$(this).parent('.menu_item').addClass('item_checked');
+	});
 
 	// 根据输入框中是否有值,来动态设定数据库中属性提示的样式
 	$(document).on('blur', '.l_input_div .l_input', function() {
@@ -47,11 +58,30 @@ $(function() {
 	})
 	$(document).on('focus', '.l_input_div .l_input', function() {
 		$(this).next('.l_label').css("top", "-48px");
-		// var val = $(this).val();
-		// console.log(val);
-		// if (val == '' || val == undefined || val == NaN) {
-		// 	$(this).next('.l_label').css("top", "-27px");
-		// } else {
-		// }
-	})
-})
+	});
+
+	$(document).on('click', '.item_change_menu', function() {
+		var url = $(this).data("item-url");
+		// var 
+		$.ajax({
+			url: url,
+			type: 'GET',
+			data: {},
+			async: false,
+			//- cache: false,
+			//- contentType: false,
+			//- processData: false,
+			success: function(data) {
+				cb(data);
+			},
+			error: function() {
+				console.log('pathExcel error2')
+			}
+		});
+
+		function cb(data) {
+			$("#main").html(data);
+		}
+	});
+
+});

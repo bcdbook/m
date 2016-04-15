@@ -10,7 +10,7 @@ $(function() {
 		var menuId = $("#au_auth_hide_datas").data('para-mid');
 		// console.log(order);
 		// var order = 
-		iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_order', 'auth_name', 'auth_icon', 'auth_url');
+		iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_order', 'auth_name', 'auth_icon', 'auth_url', 'auth_remark');
 		iutil.setInput({
 			id: "auth_todo",
 			val: 1
@@ -20,6 +20,9 @@ $(function() {
 		}, {
 			id: 'auth_menu_id',
 			val: menuId
+		}, {
+			id: 'auth_icon',
+			val: 'icon-class-'
 		});
 		$("#au_auth").modal("toggle");
 	});
@@ -32,18 +35,81 @@ $(function() {
 		// var menuId = $("#au_auth_hide_datas").data('para-mid');
 		// // console.log(order);
 		// // var order =
-		iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_order', 'auth_name', 'auth_icon', 'auth_url');
+		// 清理之前的模态框中的数据
+		iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_order', 'auth_name', 'auth_icon', 'auth_url', 'auth_remark');
+
+		//获取数据对象(隐藏对象)
+		var dataSpan = $(this).prevAll('span').first();
+		var auth = iutil.getDatas(dataSpan, {
+			dataName: 'para-mid',
+			objName: 'menu'
+		}, {
+			dataName: 'para-_id',
+			objName: '_id'
+		}, {
+			dataName: 'para-name',
+			objName: 'name'
+		}, {
+			dataName: 'para-icon',
+			objName: 'icon'
+		}, {
+			dataName: 'para-order',
+			objName: 'order'
+		}, {
+			dataName: 'para-url',
+			objName: 'url'
+		}, {
+			dataName: 'para-remark',
+			objName: 'remark'
+		});
+
 		iutil.setInput({
 			id: "auth_todo",
-			val: 1
+			val: 2
 		}, {
 			id: "auth_order",
-			val: order
+			val: auth.order
 		}, {
 			id: 'auth_menu_id',
-			val: menuId
+			val: auth.menu
+		}, {
+			id: 'auth_icon',
+			val: auth.icon
+		}, {
+			id: 'auth_id',
+			val: auth._id
+		}, {
+			id: 'auth_name',
+			val: auth.name
+		}, {
+			id: 'auth_url',
+			val: auth.url
+		}, {
+			id: 'auth_remark',
+			val: auth.remark
 		});
 		$("#au_auth").modal("toggle");
+	});
+	$(document).on('click', '.remove_auth_modal', function() {
+		//清除之前预留的信息
+		iutil.cleanInput('remove_modal_id', 'remove_modal_url', 'remove_modal_data1', 'remove_modal_data2');
+		//获取数据对象(隐藏对象)
+		var dataSpan = $(this).prevAll('span').first();
+		var id = dataSpan.data('para-_id'); //获取id
+		var menu_id = dataSpan.data('para-mid'); //获取id
+		// var rank = dataSpan.data('para-rank'); //获取等级
+		iutil.setInput({
+			id: "remove_modal_id",
+			val: id
+		}, {
+			id: "remove_modal_url",
+			val: '/auth/remove'
+		}, {
+			id: "remove_modal_data1",
+			val: menu_id
+		});
+		$("#i_remove_modal_form_submit").attr('onclick', 'modal.remove(auth.showAuth)');
+		$("#remove_confirm").modal("toggle");
 	});
 });
 
@@ -60,6 +126,7 @@ auth.auAuths = function() {
 
 	//获取栏目的id
 	var menu_id = $("#auth_menu_id").val();
+	var _id = $("#auth_id").val();
 
 	//获取封装好的menu对象
 	var auth = iutil.getObj({
@@ -81,8 +148,13 @@ auth.auAuths = function() {
 		id: 'auth_remark',
 		name: 'remark'
 	});
-	console.log(auth);
-	console.log(menu_id);
+
+	//如果是修改,则设置其权限的id
+	if (todo == 2) {
+		auth._id = _id;
+	}
+	// console.log(auth);
+	// console.log(menu_id);
 
 	$.ajax({
 		url: url,
@@ -128,6 +200,34 @@ auth.getAuths = function(menuId) {
 			console.log('pathExcel error2')
 		}
 	});
+}
+auth.showAuth = function(data) {
+	$("#auth_au_container_box").html(data);
+}
+
+
+auth.getIAuths = function(id, ele_box) {
+	//- console.log(ele_box);
+	//- var url = '/auth/list'+id
+	$.ajax({
+		url: '/auth/list',
+		type: 'POST',
+		data: {
+			_id: id
+		},
+		async: false,
+		success: function(data) {
+			//- console.log(data);
+			cb(data);
+		},
+		error: function() {
+			console.log('pathExcel error2')
+		}
+	});
+
+	function cb(data) {
+		$(ele_box).html(data);
+	}
 }
 
 // menu.hasChild = function(menuId) {

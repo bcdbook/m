@@ -10,15 +10,21 @@ var ObjectId = Schema.Types.ObjectId;
 //像是java中定义全参构造的意思
 var RoleSchema = new Schema({
 	name: String, //角色名字
+	order: Number,
+	remark: String,
+	// menus:[{
+	// 	type:ObjectId,
+	// 	ref:'Menu'
+	// }]
 	//菜单的子集(此角色所拥有的菜单集合)
-	// auths: [{
-	// 	type: ObjectId,
-	// 	ref: 'Auth'
-	// }],
-	// menus: [{
-	// 	type: ObjectId,
-	// 	ref: 'Menu'
-	// }],
+	auths: [{
+		type: ObjectId,
+		ref: 'Auth'
+	}],
+	menus: [{
+		type: ObjectId,
+		ref: 'Menu'
+	}],
 	//菜单的时间相关数据
 	meta: {
 		//菜单的添加时间

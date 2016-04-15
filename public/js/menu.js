@@ -43,10 +43,6 @@ $(function() {
 	});
 
 	$(document).on('click', '.remove_menu_modal_child', function() {
-		// #remove_modal_id(type
-		// #remove_modal_url(typ
-		// #remove_modal_data1(t
-		// #remove_modal_data2(t
 		//清除之前预留的信息
 		iutil.cleanInput('remove_modal_id', 'remove_modal_url', 'remove_modal_data1', 'remove_modal_data2');
 		//获取数据对象(隐藏对象)
@@ -67,6 +63,7 @@ $(function() {
 			id: "remove_modal_data2",
 			val: pid
 		});
+		$("#i_remove_modal_form_submit").attr('onclick', 'modal.remove(menu.showMenus)');
 		$("#remove_confirm").modal("toggle");
 	});
 	$(document).on('click', '.remove_menu_modal', function() {
@@ -205,6 +202,7 @@ $(function() {
 		//打开模态框
 		$("#au_menu").modal("toggle");
 	});
+
 });
 
 // //传入参数的描述参数
@@ -262,7 +260,7 @@ menu.auMenus = function() {
 	});
 
 	function cb(data) {
-		$("#menu_au_container_box").html(data);
+		$("#main").html(data);
 	}
 	// console.log(menu);
 	// body...

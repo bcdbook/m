@@ -34,7 +34,7 @@ modal.remove = function(next) {
 		id: 'remove_modal_data2',
 		name: 'data2'
 	});
-	console.log(data);
+	// console.log(data);
 	$.ajax({
 		url: url,
 		type: 'POST',
