@@ -82,11 +82,12 @@ $(function() {
 		$("#checked_role_id_remark_data").data('role-id', _id);
 		// $("#checked_role_id_remark_data").text(_id);
 		// console.log(_id);
+		var url = '/role/showauths' + _id;
 		$.ajax({
-			url: '/role/showauths',
+			url: url,
 			type: 'GET',
 			data: {
-				_id: _id
+				// _id: _id
 			},
 			async: false,
 			//- cache: false,
@@ -103,6 +104,21 @@ $(function() {
 		function cb(data) {
 			$('#role_auths_container_box').html(data);
 		}
+	});
+	$(document).on('click', '#role_auths_container_box dl dd span a', function() {
+		var role_id = $("#checked_role_id_remark_data").data('role-id');
+		var auth_id = $(this).data('role_id');
+		var hasChecked = $(this).data('has_checked');
+		if (hasChecked && hasChecked == true) {
+			$(this).removeClass('auth_checked');
+			role.addAuth(role_id, auth_id);
+			// $(this).data('has_checked')="true"
+		} else {
+			$(this).addClass('auth_checked');
+			role.removeAuth(role_id, auth_id);
+		}
+		// console.log($(this).attr('id'));
+		// console.log($(this).attr('class'));
 	})
 });
 role.showRole = function(data) {
@@ -160,13 +176,50 @@ role.auRoles = function() {
 	}
 }
 role.addMenu = function(item_id) {
-	console.log(item_id);
-	console.log('addMenu');
-
-	// $("#checked_role_id_remark_data").data('role-id', _id);
+	var role_id = $("#checked_role_id_remark_data").data('role-id');
+	$.ajax({
+		url: 'role/addmenu',
+		type: 'POST',
+		data: {
+			role_id: role_id,
+			menu_id: item_id
+		},
+		async: false,
+		success: function(data) {
+			console.log(data);
+			// cb(data);
+			// console.log('add menu success');
+		},
+		error: function() {
+			console.log('pathExcel error2')
+		}
+	});
 }
 role.removeMenu = function(item_id) {
-	console.log(item_id);
-	console.log('removeMenu');
-	// $("#checked_role_id_remark_data").data('role-id', _id);
+	var role_id = $("#checked_role_id_remark_data").data('role-id');
+	$.ajax({
+		url: 'role/removemenu',
+		type: 'POST',
+		data: {
+			role_id: role_id,
+			menu_id: item_id
+		},
+		async: false,
+		success: function(data) {
+			// cb(data);
+			// console.log('remove menu success');
+			console.log(data);
+		},
+		error: function() {
+			console.log('pathExcel error2')
+		}
+	});
+}
+role.addAuth = function(role_id, auth_id) {
+
+}
+role.removeAuth = function(role_id, auth_id) {
+
+
+
 }

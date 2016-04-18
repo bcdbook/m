@@ -11,7 +11,7 @@ var _ = require('underscore');
 
 exports.list = function(req, res) {
 	var menuid = req.params.menuid;
-	// console.log(menuid);
+	// console.log(req.session.checkedRole);
 	Auth
 		.find({
 			"menu": menuid
@@ -27,6 +27,9 @@ exports.list = function(req, res) {
 		});
 }
 exports.auths = function(req, res) {
+	// console.log('aaa');
+	// console.log(req.session.checkedRole);
+	var roleAuths = req.session.checkedRole.auths;
 	var menuid = req.body._id;
 	Auth
 		.find({
@@ -35,6 +38,22 @@ exports.auths = function(req, res) {
 		.sort('order')
 		// .populate('menu', 'name')
 		.exec(function(err, auths) {
+			if (err) {
+				res.json({
+					code: 500,
+					data: 0,
+					msg: "栏目获取权限列表时出错"
+				});
+			}
+			for (var i = 0; i < auths.length; i++) {
+				auths[i].role_remark = true;
+				for (var j = 0; j < roleAuths.length; j++) {
+					if (auths[i]._id && roleAuths[j] && auths[i]._id.toString() == roleAuths[j]) {
+						auths[i].role_remark = true;
+					};
+					// roleAuths[j]
+				};
+			}
 			// console.log(auths);
 			// console.log(auths);
 			res.render('auth/auths', {

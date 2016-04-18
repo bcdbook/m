@@ -48,7 +48,11 @@ module.exports = function(app) {
 	app.post('/role/add', Role.add); //添加角色
 	app.post('/role/update', Role.update); //修改角色
 	app.post('/role/remove', Role.remove); //删除角色
-	app.get('/role/showauths', Role.showAuths); //展示角色所拥有的权限
+	app.get('/role/showauths:_id', Role.showAuths); //展示角色所拥有的权限
+	app.post('/role/removeauth', Role.removeAuth); //展示角色所拥有的权限
+	app.post('/role/addauth', Role.addAuth); //展示角色所拥有的权限
+	app.post('/role/removemenu', Role.removeMenu); //展示角色所拥有的栏目
+	app.post('/role/addmenu', Role.addMenu); //展示角色所拥有的栏目
 
 	//file upload
 	app.get('/toupload', File.toupload);

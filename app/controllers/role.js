@@ -23,9 +23,9 @@ exports.list = function(req, res) {
 			});
 		});
 }
+
 exports.showAuths = function(req, res) {
-	var role_id = req.query._id;
-	// req.session.user = user;
+	var role_id = req.params._id;
 	Role
 		.find({
 			_id: role_id
@@ -37,18 +37,14 @@ exports.showAuths = function(req, res) {
 			if (err) {
 				console.log(err);
 			}
-			req.session.checkedRole = role;
+			req.session.checkedRole = role[0];
 		});
-	// console.log(req.body);
-	// console.log(req.params);
-	// console.log(req.query);
 	Menu
 		.find({
 			"rank": 1
 		})
 		.sort('order')
-		.populate('childs', 'name icon order rank url meta.createAt meta.updateAt')
-		// .populate('auths', 'name')
+		.populate('childs', 'role_remark name icon order rank url meta.createAt meta.updateAt')
 		.exec(function(err, menus) {
 			if (err) {
 				console.log(err);
@@ -58,91 +54,31 @@ exports.showAuths = function(req, res) {
 			if (rolemenus) {
 				//循环所有栏目
 				for (var i = 0; i < menus.length; i++) {
-					//定义变量,用来判定此角色是否有对应的栏目
-					var roleHas = false;
-					//获取其中一个栏目的id
-					var imenu_id = menus[i]._id;
-					//循环角色中的权限
-					for (var j = 0; j < rolemenus.length; i++) {
-						//如果权限中的栏目有和当前栏目相同的值
-						if (imenu_id == rolemenus[j]._id) {
-							//说明此角色有对应栏目,值设置为true
-							roleHas = true;
+					//获取栏目的子集
+					var childs = menus[i].childs;
+					//循环栏目的自己,用来查看此权限所拥有的栏目
+					for (var c = 0; c < childs.length; c++) {
+						//循环权限中拥有的栏目,与栏目的子集进行对比
+						for (var j = 0; j < rolemenus.length; j++) {
+							//如果权限的栏目集合中有对应的栏目
+							if (childs[c]._id.toString() == rolemenus[j]._id.toString()) {
+								//此栏目的选中对象设置成true
+								childs[c].role_remark = true;
+								// console.log(childs[c]);
+							}
 						}
 					}
-					//如果此角色有对应的栏目
-					if (roleHas) {
-						//角色在栏目中的备注字段设置成选中
-						menus[i].role_remark = 'checked';
-					} else {
-						//否则则设置成不选中
-						menus[i].role_remark = false;
+					for (var j = 0; j < rolemenus.length; j++) {
+						if (menus[i]._id.toString() == rolemenus[j]._id.toString()) {
+							menus[i].role_remark = true;
+							// console.log(menus[i])
+						}
 					}
-					// console.log(menus[i]);
 				}
 			}
-			console.log(req.session.checkedRole);
 			res.render('role/auths', {
 				menus: menus
-					// auths: auths,
-					// role: role
-					// rolemenus: rolemenus,
-					// roleauths: roleauths
 			});
-			// for (var i = 0; i < menus.length; i++) {
-
-			// 	var _childs = menus[i].childs;
-			// 	_childs.sort(function(a, b) {
-			// 		return a.order - b.order;
-			// 	});
-			// 	menus[i].childs = _childs;
-			// };
-			// Role
-			// 	.find({
-			// 		_id: role_id
-			// 	})
-			// 	.sort('order')
-			// 	.populate('menus', 'name')
-			// 	.populate('auths', 'name')
-			// 	.exec(function(err, role) {
-			// 		rolemenus = role.menus;
-			// 		roleauths = role.auths;
-			// 		// // body...
-			// 		// console.log(role.menus);
-			// 		// console.log(role.auths);
-			// 		if (rolemenus) {
-			// 			for (var i = 0; i < menus.length; i++) {
-			// 				var roleHas = false;
-			// 				var imenu_id = menus[i]._id;
-			// 				for (var j = 0; j < rolemenus.length; i++) {
-			// 					if (imenu_id == rolemenus[j]._id) {
-			// 						roleHas = true;
-			// 					}
-			// 				}
-			// 				if (roleHas) {
-			// 					menus[i].role_remark = 'checked';
-			// 				} else {
-			// 					menus[i].role_remark = false;
-			// 				}
-			// 				// console.log(menus[i]);
-			// 			}
-			// 		}
-			// 		res.render('role/auths', {
-			// 			menus: menus
-			// 				// auths: auths,
-			// 				// role: role
-			// 				// rolemenus: rolemenus,
-			// 				// roleauths: roleauths
-			// 		});
-			// 	});
-			// Auth
-			// 	.find({
-			// 		'menu': '570cf530952b4517107b4391'
-			// 	})
-			// 	.sort('order')
-			// 	// .populate('menu', 'name')
-			// 	.exec(function(err, auths) {
-			// 	});
 		});
 }
 
@@ -235,4 +171,134 @@ exports.remove = function(req, res) {
 	} else {
 		res.redirect('/role/list');
 	}
+}
+exports.addMenu = function(req, res) {
+	var role_id = req.body.role_id;
+	var menu_id = req.body.menu_id;
+	if (menu_id) {
+		Menu.findOne({
+			_id: menu_id
+		}, function(err, menu) {
+			if (err) {
+				res.json({
+					code: 500,
+					data: 0,
+					msg: "角色添加栏目时,查询栏目出错"
+				});
+			}
+			Role.findOne({
+				_id: role_id
+			}, function(err, role) {
+				if (err) {
+					res.json({
+						code: 500,
+						data: 0,
+						msg: "角色添加权限时,查询角色出错"
+					});
+				}
+				role.menus.push(menu._id);
+				role.save(function(err, iRole) {
+					if (err) {
+						res.json({
+							code: 500,
+							data: 0,
+							msg: "角色添加权限时,保存角色出错"
+						});
+					}
+					// req.session.checkedRole = iRole;
+				})
+			});
+		});
+	}
+	res.json({
+		code: 200,
+		data: 0,
+		msg: "角色添加栏目成功"
+	});
+	// res.redirect('/role/showauths' + role_id);
+}
+
+exports.removeMenu = function(req, res) {
+	var role_id = req.body.role_id;
+	var menu_id = req.body.menu_id;
+	Role.findOne({
+		_id: role_id
+	}, function(err, role) {
+		if (err) {
+			res.json({
+				code: 500,
+				data: 0,
+				msg: "角色删除权限时,查询角色出错"
+			});
+		}
+		// console.log(role);
+		var menus = role.menus;
+		for (var i = 0; i < menus.length; i++) {
+			// console.log('menus[i]')
+			// console.log(menus[i]);
+			if (menus[i] && menus[i].toString() == menu_id) {
+				//
+				menus.splice(i, 1);
+				role.save(function(err, iRole) {
+					if (err) {
+						res.json({
+							code: 500,
+							data: 0,
+							msg: "角色删除权限时,保存角色出错"
+						});
+					}
+					req.session.checkedRole = iRole;
+					// console.log(iRole);
+				});
+				// _role = _.extend(role, roleObj);
+			}
+		}
+	});
+	// console.log('removemenu');
+	// console.log(role_id);
+	// console.log(menu_id);
+	res.json({
+		code: 200,
+		data: 0,
+		msg: "角色删除栏目成功"
+	});
+	// res.redirect('/role/showauths' + role_id);
+}
+
+exports.addAuth = function(req, res) {
+	var role_id = req.body.role_id;
+	var auth_id = req.body.auth_id;
+	if (role_id) {
+		Role.findOne({
+			_id: role_id
+		}, function(err, role) {
+			if (err) {
+				res.json({
+					code: 500,
+					data: 0,
+					msg: "角色添加权限时,查询角色出错"
+				});
+			}
+		});
+		console.log('addAuth');
+		console.log(role_id);
+		console.log(auth_id);
+		res.json({
+			code: 200,
+			data: 0,
+			msg: "添加角色成功"
+		});
+	}
+}
+exports.removeAuth = function(req, res) {
+	var role_id = req.body.role_id;
+	var auth_id = req.body.auth_id;
+	console.log('removeAuth');
+	console.log(role_id);
+	console.log(auth_id);
+	res.json({
+		code: 200,
+		data: 0,
+		msg: "添加角色成功"
+	});
 }

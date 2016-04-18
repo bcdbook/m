@@ -17,6 +17,10 @@ var AuthSchema = new Schema({
 	order: Number,
 	icon: String,
 	remark: String,
+	role_remark: {
+		type: Boolean,
+		default: false
+	},
 	// childs: [{
 	// 	type: ObjectId,
 	// 	ref: 'Auth'
