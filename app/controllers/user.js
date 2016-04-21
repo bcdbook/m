@@ -103,6 +103,8 @@ exports.signin = function(req, res) {
 				}
 				//密码匹配
 				if (isMatch) {
+
+
 					// console.log('登陆成功了');
 					if (user.meilVerify != 2) {
 						// console.log(user.meilVerify != 2);

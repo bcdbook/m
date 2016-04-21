@@ -21,35 +21,31 @@ exports.index = function(req, res) {
 				console.log(err);
 			}
 
-			// for (var i = 0; i < menus.length; i++) {
-			// 	var _childs = menus[i].childs;
-			// 	_childs.sort(function(a, b) {
-			// 		return a.order - b.order;
-			// 	});
-			// 	menus[i].childs = _childs;
-			// };
-			// res.render('index', {
-			// 	menus: menus
-			// });
-
-			// console.log(menus);
-			siftMenus(menus, function(menus) {
-				// console.log('========================');
-				// console.log(aa);
-				for (var i = 0; i < menus.length; i++) {
-					// console.log('-------------------执行排序')
-					var _childs = menus[i].childs;
-					_childs.sort(function(a, b) {
-						return a.order - b.order;
+			if (onlineUser.username == 'lason') {
+				systemSignin(menus, function(menus) {
+					res.render('index', {
+						menus: menus
 					});
-					menus[i].childs = _childs;
-				};
-				res.render('index', {
-					menus: menus
+				})
+
+			} else {
+				// console.log(menus);
+				siftMenus(menus, function(menus) {
+					// console.log('========================');
+					// console.log(aa);
+					for (var i = 0; i < menus.length; i++) {
+						// console.log('-------------------执行排序')
+						var _childs = menus[i].childs;
+						_childs.sort(function(a, b) {
+							return a.order - b.order;
+						});
+						menus[i].childs = _childs;
+					};
+					res.render('index', {
+						menus: menus
+					});
 				});
-			});
-
-
+			}
 		});
 
 	function siftMenus(menus, next) {
@@ -103,5 +99,32 @@ exports.index = function(req, res) {
 			menus.splice(needSpliceParent[x], 1);
 		};
 		next(menus);
+	}
+
+	function systemSignin(menus, next) {
+		for (var i = 0; i < menus.length; i++) {
+			var _childs = menus[i].childs;
+			_childs.sort(function(a, b) {
+				return a.order - b.order;
+			});
+			menus[i].childs = _childs;
+		};
+		var possessAuths = new Array();
+		Auth
+			.find({})
+			.exec(function(err, auths) {
+				if (err) {
+					console.log(err);
+					res.render('user/signin', {
+						title: '123'
+					});
+				}
+				for (var i = 0; i < auths.length; i++) {
+					possessAuths.push(auths[i]._id);
+				};
+				req.session.possessAuths = possessAuths;
+				// setAuths(auths);
+				next(menus);
+			});
 	}
 }
