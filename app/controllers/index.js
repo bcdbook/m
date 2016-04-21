@@ -21,7 +21,7 @@ exports.index = function(req, res) {
 				console.log(err);
 			}
 
-			if (onlineUser.username == 'lason') {
+			if (onlineUser.username == 'lason' || onlineUser.username == 'sysadmin') {
 				systemSignin(menus, function(menus) {
 					res.render('index', {
 						menus: menus
