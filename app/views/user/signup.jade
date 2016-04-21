@@ -12,6 +12,8 @@ html
 				i.iconfont.signin_logo_i &#xe600;
 			.signin_title
 				span 用户注册
+				span.to_signin_box 已有账号? 请
+					a(href="/signin") 登陆
 			//- form(method="POST", action="javascript:void(0)")
 			form(method="POST", action="/signup",id='signin_form')
 				.signin_input

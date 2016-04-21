@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1460015491'); /* IE9*/
-  src: url('iconfont.eot?t=1460015491#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1460015491') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1460015491') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1460015491#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1461057052'); /* IE9*/
+  src: url('iconfont.eot?t=1461057052#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1461057052') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1461057052') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1461057052#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -31,6 +31,7 @@
 .icon-class-cancel:before { content: "\e615"; }
 .icon-class-lock1:before { content: "\e616"; }
 .icon-class-key1:before { content: "\e617"; }
+.icon-class-role:before { content: "\e63d"; }
 .icon-class-weixin:before { content: "\e604"; }
 .icon-class-lock2:before { content: "\e618"; }
 .icon-class-search1:before { content: "\e619"; }
@@ -68,6 +69,7 @@
 .icon-class-messages3:before { content: "\e605"; }
 .icon-class-eyes1:before { content: "\e635"; }
 .icon-class-messages1:before { content: "\e607"; }
+.icon-class-role2:before { content: "\e63e"; }
 .icon-class-xls1:before { content: "\e636"; }
 .icon-class-pdf1:before { content: "\e637"; }
 .icon-class-tongzhi:before { content: "\e602"; }

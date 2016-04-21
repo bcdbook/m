@@ -49,8 +49,8 @@ signin_up.signin = function() {
 		//如果用户不存在
 		if (!signin_up.isExist(user.username)) {
 			// console.log('用户名或密码错误');
-			// v.toError(ele_pwd, '用户名或密码错误');
-			return 0;
+			v.toError(ele_pwd, '用户名或密码错误');
+			// return 0;
 			// isPass = false;
 		} else {
 			$.ajax({
@@ -65,16 +65,26 @@ signin_up.signin = function() {
 				//- processData: false,
 				success: function(data) {
 					// console.log(data);
-					// console.log(data);
-					if (data.code == 200) {
+					console.log(data);
+					if (data.code == 200 && data.data == 1) {
 						window.location.href = "/";
 						// cb(data);
+					} else if (data.code == 500 && data.data == 0) {
+						// signin_up.signinError(data.msg);
+						// v.toError(ele, '密码不能为空');
+						cb();
+					} else if (data.code == 500 && data.data == 10) {
+						window.location.href = "/mail/toverify" + data.user_id;
 					}
 				},
 				error: function() {
 					console.log('pathExcel error2')
 				}
 			});
+
+			function cb() {
+				v.toError(ele_pwd, '用户名或密码错误');
+			}
 		}
 	} else {
 		return 0;
@@ -106,40 +116,42 @@ signin_up.toLock = function() {
 signin_up.getMail = function() {
 	var ele_email = $("#verifyemail"); //获取邮箱输入框对象
 	if (signin_up.checkEmail(ele_email)) { //如果检测通过
+		// console.log('发送');
 		var username = $("#username").val(); //用户名
 		var userid = $("#user_id").val(); //用户id
 		var usermail = ele_email.val(); //输入的邮箱(将要发送到的)
 		var mailtype = 1; //邮件的类型 1表示用于验证的邮箱
 		//先执行请求,进行拼接将要发送到用户邮箱的页面
-		$.ajax({
-			url: '/mail/getmail',
-			type: 'GET',
-			// dataType: 'json',
-			data: {
-				username: username,
-				userid: userid,
-				usermail: usermail,
-				mailtype: mailtype,
-				uuid: iutil.uuid()
-			},
-			async: false,
-			success: function(data) {
-				var datas = new Object();
-				var o = $(data).find("options").first();
-				datas.p = $(data).find("page").first().html();
-				datas.usermail = o.children("usermail").text();
-				datas.subject = o.children("subject").text();
-				datas.text = o.children("text").text();
-				signin_up.toLock();
-				//调用发送方法
+		// $.ajax({
+		// 	url: '/mail/getmail',
+		// 	type: 'GET',
+		// 	// dataType: 'json',
+		// 	data: {
+		// 		username: username,
+		// 		userid: userid,
+		// 		usermail: usermail,
+		// 		mailtype: mailtype,
+		// 		uuid: iutil.uuid()
+		// 	},
+		// 	async: false,
+		// 	success: function(data) {
+		// 		var datas = new Object();
+		// 		var o = $(data).find("options").first();
+		// 		datas.p = $(data).find("page").first().html();
+		// 		datas.usermail = o.children("usermail").text();
+		// 		datas.subject = o.children("subject").text();
+		// 		datas.text = o.children("text").text();
+		// 		signin_up.toLock();
+		// 		//调用发送方法
 
-				signin_up.sendMail(datas);
-			},
-			error: function() {
-				console.log('pathExcel error2')
-			}
-		});
+		// 		signin_up.sendMail(datas);
+		// 	},
+		// 	error: function() {
+		// 		console.log('pathExcel error2')
+		// 	}
+		// });
 	} else {
+		// console.log('未发送');
 		return 0;
 	}
 }
@@ -153,7 +165,7 @@ signin_up.sendMail = function(data) {
 		async: false,
 		success: function(data) {
 			if (200 === data.code) {
-				console.log('pathExcel success')
+				// console.log('sendMail success')
 			} else {
 				console.log('pathExcel error1')
 			}
@@ -243,6 +255,10 @@ signin_up.checkPwdIn = function(ele) {
 	return isPass;
 }
 
+// signin_up.signinError = function(ele,msg){
+
+// }
+
 signin_up.checkPwd2 = function(ele) {
 	var isPass = true;
 	var val = ele.val();
@@ -255,6 +271,7 @@ signin_up.checkPwd2 = function(ele) {
 	return isPass;
 }
 signin_up.checkEmail = function(ele) {
+	// console.log("进入验证");
 	var isPass = true;
 	var val = ele.val();
 	if (v.isNull(val)) { //验证是否为空
@@ -272,16 +289,18 @@ signin_up.checkEmail = function(ele) {
 	return isPass;
 }
 signin_up.mailIsExist = function(str) {
-
-	var isExist = false;
+	// console.log('进入后台查看检测')
+	var isExist = true;
 
 	function cb(data) {
-		if (data.code == 200) {
-			if (data.isexist == 1) {
-				isExist = true;
-			} else {
-				isExist = false;
-			}
+		// console.log(data);
+		if (data.code != 200 || data.data != 1) {
+			isExist = false;
+			// if (data.isexist == 1) {
+			// 	isExist = true;
+			// } else {
+			// 	isExist = false;
+			// }
 		} else {
 			isExist = true;
 		}

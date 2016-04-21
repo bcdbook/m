@@ -14,7 +14,7 @@ var multipartMiddleware = multipart();
 
 // user controller
 module.exports = function(app) {
-	app.get('/', Index.index);
+	app.get('/', User.signinRequired, Index.index);
 
 	//user route
 	app.get('/signin', User.tosignin); //进入登录页面
@@ -25,6 +25,9 @@ module.exports = function(app) {
 
 	app.get('/user/list', User.list);
 	app.get('/user/edit:id', User.edit);
+	app.post('/user/roles', User.roles); //获取用户所拥有的角色
+	app.post('/user/addrole', User.addRole); //用户添加角色的方法
+	app.post('/user/removerole', User.removeRole); //用户删除角色的方法
 
 	//menu route
 	app.post('/menu/add', Menu.add); //添加栏目的方法
@@ -53,6 +56,7 @@ module.exports = function(app) {
 	app.post('/role/addauth', Role.addAuth); //展示角色所拥有的权限
 	app.post('/role/removemenu', Role.removeMenu); //展示角色所拥有的栏目
 	app.post('/role/addmenu', Role.addMenu); //展示角色所拥有的栏目
+	// app.post('/role/roles', Role.roles); //展示所拥有的栏目
 
 	//file upload
 	app.get('/toupload', File.toupload);
@@ -65,7 +69,7 @@ module.exports = function(app) {
 	app.post('/exportexcel', PathExcel.exportExcel);
 
 	//mail something todo
-	app.get('/mail/toverify', Mail.toverify); //进入发送邮件页面(测试使用)
+	app.get('/mail/toverify:user_id', Mail.toverify); //进入发送邮件页面(测试使用)
 	app.get('/mail/verify', Mail.verify); //真实的执行验证操作
 	app.get('/tomail', Mail.toMail);
 	app.post('/mail/sendmail', Mail.sendMail); //用于发送邮件

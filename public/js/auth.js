@@ -8,23 +8,29 @@ $(function() {
 		var order = $(this).parents('.auth_box').first().find('dd.menu_item').length + 1;
 		// console.log($(this).parents('.auth_box').first().find('dd.menu_item'));
 		var menuId = $("#au_auth_hide_datas").data('para-mid');
-		// console.log(order);
-		// var order = 
-		iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_order', 'auth_name', 'auth_icon', 'auth_url', 'auth_remark');
-		iutil.setInput({
-			id: "auth_todo",
-			val: 1
-		}, {
-			id: "auth_order",
-			val: order
-		}, {
-			id: 'auth_menu_id',
-			val: menuId
-		}, {
-			id: 'auth_icon',
-			val: 'icon-class-'
-		});
-		$("#au_auth").modal("toggle");
+		if (menuId == '' || menuId == undefined) {
+			$("#error_modal_msg_lable").html('请先选择对应的栏目');
+			$("#modal_danger_msg").modal("toggle");
+
+		} else {
+			// console.log(order);
+			// var order = 
+			iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_uuname', 'auth_order', 'auth_name', 'auth_icon', 'auth_url', 'auth_remark');
+			iutil.setInput({
+				id: "auth_todo",
+				val: 1
+			}, {
+				id: "auth_order",
+				val: order
+			}, {
+				id: 'auth_menu_id',
+				val: menuId
+			}, {
+				id: 'auth_icon',
+				val: 'icon-class-'
+			});
+			$("#au_auth").modal("toggle");
+		}
 	});
 
 	//修改权限时
@@ -36,7 +42,7 @@ $(function() {
 		// // console.log(order);
 		// // var order =
 		// 清理之前的模态框中的数据
-		iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_order', 'auth_name', 'auth_icon', 'auth_url', 'auth_remark');
+		iutil.cleanInput('auth_menu_id', 'auth_todo', 'auth_id', 'auth_uuname', 'auth_order', 'auth_name', 'auth_icon', 'auth_url', 'auth_remark');
 
 		//获取数据对象(隐藏对象)
 		var dataSpan = $(this).prevAll('span').first();
@@ -46,6 +52,9 @@ $(function() {
 		}, {
 			dataName: 'para-_id',
 			objName: '_id'
+		}, {
+			dataName: 'para-uuname',
+			objName: 'uuname'
 		}, {
 			dataName: 'para-name',
 			objName: 'name'
@@ -78,6 +87,9 @@ $(function() {
 		}, {
 			id: 'auth_id',
 			val: auth._id
+		}, {
+			id: 'auth_uuname',
+			val: auth.uuname
 		}, {
 			id: 'auth_name',
 			val: auth.name
@@ -132,6 +144,9 @@ auth.auAuths = function() {
 	var auth = iutil.getObj({
 		id: 'auth_menu_id',
 		name: 'menu'
+	}, {
+		id: 'auth_uuname',
+		name: 'uuname'
 	}, {
 		id: 'auth_order',
 		name: 'order'

@@ -8,7 +8,7 @@ var _ = require('underscore');
 // exports.toAdd = function(req, res) {
 // 	res.render('menu/toadd');
 // }
-
+//根据栏目id获取并展示所有的权限
 exports.list = function(req, res) {
 	var menuid = req.params.menuid;
 	// console.log(req.session.checkedRole);
@@ -45,10 +45,17 @@ exports.auths = function(req, res) {
 					msg: "栏目获取权限列表时出错"
 				});
 			}
+			// console.log(auths.length);
+			// console.log(roleAuths.length);
+			// console.log('=================');
 			for (var i = 0; i < auths.length; i++) {
-				auths[i].role_remark = true;
+				// auths[i].role_remark = true;
 				for (var j = 0; j < roleAuths.length; j++) {
-					if (auths[i]._id && roleAuths[j] && auths[i]._id.toString() == roleAuths[j]) {
+				// console.log(auths[i]._id);
+				// console.log(roleAuths[j]);
+				// console.log('=================');
+					if (auths[i]._id && roleAuths[j] && auths[i]._id.toString() == roleAuths[j]._id.toString()) {
+						// console.log(auths[i]._id)
 						auths[i].role_remark = true;
 					};
 					// roleAuths[j]

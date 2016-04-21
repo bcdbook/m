@@ -15,7 +15,7 @@ exports.config = {
 		"useSSL": true,
 		"port": 465,
 		"user": "bcdbook@163.com",
-		"pwd": "bcd123",
+		"pwd": "li95287048",
 		"from": "Bcdbook<bcdbook@163.com>",
 		"token": "zmd8ecSaU4ISesJU3r3gRu8u8zAzCkMtujvbEzDKPB0hk0Bj7Cy",
 		"verify_url": "http://www.bcdbook.com/mail/verify"

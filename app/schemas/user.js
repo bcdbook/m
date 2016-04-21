@@ -12,8 +12,19 @@ var SALT_WORK_FACTOR = 10;
 var UserSchema = new Schema({
 	username: String, //用户名
 	pwd: String, //密码
-	email: String,
-	roles: [{
+	realname: String, //真实姓名
+	photo: {
+		type: String, //用户的头像
+		default: '../img/user.png'
+	},
+	position: { //职位
+		type: Number,
+		default: 10
+	},
+	email: String, //邮箱
+	phone: String, //手机号码
+	openid: String, //微信绑定后的唯一认证信息
+	roles: [{ //角色列表
 		type: ObjectId,
 		ref: 'Role'
 	}],

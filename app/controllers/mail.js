@@ -148,9 +148,12 @@ exports.getmail = function(req, res) {
 
 
 exports.toverify = function(req, res) {
-	var userid = req.query.userid;
+	var user_id = req.params.user_id;
+	// console.log(user_id);
+	// console.log(req.query)
+	// console.log(req.primary)
 	User.findOne({
-		_id: userid
+		_id: user_id
 	}, function(err, user) {
 		if (err) {
 			console.log(err);
@@ -161,13 +164,11 @@ exports.toverify = function(req, res) {
 	})
 }
 
+//执行邮箱验证操作
 exports.verify = function(req, res) {
 	var id = req.query.userid;
 	var usermail = req.query.usermail;
 	var mail_token = req.query.mail_token;
-	// console.log(id);
-	// console.log(usermail);
-	// console.log(mail_token);
 
 	User.findOne({
 		_id: id
@@ -177,7 +178,7 @@ exports.verify = function(req, res) {
 		}
 		if (user) {
 			// console.log(user);
-			//验证通过
+			//验证通过,如果token相同
 			if (user.verifyToken == mail_token) {
 				//执行绑定
 				User.where({

@@ -248,12 +248,15 @@ div{
 	}
 }
 //left end------------------------
+
+
+//main start------------------------
 .default_color{
 	color:#8d8d8d;
 }
 .main{
 	width:@main_width;
-	height:1200px;
+	// height:1200px;
 	.main_hd{
 		.font;
 		margin-top: 0px;
@@ -315,7 +318,7 @@ div{
 			background-color: @menu_item_checked_color;
 		}
 
-
+		// 栏目编辑的样式
 	    .edit_menu_box{
 	    	width:250px;
 	    	.border(right);
@@ -383,7 +386,7 @@ div{
 			}
 	    }
 
-
+		//权限编辑的样式
 	    .edit_auth_box{
 	    	display:table-cell;
 	    	vertical-align:top;
@@ -466,6 +469,7 @@ div{
 	    	// .b();
 	    }
 
+		//角色编辑的样式
 	    .edit_role_box{
 	    	width:225px;
 	    	.border(right);
@@ -491,6 +495,7 @@ div{
 	    	.menu{
 				.menu();
 	    		border-top: 0px;
+	    		min-height: 600px;
 				.menu_title{
 					.menu_icon{
 						font-size: 18px;
@@ -540,7 +545,7 @@ div{
 	    }
 	}
 
-
+	//角色授权的样式编辑的样式
 	.edit_auths_box{
     	display:table-cell;
     	vertical-align:top;
@@ -601,43 +606,15 @@ div{
 				.menu_icon{
 					font-size: 16px;
 					margin-right: 10px;
-					// padding-left: 5px;
-					// font-size: 18px;
 				}
-				// a{
-				// 	// width:30px;
-				// 	width: 155px;
-				// 	color:#666;
-				// 	padding-left: 58px;
-				// 	i{
-				// 		padding-right: 10px;
-				// 	}
-				// }
-				// .auth_item_attr{
-				// 	line-height: 33px;
-				//     display: inline-block;
-				//     color: #ccc;
-				//     // color:#8d8d8d;
-				//     -webkit-font-smoothing: antialiased;
-				//     font-size: 14px;
-				// }
-				// a{
 				.column_icon_span{
 					float:right;
 					// padding-right: 20px;
 					display:inline-block;
 					line-height: 33px;
 					width: 530px;
-				    // display: inline-block;
 				    height: 33px;
 				    border-left: dashed @inner_border_color 1px;
-				    // background-color: red;
-					// i{
-					// 	padding-left: 8px;
-					// 	cursor:pointer;
-					// 	font-size: 16px;
-					// 	// color:#8d8d8d;
-					// }
 					a{
 						display: inline;
 					    padding-left: 0px;
@@ -648,7 +625,6 @@ div{
 					    color: #666;
 					    &:hover{
 							border:solid #999 1px;
-							// color:@auths_tip_color;
 					    }
 					}
 					.auth_checked{
@@ -656,17 +632,178 @@ div{
 						color:@auths_tip_color;
 					}
 				}
-				// }
 			}
 		}
-    	// .b();
     }
-	// .tab_navs:first-child{
-	// 	a{
-	// 	}
-	// }
-	// .border(left);
-	// margin-left: -1px;
+
+    //用户编辑的样式
+	.edit_user_box{
+    	// display:table-cell;
+    	// vertical-align:top;
+	    width: 100%;
+	    // background-color: red;
+	    .menu_title_tab{
+    		display: block;
+		    background-color: @menu_title_tab_color;
+		    height: 40px;
+		    line-height: 40px;
+		    padding: 0px 0px 0px 20px;
+		    .column_icon_span{
+				float:right;
+				padding-right: 20px;
+				i{
+					padding-left: 8px;
+					cursor:pointer;
+					font-size: 16px;
+					// color:#8d8d8d;
+				}
+			}
+    	}
+    	.table-bordered{
+    		border:0px;
+    		thead{
+    			tr{
+	    			th{
+		    			border-width: 1px;
+		    			border-color: @inner_border_color;
+		    			text-align: center;
+		    			padding: 0px;
+					    line-height: 34px;
+					    font-weight: 400;
+		    		}
+		    		th.th_first{
+		    			border-left: 0px;
+		    		}
+		    		th.th_last{
+		    			border-right: 0px;
+		    		}
+    			}
+    			tr.active{
+    				th{
+    					background-color: @menu_title_tab_color;
+    				}
+    			}
+    		}
+			tbody{
+				tr{
+					td{
+						border-color: @inner_border_color;
+						text-align: center;
+						padding: 0px;
+					    line-height: 34px;
+						i{
+							padding-left: 10px;
+						}
+					}
+		    		td.td_first{
+		    			border-left: 0px;
+		    		}
+		    		td.td_last{
+		    			border-right: 0px;
+		    		}
+
+				}
+				tr.active{
+    				td{
+    					background-color: @menu_title_tab_color;
+
+    				}
+    			}
+			}
+    	}
+    	.table-hover{
+    		tbody{
+    			tr{
+    				&:hover{
+    					background-color: @menu_title_tab_color;
+    				}
+    			}
+    		}
+    	}
+    	// .table-bordered>
+  //   	.menu{
+		// 	.menu();
+		// 	padding: 0px;
+		// 	&:first-child{
+		// 		border-top: solid #e7e7eb 1px;
+		// 	}
+		// 	// padding: 6px 0px;
+		// 	// border-top: 0px;
+		// 	// .menu_title{
+		// 	// 	padding-left: 20px;
+		// 	// 	.menu_icon{
+		// 	// 		// padding-left: 5px;
+		// 	// 		font-size: 16px;
+		// 	// 	}
+		// 	// 	.column_icon_span{
+		// 	// 		float:right;
+		// 	// 		// padding-right: 20px;
+		// 	// 		line-height: 33px;
+		// 	// 		width: 530px;
+		// 	// 	    // display: inline-block;
+		// 	// 	    height: 33px;
+		// 	// 	    border-left: dashed @inner_border_color 1px;
+		// 	// 		i{
+		// 	// 			padding-left: 8px;
+		// 	// 			cursor:pointer;
+		// 	// 			font-size: 16px;
+		// 	// 			// color:#8d8d8d;
+		// 	// 		}
+		// 	// 	}
+		// 	// }
+		// 	.menu_item{
+		// 		border-bottom: solid @inner_border_color 1px;
+		// 		padding-left: 20px;
+		// 	    line-height: 34px;
+		// 	    color:#666;
+		// 	    a{
+		// 	    	// display:block;
+		// 	    	width:300px;
+		// 	    	padding-left: 0px;
+		// 	    }
+		// 		&:hover{
+		// 			background-color:@menu_item_hover_color;
+		// 		}
+		// 		// padding-left: 20px;
+		// 		.menu_icon{
+		// 			font-size: 16px;
+		// 			margin-right: 10px;
+		// 		}
+		// 		.column_icon_span{
+		// 			float:right;
+		// 			// padding-right: 20px;
+		// 			display:inline-block;
+		// 			line-height: 33px;
+		// 			// width: 530px;
+		// 		    height: 33px;
+		// 		    // border-left: dashed @inner_border_color 1px;
+		// 		    padding-right: 25px;
+		// 		    i{
+		// 				padding-left: 8px;
+		// 				cursor:pointer;
+		// 				font-size: 16px;
+		// 				// color:#8d8d8d;
+		// 			}
+		// 			// a{
+		// 			// 	display: inline;
+		// 			//     padding-left: 0px;
+		// 			//     line-height: 34px;
+		// 			//     border: solid @inner_border_color 1px;
+		// 			//     margin-left: 20px;
+		// 			//     padding: 5px 8px;
+		// 			//     color: #666;
+		// 			//     &:hover{
+		// 			// 		border:solid #999 1px;
+		// 			//     }
+		// 			// }
+		// 			// .auth_checked{
+		// 			// 	border:solid @auths_tip_color 1px;
+		// 			// 	color:@auths_tip_color;
+		// 			// }
+		// 		}
+		// 	}
+		// }
+    }
 }
 .au_menu{
 	.modal-dialog{
@@ -682,6 +819,35 @@ div{
 #remove_confirm{
 	.modal-dialog{
 		width:450px;
+	}
+}
+#user_set_role{
+	.user-set-role-roles {
+	    border-top: dashed @inner_border_color 1px;
+	    /* border-top-style: dashed; */
+	    margin: 15px 0px 0px 0px;
+	    padding-top: 20px;
+	    // padding-left: 20px;
+	    // padding-right: 20px;
+
+
+	    a{
+		    display: inline-block;
+		    padding-left: 0px;
+		    line-height: 34px;
+		    border: solid #e7e7eb 1px;
+		    margin-left: 20px;
+		    padding: 0px 8px;
+		    color: #666;
+		    margin-bottom: 15px;
+		    &:hover{
+				border:solid #999 1px;
+		    }
+		}
+		.auth_checked{
+			border:solid @auths_tip_color 1px;
+			color:@auths_tip_color;
+		}
 	}
 }
 

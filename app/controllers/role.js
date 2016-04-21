@@ -205,7 +205,7 @@ exports.addMenu = function(req, res) {
 							msg: "角色添加权限时,保存角色出错"
 						});
 					}
-					// req.session.checkedRole = iRole;
+					req.session.checkedRole = iRole;
 				})
 			});
 		});
@@ -268,37 +268,101 @@ exports.removeMenu = function(req, res) {
 exports.addAuth = function(req, res) {
 	var role_id = req.body.role_id;
 	var auth_id = req.body.auth_id;
-	if (role_id) {
-		Role.findOne({
-			_id: role_id
-		}, function(err, role) {
+	if (auth_id) {
+		Auth.findOne({
+			_id: auth_id
+		}, function(err, auth) {
 			if (err) {
 				res.json({
 					code: 500,
 					data: 0,
-					msg: "角色添加权限时,查询角色出错"
+					msg: "角色添加栏目时,查询栏目出错"
 				});
 			}
-		});
-		console.log('addAuth');
-		console.log(role_id);
-		console.log(auth_id);
-		res.json({
-			code: 200,
-			data: 0,
-			msg: "添加角色成功"
+			Role.findOne({
+				_id: role_id
+			}, function(err, role) {
+				if (err) {
+					res.json({
+						code: 500,
+						data: 0,
+						msg: "角色添加权限时,查询角色出错"
+					});
+				}
+				role.auths.push(auth._id);
+				role.save(function(err, iRole) {
+					if (err) {
+						res.json({
+							code: 500,
+							data: 0,
+							msg: "角色添加权限时,保存角色出错"
+						});
+					}
+					req.session.checkedRole = iRole;
+				})
+			});
 		});
 	}
-}
-exports.removeAuth = function(req, res) {
-	var role_id = req.body.role_id;
-	var auth_id = req.body.auth_id;
-	console.log('removeAuth');
-	console.log(role_id);
-	console.log(auth_id);
 	res.json({
 		code: 200,
 		data: 0,
-		msg: "添加角色成功"
+		msg: "角色添加栏目成功"
 	});
+}
+exports.removeAuth = function(req, res) {
+	// var role_id = req.body.role_id;
+	// var auth_id = req.body.auth_id;
+	var role_id = req.body.role_id;
+	var auth_id = req.body.auth_id;
+	Role.findOne({
+		_id: role_id
+	}, function(err, role) {
+		if (err) {
+			res.json({
+				code: 500,
+				data: 0,
+				msg: "角色删除权限时,查询角色出错"
+			});
+		}
+		// console.log(role);
+		var auths = role.auths;
+		for (var i = 0; i < auths.length; i++) {
+			// console.log('auths[i]')
+			// console.log(auths[i]);
+			if (auths[i] && auths[i].toString() == auth_id) {
+				//
+				auths.splice(i, 1);
+				role.save(function(err, iRole) {
+					if (err) {
+						res.json({
+							code: 500,
+							data: 0,
+							msg: "角色删除权限时,保存角色出错"
+						});
+					}
+					req.session.checkedRole = iRole;
+					// console.log(iRole);
+				});
+				// _role = _.extend(role, roleObj);
+			}
+		}
+	});
+	// console.log('removeauth');
+	// console.log(role_id);
+	// console.log(auth_id);
+	res.json({
+		code: 200,
+		data: 0,
+		msg: "角色删除栏目成功"
+	});
+
+
+	// console.log('removeAuth');
+	// console.log(role_id);
+	// console.log(auth_id);
+	// res.json({
+	// 	code: 200,
+	// 	data: 0,
+	// 	msg: "删除角色成功"
+	// });
 }

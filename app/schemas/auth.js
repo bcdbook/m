@@ -17,6 +17,9 @@ var AuthSchema = new Schema({
 	order: Number,
 	icon: String,
 	remark: String,
+	//权限的唯一标示,用名称的方式区分不同的权限
+	//数据格式:栏目标识_权限标识
+	uuname: String,
 	role_remark: {
 		type: Boolean,
 		default: false

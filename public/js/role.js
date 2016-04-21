@@ -109,13 +109,22 @@ $(function() {
 		var role_id = $("#checked_role_id_remark_data").data('role-id');
 		var auth_id = $(this).data('role_id');
 		var hasChecked = $(this).data('has_checked');
+		//如果此选项是被选中的(原来有相应的权限)
 		if (hasChecked && hasChecked == true) {
+			//删除页面的样式
 			$(this).removeClass('auth_checked');
-			role.addAuth(role_id, auth_id);
-			// $(this).data('has_checked')="true"
-		} else {
-			$(this).addClass('auth_checked');
+			//在后台删除相应的数据
 			role.removeAuth(role_id, auth_id);
+			//前台的data备注框设置成false,说明此权限已经不存在了
+			$(this).data('has_checked', false)
+				// $(this).data('has_checked')="true"
+		} else {
+			//添加被选中的样式
+			$(this).addClass('auth_checked');
+			//添加此权限到数据库
+			role.addAuth(role_id, auth_id);
+			//设置页面data的备选项
+			$(this).data('has_checked', true);
 		}
 		// console.log($(this).attr('id'));
 		// console.log($(this).attr('class'));
@@ -216,10 +225,42 @@ role.removeMenu = function(item_id) {
 	});
 }
 role.addAuth = function(role_id, auth_id) {
-
+	$.ajax({
+		url: 'role/addauth',
+		type: 'POST',
+		data: {
+			role_id: role_id,
+			auth_id: auth_id
+		},
+		async: false,
+		success: function(data) {
+			// cb(data);
+			// console.log('remove menu success');
+			console.log(data);
+		},
+		error: function() {
+			console.log('pathExcel error2')
+		}
+	});
 }
 role.removeAuth = function(role_id, auth_id) {
-
+	$.ajax({
+		url: 'role/removeauth',
+		type: 'POST',
+		data: {
+			role_id: role_id,
+			auth_id: auth_id
+		},
+		async: false,
+		success: function(data) {
+			// cb(data);
+			// console.log('remove menu success');
+			console.log(data);
+		},
+		error: function() {
+			console.log('pathExcel error2')
+		}
+	});
 
 
 }

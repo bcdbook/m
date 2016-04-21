@@ -17,6 +17,10 @@ var RoleSchema = new Schema({
 	// 	ref:'Menu'
 	// }]
 	//菜单的子集(此角色所拥有的菜单集合)
+	role_remark: {
+		type: Boolean,
+		default: false
+	},
 	auths: [{
 		type: ObjectId,
 		ref: 'Auth'

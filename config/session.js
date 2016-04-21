@@ -26,30 +26,21 @@ module.exports = function(app) {
 	}));
 
 	app.use(function(req, res, next) {
-		// console.log('********************写入local***************************')
-		// console.log(req.session);
-		var _user = req.session.user;
-		var _menus = req.session.menus;
-		// console.log('app.use.session')
-		// console.log(_user);
-		if (_user) {
-			app.locals.user = _user;
-			// console.log('app.locals.user' + app.locals.user);
+		var onlineUser = req.session.onlineUser;
+		var possessAuths = req.session.possessAuths;
+		// console.log(onlineUser);
+		// var _menus = req.session.menus;
+		if (onlineUser) {
+			app.locals.onlineUser = onlineUser;
+			// console.log(app.locals.onlineUser);
 		} else {
-			delete app.locals.user;
-			// res.render('index')
-			// res.redirect('/')
+			delete app.locals.onlineUser;
 		}
-		if (_menus) {
-			app.locals.menus = _menus;
-			// console.log('app.locals.user' + app.locals.user);
+		if (possessAuths) {
+			app.locals.possessAuths = possessAuths;
 		} else {
-			delete app.locals.menus;
-			// res.render('index')
-			// res.redirect('/')
+			delete app.locals.possessAuths;
 		}
-		// console.log('app.user.locals');
-		// console.log(app.locals.user);
 		next();
 	});
 }

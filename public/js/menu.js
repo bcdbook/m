@@ -22,7 +22,8 @@ $(function() {
 	});
 	//添加二级栏目时
 	$(document).on('click', '.add_menu_modal_child', function() {
-		var order = $(this).parents('dl.menu').first().children('dd.menu_item').length + 1;
+		var order = $(this).parents('dl.menu').first().find('dd.menu_item').length + 1;
+		console.log($(this).parents('dl.menu').first().find('dd.menu_item'));
 		iutil.cleanInput('menu_id', 'menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');
 		var dataSpan = $(this).prevAll('span').first();
 		var parentId = dataSpan.data('para-_id');
@@ -88,6 +89,7 @@ $(function() {
 				id: "remove_modal_data1",
 				val: rank
 			});
+			$("#i_remove_modal_form_submit").attr('onclick', 'modal.remove(menu.showMenus)');
 			$("#remove_confirm").modal("toggle");
 		}
 	});
@@ -294,6 +296,6 @@ menu.hasChild = function(menuId) {
 	return hasChild;
 }
 menu.showMenus = function(data) {
-	$("#menu_au_container_box").html(data);
+	$("#main").html(data);
 	// console.log(data);
 }

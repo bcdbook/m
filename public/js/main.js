@@ -5,21 +5,46 @@ function getWechatBarcode() {
 
 //获取用户简介的代码块
 function getUserIntd() {
-	var img_url = '../img/user.png';
+	// (data-para-_id='#{onlineUser._id}',data-para-username='#{onlineUser.username}',data-para-realname='#{onlineUser.realname}',data-para-photo='#{onlineUser.photo}',data-para-position='#{onlineUser.position}',data-para-email='#{onlineUser.email}',data-para-phone='#{onlineUser.phone}')
+	var user_datas = $('#user_info_msg_hide_datas');
+
+	var _id = user_datas.data('para-_id');
+	var username = user_datas.data('para-username');
+	var realname = user_datas.data('para-realname');
+	var photo = user_datas.data('para-photo');
+	var position = user_datas.data('para-position');
+	var email = user_datas.data('para-email');
+	var phone = user_datas.data('para-phone');
+
 	return '<div class="user_intd_box">' +
 		'<div class="intd_top">' +
-		'<div style="background-image: url(' + img_url + ');" class="intd_photo"></div>' +
+		'<div style="background-image: url(' + photo + ');" class="intd_photo"></div>' +
 		'<div class="intd_info">' +
 		'<p class="intd_info_msg">产品技术部</p>' +
 		'<p class="intd_info_msg">李显</p>' +
 		'<p class="intd_info_msg">xianforwork@163.com</p>' +
 		'</div>' +
-		'<div class="intd_top_icon"><a class="inner_icon_tiny icon_msg"><i class="iconfont hover_default">&#xe608;</i></a></div>' +
+		'<div class="intd_top_icon"><a class="inner_icon_tiny icon_msg"><i class="iconfont hover_default icon-class-shezhi"></i></a></div>' +
 		'</div>' +
 		'<div class="intd_body"></div>' +
-		'<div class="intd_foot"><a class="intd_foot_msg hover_default">发起申请</a><a class="intd_foot_icon"><i class="iconfont hover_default">&#xe601;</i>'
+		'<div class="intd_foot"><a class="intd_foot_msg hover_default">发起申请</a><a class="intd_foot_icon"><i class="iconfont hover_default icon-class-exit"></i>'
 	'+</a></div>' +
 	'</div>'
+
+	// return '<div class="user_intd_box">' +
+	// 	'<div class="intd_top">' +
+	// 	'<div style="background-image: url(' + photo + ');" class="intd_photo"></div>' +
+	// 	'<div class="intd_info">' +
+	// 	'<p class="intd_info_msg">产品技术部</p>' +
+	// 	'<p class="intd_info_msg">' + realname + '</p>' +
+	// 	'<p class="intd_info_msg">' + email + '</p>' +
+	// 	'</div>' +
+	// 	'<div class="intd_top_icon"><a class="inner_icon_tiny icon_msg"><i class="iconfont hover_default">&#xe608;</i></a></div>' +
+	// 	'</div>' +
+	// 	'<div class="intd_body"></div>' +
+	// 	'<div class="intd_foot"><a class="intd_foot_msg hover_default">发起申请</a><a class="intd_foot_icon"><i class="iconfont hover_default">&#xe601;</i>'
+	// '+</a></div>' +
+	// '</div>';
 }
 
 $(function() {

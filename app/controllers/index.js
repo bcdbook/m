@@ -6,6 +6,9 @@ var Menu = mongoose.model('Menu');
 var Auth = mongoose.model('Auth');
 
 exports.index = function(req, res) {
+	var onlineUser = req.session.onlineUser;
+	var possessMenus = req.session.possessMenus;
+	// console.log(possessMenus);
 	Menu
 		.find({
 			"rank": 1
@@ -17,64 +20,88 @@ exports.index = function(req, res) {
 			if (err) {
 				console.log(err);
 			}
-			for (var i = 0; i < menus.length; i++) {
 
-				var _childs = menus[i].childs;
-				_childs.sort(function(a, b) {
-					return a.order - b.order;
+			// for (var i = 0; i < menus.length; i++) {
+			// 	var _childs = menus[i].childs;
+			// 	_childs.sort(function(a, b) {
+			// 		return a.order - b.order;
+			// 	});
+			// 	menus[i].childs = _childs;
+			// };
+			// res.render('index', {
+			// 	menus: menus
+			// });
+
+			// console.log(menus);
+			siftMenus(menus, function(menus) {
+				// console.log('========================');
+				// console.log(aa);
+				for (var i = 0; i < menus.length; i++) {
+					// console.log('-------------------执行排序')
+					var _childs = menus[i].childs;
+					_childs.sort(function(a, b) {
+						return a.order - b.order;
+					});
+					menus[i].childs = _childs;
+				};
+				res.render('index', {
+					menus: menus
 				});
-				menus[i].childs = _childs;
-			};
-			Auth
-				.find({
-					'menu': '570cf530952b4517107b4391'
-				})
-				.sort('order')
-				// .populate('menu', 'name')
-				.exec(function(err, auths) {
-					// res.render('auth/au_list', {
-					// 	auths: auths
-					// });
-					Role
-						.find({})
-						.exec(function(err, roles) {
-							if (err) {
-								console.log(err);
-							}
-							// res.render('role/list', {
-							// 	roles: roles
-							// });
-							res.render('index', {
-								menus: menus,
-								auths: auths,
-								roles: roles
-							});
-						});
-				});
+			});
+
+
 		});
-	// var roles;
-	// Role
-	// 	.find({})
-	// 	.exec(function(err, roles) {
-	// 		if (err) {
-	// 			console.log(err);
-	// 		}
 
-	// 		// rendRole(roles);
+	function siftMenus(menus, next) {
+		//循环查询出从一级栏目
+		var needSpliceParent = new Array();
+		for (var i = 0; i < menus.length; i++) {
+			//获取一级栏目中的子集
+			var childs = menus[i].childs;
+			//创建一个数组,用来存储需要删除的子集对象的下标
+			var needSplice = new Array();
+			var possessParent = false;
+			//循环子集对象
+			for (var j = 0; j < childs.length; j++) {
+				// 子集栏目的id
+				//定义一个变量,用来标识其中一个栏目是否应该显示
+				var possess = false;
+				//把循环的子集对象跟session中用户所含有的栏目对象进行比对
+				for (var m = 0; m < possessMenus.length; m++) {
+					//如果session中用户含有此对象
+					if (possessMenus[m] == childs[j]._id.toString()) {
+						//把标识值设置成true
+						possess = true;
+					}
+				};
+				//如果session中没有对应的栏目对象
+				if (!possess) {
+					//把子集栏目的下标放入需要删除的标识集合中
+					needSplice.push(j);
+				}
+			};
+			//删除没有选中的栏目子集
+			for (var n = needSplice.length - 1; n >= 0; n--) {
+				childs.splice(needSplice[n], 1);
+			};
 
-	// 		// console.log(roles);
-	// 		// roles = roles;
-	// 		// console.log(roles)
-	// 		// var user = {};
-	// 		res.render('index', {
-	// 			pagetype: 0,
-	// 			roles: roles,
-	// 			user: {}
-	// 		});
-	// 	});
-	// console.log('roles=================')
-	// function rendRole(roles) {
 
-	// }
-
+			for (var m = 0; m < possessMenus.length; m++) {
+				//如果session中用户含有此对象
+				if (possessMenus[m] == menus[i]._id.toString()) {
+					//把标识值设置成true
+					possessParent = true;
+				}
+			};
+			if (!possessParent) {
+				needSpliceParent.push(i);
+			}
+		};
+		// console.log(needSpliceParent);
+		//删除没有选中的栏目子集
+		for (var x = needSpliceParent.length - 1; x >= 0; x--) {
+			menus.splice(needSpliceParent[x], 1);
+		};
+		next(menus);
+	}
 }
