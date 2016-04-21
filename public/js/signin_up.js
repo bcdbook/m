@@ -122,34 +122,34 @@ signin_up.getMail = function() {
 		var usermail = ele_email.val(); //输入的邮箱(将要发送到的)
 		var mailtype = 1; //邮件的类型 1表示用于验证的邮箱
 		//先执行请求,进行拼接将要发送到用户邮箱的页面
-		// $.ajax({
-		// 	url: '/mail/getmail',
-		// 	type: 'GET',
-		// 	// dataType: 'json',
-		// 	data: {
-		// 		username: username,
-		// 		userid: userid,
-		// 		usermail: usermail,
-		// 		mailtype: mailtype,
-		// 		uuid: iutil.uuid()
-		// 	},
-		// 	async: false,
-		// 	success: function(data) {
-		// 		var datas = new Object();
-		// 		var o = $(data).find("options").first();
-		// 		datas.p = $(data).find("page").first().html();
-		// 		datas.usermail = o.children("usermail").text();
-		// 		datas.subject = o.children("subject").text();
-		// 		datas.text = o.children("text").text();
-		// 		signin_up.toLock();
-		// 		//调用发送方法
+		$.ajax({
+			url: '/mail/getmail',
+			type: 'GET',
+			// dataType: 'json',
+			data: {
+				username: username,
+				userid: userid,
+				usermail: usermail,
+				mailtype: mailtype,
+				uuid: iutil.uuid()
+			},
+			async: false,
+			success: function(data) {
+				var datas = new Object();
+				var o = $(data).find("options").first();
+				datas.p = $(data).find("page").first().html();
+				datas.usermail = o.children("usermail").text();
+				datas.subject = o.children("subject").text();
+				datas.text = o.children("text").text();
+				signin_up.toLock();
+				//调用发送方法
 
-		// 		signin_up.sendMail(datas);
-		// 	},
-		// 	error: function() {
-		// 		console.log('pathExcel error2')
-		// 	}
-		// });
+				signin_up.sendMail(datas);
+			},
+			error: function() {
+				console.log('pathExcel error2')
+			}
+		});
 	} else {
 		// console.log('未发送');
 		return 0;
