@@ -142,14 +142,19 @@ exports.signin = function(req, res) {
 									if (err) {
 										console.log(err);
 									}
-									var thisMenus = iRoles[0].menus;
-									var thisAuths = iRoles[0].auths;
-									for (var j = 0; j < thisMenus.length; j++) {
-										possessMenus.push(thisMenus[j]._id.toString());
-									};
-									for (var j = 0; j < thisAuths.length; j++) {
-										possessAuths.push(thisAuths[j]._id.toString());
-									};
+									// var thisMenus;
+									// var thisAuths;
+									// console.log(iRoles);
+									if (iRoles && iRoles.length != 0) {
+										var thisMenus = iRoles[0].menus;
+										var thisAuths = iRoles[0].auths;
+										for (var j = 0; j < thisMenus.length; j++) {
+											possessMenus.push(thisMenus[j]._id.toString());
+										};
+										for (var j = 0; j < thisAuths.length; j++) {
+											possessAuths.push(thisAuths[j]._id.toString());
+										};
+									}
 									// console.log(roles.length);
 									// console.log(m);
 									req.session.possessMenus = possessMenus; //=============把栏目列表信息写入session

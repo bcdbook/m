@@ -131,7 +131,7 @@ $(function() {
 	})
 });
 role.showRole = function(data) {
-	$("#role_au_container_box").html(data);
+	$("#main").html(data);
 }
 role.auRoles = function() {
 	//获取执行什么操作
