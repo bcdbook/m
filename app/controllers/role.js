@@ -37,7 +37,7 @@ exports.showAuths = function(req, res) {
 			if (err) {
 				console.log(err);
 			}
-			// req.session.checkedRole = role[0];
+			req.session.checkedRole = role[0];
 
 
 			Menu
@@ -58,14 +58,14 @@ exports.showAuths = function(req, res) {
 						// console.log(menus);
 						setMenus(menus, rolemenus, function(menus) {
 
-							console.log('执行回调');
+							// console.log('执行回调');
 							res.render('role/auths', {
 								menus: menus
 							});
 
 						})
 					} else {
-						console.log('直接跳出')
+						// console.log('直接跳出')
 						res.render('role/auths', {
 							menus: menus
 						});
