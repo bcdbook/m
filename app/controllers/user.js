@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 
 var User = mongoose.model('User');
 var Role = mongoose.model('Role');
+
 exports.signinRequired = function(req, res, next) {
 	var onlineUser = req.session.onlineUser;
 

@@ -5,6 +5,47 @@ var Role = mongoose.model('Role');
 var Menu = mongoose.model('Menu');
 var Auth = mongoose.model('Auth');
 
+exports.i = function(req, res) {
+	Menu
+		.find({
+			"rank": 1
+		})
+		.sort('order')
+		.populate('childs', 'name icon order rank url meta.createAt meta.updateAt')
+		// .populate('auths', 'name')
+		.exec(function(err, menus) {
+			if (err) {
+				console.log(err);
+			}
+
+			// if (onlineUser.username == 'lason' || onlineUser.username == 'sysadmin') {
+			// 	systemSignin(menus, function(menus) {
+			// 		res.render('index', {
+			// 			menus: menus
+			// 		});
+			// 	})
+
+			for (var i = 0; i < menus.length; i++) {
+				// console.log('-------------------执行排序')
+				var _childs = menus[i].childs;
+				_childs.sort(function(a, b) {
+					return a.order - b.order;
+				});
+				menus[i].childs = _childs;
+			};
+			res.render('i', {
+				menus: menus
+			});
+			// } else {
+			// 	// console.log(menus);
+			// 	siftMenus(menus, function(menus) {
+			// 		// console.log('========================');
+			// 		// console.log(aa);
+			// 	});
+			// }
+		});
+}
+
 exports.index = function(req, res) {
 	var onlineUser = req.session.onlineUser;
 	var possessMenus = req.session.possessMenus;

@@ -14,6 +14,7 @@ var multipartMiddleware = multipart();
 
 // user controller
 module.exports = function(app) {
+	app.get('/i', Index.i); //进入登录页面
 	app.get('/', User.signinRequired, Index.index);
 
 	//user route
