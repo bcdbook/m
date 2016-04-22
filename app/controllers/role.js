@@ -37,21 +37,44 @@ exports.showAuths = function(req, res) {
 			if (err) {
 				console.log(err);
 			}
-			req.session.checkedRole = role[0];
-		});
-	Menu
-		.find({
-			"rank": 1
-		})
-		.sort('order')
-		.populate('childs', 'role_remark name icon order rank url meta.createAt meta.updateAt')
-		.exec(function(err, menus) {
-			if (err) {
-				console.log(err);
-			}
-			var rolemenus = req.session.checkedRole.menus;
-			// 如果角色中的栏目不为空
-			if (rolemenus) {
+			// req.session.checkedRole = role[0];
+
+
+			Menu
+				.find({
+					"rank": 1
+				})
+				.sort('order')
+				.populate('childs', 'role_remark name icon order rank url meta.createAt meta.updateAt')
+				.exec(function(err, menus) {
+					if (err) {
+						console.log(err);
+					}
+					// var rolemenus = req.session.checkedRole.menus;
+					// console.log(role[0]);
+					var rolemenus = role[0].menus;
+					// 如果角色中的栏目不为空
+					if (rolemenus) {
+						// console.log(menus);
+						setMenus(menus, rolemenus, function(menus) {
+
+							console.log('执行回调');
+							res.render('role/auths', {
+								menus: menus
+							});
+
+						})
+					} else {
+						console.log('直接跳出')
+						res.render('role/auths', {
+							menus: menus
+						});
+					}
+				});
+
+			function setMenus(menus, rolemenus, next) {
+				// console.log('调用设置栏目的方法');
+				// console.log(rolemenus);
 				//循环所有栏目
 				for (var i = 0; i < menus.length; i++) {
 					//获取栏目的子集
@@ -75,10 +98,9 @@ exports.showAuths = function(req, res) {
 						}
 					}
 				}
+				next(menus);
 			}
-			res.render('role/auths', {
-				menus: menus
-			});
+
 		});
 }
 
