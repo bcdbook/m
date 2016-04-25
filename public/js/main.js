@@ -5,7 +5,6 @@ function getWechatBarcode() {
 
 //获取用户简介的代码块
 function getUserIntd() {
-	// (data-para-_id='#{onlineUser._id}',data-para-username='#{onlineUser.username}',data-para-realname='#{onlineUser.realname}',data-para-photo='#{onlineUser.photo}',data-para-position='#{onlineUser.position}',data-para-email='#{onlineUser.email}',data-para-phone='#{onlineUser.phone}')
 	var user_datas = $('#user_info_msg_hide_datas');
 
 	var _id = user_datas.data('para-_id');
@@ -27,7 +26,11 @@ function getUserIntd() {
 		'<div class="intd_top_icon"><a class="inner_icon_tiny icon_msg"><i class="iconfont hover_default icon-class-shezhi"></i></a></div>' +
 		'</div>' +
 		'<div class="intd_body"></div>' +
-		'<div class="intd_foot"><a class="intd_foot_msg hover_default">发起申请</a><a class="intd_foot_icon"><i class="iconfont hover_default icon-class-exit"></i>'
+		'<div class="intd_foot">' +
+		'<a class="intd_foot_msg hover_default">发起申请</a>' +
+		'<a class="intd_foot_icon" href="/logout">' +
+		'<i class="iconfont hover_default icon-class-exit"></i>'
+		// '<i data-para-_id=' + _id + ' class="iconfont hover_default icon-class-exit user_exit_button_tip"></i>'
 	'+</a></div>' +
 	'</div>'
 
@@ -108,4 +111,25 @@ $(function() {
 			$("#main").html(data);
 		}
 	});
+	// $(document).on('click', '.user_exit_button_tip', function() {
+	// 	var user_id = $(this).data('para-_id');
+	// 	// console.log(user_id);
+	// 	$.ajax({
+	// 		url: 'logout',
+	// 		type: 'POST',
+	// 		data: {
+	// 			_id: user_id
+	// 		},
+	// 		async: false,
+	// 		//- cache: false,
+	// 		//- contentType: false,
+	// 		//- processData: false,
+	// 		success: function(data) {
+	// 			console.log(data);
+	// 		},
+	// 		error: function() {
+	// 			console.log('pathExcel error2')
+	// 		}
+	// 	});
+	// })
 });

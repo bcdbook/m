@@ -17,16 +17,7 @@ exports.i = function(req, res) {
 			if (err) {
 				console.log(err);
 			}
-
-			// if (onlineUser.username == 'lason' || onlineUser.username == 'sysadmin') {
-			// 	systemSignin(menus, function(menus) {
-			// 		res.render('index', {
-			// 			menus: menus
-			// 		});
-			// 	})
-
 			for (var i = 0; i < menus.length; i++) {
-				// console.log('-------------------执行排序')
 				var _childs = menus[i].childs;
 				_childs.sort(function(a, b) {
 					return a.order - b.order;
@@ -36,13 +27,6 @@ exports.i = function(req, res) {
 			res.render('i', {
 				menus: menus
 			});
-			// } else {
-			// 	// console.log(menus);
-			// 	siftMenus(menus, function(menus) {
-			// 		// console.log('========================');
-			// 		// console.log(aa);
-			// 	});
-			// }
 		});
 }
 

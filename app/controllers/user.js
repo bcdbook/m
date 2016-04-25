@@ -6,19 +6,9 @@ var Role = mongoose.model('Role');
 
 exports.signinRequired = function(req, res, next) {
 	var onlineUser = req.session.onlineUser;
-
-	// console.log('进入登录拦截');
-	// console.log(possessAuths);
-	if (onlineUser) {
-		// app.locals.onlineUser = onlineUser;
-		// app.locals.possessAuths = possessAuths;
-		// console.log('user online')
-	}
+	if (onlineUser) {}
 	//如果用户不存在
 	if (!onlineUser || onlineUser == '') {
-		// res.render('user/signin', {
-		// 	// title: '123'
-		// });
 		//转发到登陆页面
 		res.redirect('/signin');
 	} else {
@@ -27,13 +17,6 @@ exports.signinRequired = function(req, res, next) {
 	}
 }
 
-// exports.mailRequired = function(req, res, next) {
-// 	res.render('user/signup', {
-// 		title: '123'
-// 	});
-// 	// console.log('进入邮箱检测');
-// 	// next();
-// }
 exports.getUser = function(req, res) {
 	var id = req.query.id;
 	User
@@ -201,6 +184,13 @@ exports.tosignup = function(req, res) {
 	res.render('user/signup', {
 		title: '123'
 	});
+}
+
+exports.logout = function(req, res) {
+	delete req.session.onlineUser;
+	delete req.session.possessMenus;
+	delete req.session.possessAuths;
+	res.redirect('/signin');
 }
 
 // signup  用户注册路由

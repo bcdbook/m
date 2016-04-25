@@ -22,6 +22,7 @@ module.exports = function(app) {
 	app.post('/signin', User.signin); //执行登录操作
 	app.get('/signup', User.tosignup); //进入注册页面
 	app.post('/signup', User.signup); //执行注册操作
+	app.get('/logout', User.logout); //执行注册操作
 	app.post('/user/isexist', User.isExist); //检查用户名是否存在
 
 	app.get('/user/list', User.list);
@@ -90,5 +91,5 @@ module.exports = function(app) {
 	app.post('/wechat/sendtemplate', Wechat.sendTemplate);
 
 	//其他未找到的页面跳转地址
-	// app.get('*', User.signin);
+	app.get('*', User.tosignin);
 }

@@ -1,6 +1,5 @@
 extends ./includes/layout.jade
 block content
-
 	include ./includes/modals.jade
 	.top_box
 		.top#top
@@ -20,7 +19,6 @@ block content
 					#user_intro_out_div
 						span#user_info_msg_hide_datas(data-para-_id='#{onlineUser._id}',data-para-username='#{onlineUser.username}',data-para-realname='#{onlineUser.realname}',data-para-photo='#{onlineUser.photo}',data-para-position='#{onlineUser.position}',data-para-email='#{onlineUser.email}',data-para-phone='#{onlineUser.phone}')
 						a.iphoto#user_introduction(style="background-image: url('#{onlineUser.photo}');",data-toggle="popover")
-
 	.body#body
 		//- span #{onlineUser.username}
 		.left#left
@@ -35,17 +33,3 @@ block content
 	script(type='text/javascript',src='/js/auth.js')
 	script(type='text/javascript',src='/js/role.js')
 	script(type='text/javascript',src='/js/user.js')
-	script.
-		//- function aaa(){
-		//- 	//- .w-10{
-		//- 	//- 	.div-w(10px);
-		//- 	//- }
-		//- 	console.log("aaa")
-		//- 	var count = 5;
-		//- 	for(var i = 0;i<500;i++){
-		//- 		var v = ".w-"+count+"{.div-w("+count+"px);}";
-		//- 		console.log(v);
-		//- 		count+=5;
-		//- 	}
-		//- }
-		
