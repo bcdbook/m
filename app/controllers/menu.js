@@ -54,7 +54,7 @@ exports.add = function(req, res) {
 					msg: "添加栏目出错"
 				});
 			}
-			console.log('栏目添加成功')
+			// console.log('栏目添加成功')
 			res.redirect('/menu/list')
 		});
 	} else {

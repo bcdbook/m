@@ -7,6 +7,14 @@ html
 		include ../includes/libs.jade
 	body
 		div.background_div
+		//- .step_index
+		//- 	.paces
+		//- 	.paces_down
+		//- 	.paces_points
+		//- 		.paces_point1.paces_point
+		//- 		.paces_point2.paces_point
+		//- 		.paces_point3.paces_point
+		//- 		.paces_point4.paces_point
 		.signin_box.signin_box_base
 			//- .signin_logo
 				i.iconfont.signin_logo_i &#xe600;
@@ -30,4 +38,12 @@ html
 						label.l_label 密码
 						span.l_span 请再次输入密码
 				.signup_button
-					a.button.button-primary(href="javascript:signin_up.signup()") 下一步
+					a.button.button-primary#signup_form_submint_button(href="javascript:signin_up.signup()") 下一步
+	script.
+		$(document).ready(function() {
+			$(this).keydown(function(event){
+				if(event.keyCode==13){
+					document.getElementById('signup_form_submint_button').click()
+				}
+			});
+		})

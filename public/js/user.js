@@ -22,7 +22,7 @@ $(function() {
 			val: user.username
 		});
 		$('#user_set_role_hide_datas').data('para-_id', user._id);
-		console.log();
+		// console.log();
 		var user_id = user._id;
 		jsuser.getRoles(user_id);
 		// console.log($('#user_set_role_hide_datas').data('para-_id'));
@@ -52,7 +52,75 @@ $(function() {
 		// console.log(user_id);
 		// console.log(role_id);
 		// console.log('点击角色');
-	})
+	});
+	$(document).on('click', '.user_edit_link', function() {
+		//获取数据对象(隐藏对象)
+		var dataSpan = $(this).prevAll('span').first();
+		var user = iutil.getDatas(dataSpan, {
+			dataName: 'para-_id',
+			objName: '_id'
+		}, {
+			dataName: 'para-username',
+			objName: 'username'
+		}, {
+			dataName: 'para-remark',
+			objName: 'remark'
+		});
+		// console.log(user);
+		$.ajax({
+			url: '/user/info' + user._id,
+			type: 'GET',
+			data: {
+				// _id: user_id
+			},
+			async: false,
+			//- cache: false,
+			//- contentType: false,
+			//- processData: false,
+			success: function(data) {
+				// console.log(data);
+				cb(data);
+			},
+			error: function() {
+				console.log('获取用户信息出错');
+			}
+		});
+
+		function cb(data) {
+			$("#main").html(data);
+		}
+	});
+	$(document).on('change', '#user_company', function() {
+		// var selectedIndex = document.getElementById('user_company').selectedIndex;
+		// var options = $(this).children('option');
+		// var company_id = $(options[selectedIndex]).data('para-_id');
+		var company_id = document.getElementById('user_company').value;
+		var user_id = $("#edit_info_user_id").data("para-_id");
+		// console.log(company_id);
+		$.ajax({
+			url: '/depart/departs',
+			type: 'POST',
+			data: {
+				_id: company_id,
+				user_id: user_id
+			},
+			async: false,
+			//- cache: false,
+			//- contentType: false,
+			//- processData: false,
+			success: function(data) {
+				// console.log(data);
+				cb(data);
+			},
+			error: function() {
+				console.log('用户获取角色集合出错');
+			}
+		});
+
+		function cb(data) {
+			$("#user_departs").html(data);
+		}
+	});
 });
 
 jsuser.getRoles = function(user_id) {
@@ -127,4 +195,55 @@ jsuser.removeRole = function(user_id, role_id) {
 	// console.log(role_id);
 	// console.log('删除角色');
 
+}
+
+jsuser.auUser = function() {
+	var user_id = $("#edit_info_user_id").data("para-_id");
+
+	var user = iutil.getObj({
+		id: 'user_realname',
+		name: 'realname'
+	}, {
+		id: 'user_company',
+		name: 'company'
+	}, {
+		id: 'user_position',
+		name: 'position',
+		dataType: 'Int'
+	}, {
+		id: 'user_edit_username',
+		name: 'username'
+	}, {
+		id: 'user_departs',
+		name: 'depart'
+	}, {
+		id: 'user_phone',
+		name: 'phone'
+	}, {
+		id: 'user_email',
+		name: 'email'
+	});
+
+	user._id = user_id;
+
+	$.ajax({
+		url: '/user/update',
+		type: 'POST',
+		data: {
+			user: user
+		},
+		async: false,
+		success: function(data) {
+			cb(data);
+		},
+		error: function() {
+			console.log('用户修改出错');
+		}
+	});
+
+	function cb(data) {
+		$("#main").html(data);
+		alert("用户保存完成");
+	}
+	// console.log(user);
 }

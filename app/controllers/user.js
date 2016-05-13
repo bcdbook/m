@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 
 var User = mongoose.model('User');
 var Role = mongoose.model('Role');
+var Company = mongoose.model('Company');
+var Depart = mongoose.model('Depart');
 
 exports.signinRequired = function(req, res, next) {
 	var onlineUser = req.session.onlineUser;
@@ -100,6 +102,20 @@ exports.signin = function(req, res) {
 							user_id: user_id
 						});
 					}
+
+					console.log(user.depart);
+					//设置部门的名称
+					if (user.depart && user.depart != '部门未设置') {
+						Depart.findOne({
+							_id: user.depart
+						}, function(err, depart) {
+							if (depart) {
+								user.depart_remark = depart.name;
+							}
+						});
+					}
+
+
 					//登陆成功了
 					req.session.onlineUser = user; //=============这里写入了user
 					var possessMenus = new Array();
@@ -301,6 +317,89 @@ exports.edit = function(req, res) {
 		}
 	}
 }
+exports.info = function(req, res) {
+	// var userId = req.params.id;
+	var userId = req.params.id;
+	// var onlineUser = req.session.onlineUser;
+	// var company = onlineUser.company;
+	// console.log(onlineUser.company);
+	User
+		.findOne({
+			_id: userId
+		})
+		.populate('roles', 'name')
+		.exec(function(err, user) {
+			if (err) {
+				console.log(err);
+			}
+			checkCompany(user);
+			// console.log(user);
+
+		});
+
+	function checkCompany(user) {
+		var userCompany = user.company;
+		Company
+			.find({})
+			.sort('order')
+			.exec(function(err, companys) {
+				if (err) {
+					console.log(err);
+				}
+				for (var i = 0; i < companys.length; i++) {
+					if (userCompany == companys[i]._id) {
+						companys[i].company_remark = true;
+					}
+				}
+				res.render('user/edit', {
+					user: user,
+					companys: companys
+				});
+			});
+	}
+}
+exports.infoOnline = function(req, res) {
+	var userId = req.session.onlineUser._id;
+	// var userId = req.params.id;
+	// var userId = req.params.id;
+	// var onlineUser = req.session.onlineUser;
+	// var company = onlineUser.company;
+	// console.log(onlineUser.company);
+	User
+		.findOne({
+			_id: userId
+		})
+		.populate('roles', 'name')
+		.exec(function(err, user) {
+			if (err) {
+				console.log(err);
+			}
+			checkCompany(user);
+			// console.log(user);
+
+		});
+
+	function checkCompany(user) {
+		var userCompany = user.company;
+		Company
+			.find({})
+			.sort('order')
+			.exec(function(err, companys) {
+				if (err) {
+					console.log(err);
+				}
+				for (var i = 0; i < companys.length; i++) {
+					if (userCompany == companys[i]._id) {
+						companys[i].company_remark = true;
+					}
+				}
+				res.render('user/edit', {
+					user: user,
+					companys: companys
+				});
+			});
+	}
+}
 exports.roles = function(req, res) {
 	var user_id = req.body._id;
 	// console.log(user_id);
@@ -452,4 +551,33 @@ exports.removeRole = function(req, res) {
 		data: 0,
 		msg: "角色删除栏目成功"
 	});
+}
+exports.update = function(req, res) {
+	var user = req.body.user;
+	// console.log(user);
+	User
+		.update({
+			_id: user._id
+		}, {
+			realname: user.realname,
+			company: user.company,
+			position: user.position,
+			depart: user.depart,
+			phone: user.phone
+		}, function(err, iUser) {
+			if (err) {
+				res.json({
+					code: 500,
+					data: 0,
+					msg: "用户添加角色时,保存用户出错"
+				});
+			}
+			res.redirect('/user/info' + user._id);
+
+		});
+	// res.json({
+	// 	code: 200,
+	// 	data: 0,
+	// 	msg: "角色删除栏目成功"
+	// });
 }

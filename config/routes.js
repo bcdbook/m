@@ -8,6 +8,8 @@ var Markdown = require('../app/controllers/markdown');
 var Wechat = require('../app/controllers/wechat');
 var Menu = require('../app/controllers/menu');
 var Auth = require('../app/controllers/auth');
+var Company = require('../app/controllers/company');
+var Depart = require('../app/controllers/depart');
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -30,6 +32,9 @@ module.exports = function(app) {
 	app.post('/user/roles', User.roles); //获取用户所拥有的角色
 	app.post('/user/addrole', User.addRole); //用户添加角色的方法
 	app.post('/user/removerole', User.removeRole); //用户删除角色的方法
+	app.get('/user/infoonline', User.infoOnline); //已登录的用户,点击栏目,编辑自己信息的方法
+	app.get('/user/info:id', User.info); //获取用户的详细信息
+	app.post('/user/update', User.update); //获取用户的详细信息
 
 	//menu route
 	app.post('/menu/add', Menu.add); //添加栏目的方法
@@ -78,6 +83,19 @@ module.exports = function(app) {
 	app.get('/mail/getmail', Mail.getmail); //用于发送邮件
 	app.get('/mail/canresend', Mail.canResend); //获取是否可重复发送邮件
 	app.get('/mail/isexist', Mail.isExist); //获取是否可重复发送邮件
+
+	//company someting TODO
+	app.get('/company/list', Company.list); //列表展示公司
+	app.post('/company/add', Company.add); //添加公司接口
+	app.post('/company/update', Company.update); //更新公司接口
+	app.post('/company/remove', Company.remove); //删除公司的
+
+	//departsometing todo
+	app.get('/depart/list:company_id', Depart.list); //部门列表展示
+	app.post('/depart/add', Depart.add); //添加部门
+	app.post('/depart/update', Depart.update); //更新部门
+	app.post('/depart/remove', Depart.remove); //删除部门
+	app.post('/depart/departs', Depart.departs); //获取部门的相关数据
 
 	//markdown something todo
 	app.get('/tomarkdown', Markdown.toMarkdown);

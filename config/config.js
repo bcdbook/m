@@ -9,7 +9,8 @@
 // }
 exports.config = {
 	// "dbUrl": "mongodb://root:Java1234@42.96.195.183:27017/frame",
-	"dbUrl": "mongodb://localhost/frame",
+	// "dbUrl": "mongodb://localhost/frame",
+	"dbUrl": "mongodb://139.196.165.6/frame",
 	"mail": {
 		"host": "smtp.163.com",
 		"useSSL": true,

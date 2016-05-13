@@ -12,7 +12,10 @@ var SALT_WORK_FACTOR = 10;
 var UserSchema = new Schema({
 	username: String, //用户名
 	pwd: String, //密码
-	realname: String, //真实姓名
+	realname: {
+		type: String, //真实姓名
+		default: '姓名'
+	},
 	photo: {
 		type: String, //用户的头像
 		default: '../img/user.png'
@@ -23,6 +26,12 @@ var UserSchema = new Schema({
 	},
 	email: String, //邮箱
 	phone: String, //手机号码
+	company: String, //公司
+	depart: String, //部门的id
+	depart_remark: {
+		type: String, //部门的备份文件名
+		default: '部门'
+	},
 	openid: String, //微信绑定后的唯一认证信息
 	roles: [{ //角色列表
 		type: ObjectId,

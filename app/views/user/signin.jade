@@ -26,9 +26,12 @@ html
 					label.l_label 密码
 					span.l_span 请输入密码
 			.signin_button
-				a.button.button-primary(href='javascript:signin_up.signin()') 登陆
-	//- script.
-	//- 	$(document).ready(function() {
-	//- 		console.log("ready............")
-	//- 		$("#username").click();
-	//- 	})
+				a.button.button-primary#signin_form_submint_button(href='javascript:signin_up.signin()') 登陆
+	script.
+		$(document).ready(function() {
+			$(this).keydown(function(event){
+				if(event.keyCode==13){
+					document.getElementById('signin_form_submint_button').click()
+				}
+			});
+		})

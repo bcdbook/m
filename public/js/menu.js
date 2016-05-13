@@ -15,6 +15,9 @@ $(function() {
 			id: "menu_rank",
 			val: 1
 		}, {
+			id: "menu_icon",
+			val: "icon-class-"
+		}, {
 			id: "menu_order",
 			val: order
 		});
@@ -23,7 +26,7 @@ $(function() {
 	//添加二级栏目时
 	$(document).on('click', '.add_menu_modal_child', function() {
 		var order = $(this).parents('dl.menu').first().find('dd.menu_item').length + 1;
-		console.log($(this).parents('dl.menu').first().find('dd.menu_item'));
+		// console.log($(this).parents('dl.menu').first().find('dd.menu_item'));
 		iutil.cleanInput('menu_id', 'menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');
 		var dataSpan = $(this).prevAll('span').first();
 		var parentId = dataSpan.data('para-_id');
@@ -34,6 +37,9 @@ $(function() {
 			id: "menu_rank",
 			val: 2
 		}, {
+			id: "menu_icon",
+			val: "icon-class-"
+		}, {
 			id: "menu_order",
 			val: order
 		}, {
@@ -43,6 +49,7 @@ $(function() {
 		$("#au_menu").modal("toggle");
 	});
 
+	//删除二级栏目时
 	$(document).on('click', '.remove_menu_modal_child', function() {
 		//清除之前预留的信息
 		iutil.cleanInput('remove_modal_id', 'remove_modal_url', 'remove_modal_data1', 'remove_modal_data2');
@@ -67,6 +74,7 @@ $(function() {
 		$("#i_remove_modal_form_submit").attr('onclick', 'modal.remove(menu.showMenus)');
 		$("#remove_confirm").modal("toggle");
 	});
+	//删除一级栏目时
 	$(document).on('click', '.remove_menu_modal', function() {
 		iutil.cleanInput('remove_modal_id', 'remove_modal_url', 'remove_modal_data1', 'remove_modal_data2');
 		//获取数据对象(隐藏对象)
@@ -93,6 +101,7 @@ $(function() {
 			$("#remove_confirm").modal("toggle");
 		}
 	});
+	//编辑一级栏目时
 	$(document).on('click', '.edit_menu_modal', function() {
 		// 获取一级栏目的相关信息
 		iutil.cleanInput('menu_id', 'menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');
@@ -147,6 +156,7 @@ $(function() {
 		//打开模态框
 		$("#au_menu").modal("toggle");
 	});
+	//编辑二级栏目时
 	$(document).on('click', '.edit_menu_modal_child', function() {
 		// 获取一级栏目的相关信息
 		iutil.cleanInput('menu_id', 'menu_todo', 'menu_rank', 'menu_parent', 'menu_order', 'menu_name', 'menu_icon', 'menu_url');

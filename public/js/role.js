@@ -1,6 +1,6 @@
 var role = new Object();
 $(function() {
-	//添加权限时
+	//添加角色时
 	$(document).on('click', ".add_role_modal", function() {
 		// 获取当前权限列表的数量,加一后赋给顺序值
 		var order = $(this).parents('.role_box').first().find('dd.menu_item').length + 1;
@@ -36,7 +36,7 @@ $(function() {
 			dataName: 'para-remark',
 			objName: 'remark'
 		});
-		console.log(role);
+		// console.log(role);
 
 		iutil.setInput({
 			id: "role_todo",
@@ -128,8 +128,9 @@ $(function() {
 		}
 		// console.log($(this).attr('id'));
 		// console.log($(this).attr('class'));
-	})
+	});
 });
+
 role.showRole = function(data) {
 	$("#main").html(data);
 }
@@ -195,7 +196,7 @@ role.addMenu = function(item_id) {
 		},
 		async: false,
 		success: function(data) {
-			console.log(data);
+			// console.log(data);
 			// cb(data);
 			// console.log('add menu success');
 		},
@@ -217,7 +218,7 @@ role.removeMenu = function(item_id) {
 		success: function(data) {
 			// cb(data);
 			// console.log('remove menu success');
-			console.log(data);
+			// console.log(data);
 		},
 		error: function() {
 			console.log('pathExcel error2')
@@ -236,7 +237,7 @@ role.addAuth = function(role_id, auth_id) {
 		success: function(data) {
 			// cb(data);
 			// console.log('remove menu success');
-			console.log(data);
+			// console.log(data);
 		},
 		error: function() {
 			console.log('pathExcel error2')
@@ -255,7 +256,7 @@ role.removeAuth = function(role_id, auth_id) {
 		success: function(data) {
 			// cb(data);
 			// console.log('remove menu success');
-			console.log(data);
+			// console.log(data);
 		},
 		error: function() {
 			console.log('pathExcel error2')

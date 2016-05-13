@@ -137,6 +137,23 @@ iutil.uuid = function() {
 }
 
 //动态获取输入框中的值的方法
+// var test = iutil.getObj({
+// 	id: 'menu_rank',
+// 	name: 'rank'
+// }, {
+// 	id: 'menu_order',
+// 	name: 'order'
+// }, {
+// 	id: 'menu_name',
+// 	name: 'name'
+// }, {
+// 	id: 'menu_icon',
+// 	name: 'icon'
+// }, {
+// 	id: 'menu_url',
+// 	name: 'url'
+// });
+
 iutil.getObj = function() {
 	//创建返回值对象
 	var data = new Object();
@@ -170,7 +187,7 @@ iutil.getObj = function() {
 			//如果是元素类型是输入框
 			if (labelType == 'input' || labelType == '' || labelType == undefined) {
 				if (labelType != '' && labelType != undefined && labelType != 'input') {
-					val = getValByLabelType(id, labelType);
+					val = iutil.getValByLabelType(id, labelType);
 				} else {
 					// 获取参数值
 					val = $("#" + id).val();
@@ -178,7 +195,7 @@ iutil.getObj = function() {
 
 				//根据传入的参数的数据类型,获取到对应数据类型的数据
 				if (dataType != '' && dataType != undefined && dataType != 'string' && dataType != 'String') {
-					val = getValByDataType(val, dataType);
+					val = iutil.getValByDataType(val, dataType);
 				}
 
 				//如果没有传入名字,则使用id为其默认的名字
@@ -237,4 +254,11 @@ iutil.getDatas = function() {
 	};
 	// console.log(data);
 	return data;
+}
+iutil.getValByDataType = function(val, dataType) {
+	if (dataType == "Int") {
+		return parseInt(val);
+	} else {
+		return val;
+	}
 }
